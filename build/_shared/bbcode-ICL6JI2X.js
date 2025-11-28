@@ -1,0 +1,1 @@
+import{a}from"https://imperialcollegelondon.github.io/living_planet_eco_evo_data/build/_shared/chunk-WTB6FEV2.js";import"https://imperialcollegelondon.github.io/living_planet_eco_evo_data/build/_shared/chunk-OZE3FFNP.js";export default a();

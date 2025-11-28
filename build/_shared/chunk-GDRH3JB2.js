@@ -1,0 +1,1 @@
+import{b as t}from"https://imperialcollegelondon.github.io/living_planet_eco_evo_data/build/_shared/chunk-ZHBLEF4E.js";var s=class{constructor(i){this.init=i,this.records=this.init()}static{t(this,"ImperativeState")}reset(){this.records=this.init()}};export{s as a};

@@ -1,0 +1,17 @@
+version: 1
+project:
+  title: GIS and Spatial Methods in R
+  authors:
+    - name: David Orme
+  toc:
+    - file: intro.md
+    - file: practical_requirement.md
+      title: Required packages and data
+    - file: gis_practical/gis_practical.md
+      title: Spatial method in EE Data Science
+site:
+  options:
+    folders: false
+    base_url: https://imperialcollegelondon.github.io/living_planet_eco_evo_data
+  template: book-theme
+  

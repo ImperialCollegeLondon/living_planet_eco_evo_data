@@ -1,14 +1,18 @@
 version: 1
 project:
-  title: GIS and Spatial Methods in R
-  authors:
-    - name: David Orme
+  title: Ecological and Evolutionary Data Science
   toc:
     - file: intro.md
-    - file: practical_requirement.md
+    - file: practical_requirements.md
       title: Required packages and data
     - file: gis_practical/gis_practical.md
-      title: Spatial method in EE Data Science
+      title: Spatial methods for data science
+    - file: gis_practical/why_r_for_gis.md
+      title: Why use R for GIS?
+    # - file: microclimate/microclimate_sensor_analysis_EasyLog.md
+    #  title: Why use R for GIS?
+
+
 site:
   options:
     folders: false

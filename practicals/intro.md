@@ -21,7 +21,9 @@ Evolution MSc and Biosystematics MRes at the Natural History Museum. All of thes
 practicals are **self-paced**: you can work through them at your own speed
 and call out when you need help.
 
-```{information}
+```{admonition} Work in progress
+:class: attention
+
 This site is a work in progress - not all of the practicals in the module have been 
 added to this website
 ```

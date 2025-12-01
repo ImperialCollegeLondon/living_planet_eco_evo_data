@@ -82,7 +82,6 @@ on your own machine.
 :tags: [remove-stderr]
 library(terra)       # core raster GIS package
 library(sf)          # core vector GIS package
-library(units)       # used for precise unit conversion
 library(rcartocolor) # plotting
 library(rpart)
 ```
@@ -329,10 +328,17 @@ plot(silwood_LCM["LandCover"])
 plot(nhm_LCM["LandCover"])
 ```
 
-And look at the frequencies of the different categories:
+And look at the frequencies of the different categories using the `terra::freq` function:
 
 ```{code-cell} r
-freq(nhm_LCM["LandCover"])
+nhm_freq <- freq(nhm_LCM["LandCover"])
+silwood_freq <- freq(silwood_LCM["LandCover"])
+
+# Join the two datasets, including all categories
+merge(
+  nhm_freq, silwood_freq, 
+  by="value", all=TRUE, suffixes = c(".nhm", ".silwood")
+)
 ```
 
 We can also use the data within raster layers with other non-spatial data exploration
@@ -1525,10 +1531,28 @@ write.csv(df, "data/S2_classification_data.csv", row.names=FALSE)
 
 ## Saving GIS files
 
-### Saving raster data
+```{code-cell} r
+:tags: [remove-cell]
+
+# Remove any existing data output folder rather than have to stick a load of 
+# overwrite=TRUE arguments in the student facing text.
+if (dir.exists("spatial_method_practical_outputs")) {
+  unlink("spatial_method_practical_outputs", recursive=TRUE)
+}
+```
 
 We have created a lot of new dataset during this practical, which we should save for
-future use. We can write raster data out using the `terra::writeRaster` function. This
+future use. The first thing to do is create a new directory to save the data files in:
+
+```{code-cell} r
+# Create an output directory
+dir.create("spatial_method_practical_outputs")
+setwd("spatial_method_practical_outputs")
+```
+
+### Saving raster data
+
+ We can write raster data out using the `terra::writeRaster` function. This
 function writes all the bands in the dataset out to a single file. The function uses the
 file suffix of the file name you provide to set the output format: there are lots of
 formats, but GeoTIFF is widely used and a good general choice.

@@ -10,6 +10,8 @@ kernelspec:
   display_name: R
   language: R
   name: ir
+authors:
+  - name: David Orme
 ---
 
 # Spatial methods in Ecological and Evolutionary Data Science
@@ -17,104 +19,136 @@ kernelspec:
 This webpage provides one long self-paced practical that provides an introduction to key
 spatial data handling and analysis techniques for use with the Ecological and
 Evolutionary Data Science. This practical uses [the R programming
-language](https://cran.r-project,org) to load, manipulate and analyse spatial data.
+language](https://cran.r-project,org) to load, manipulate and analyse spatial data. See
+more here on [why we use R for GIS](./why_r_for_gis.md).
 
-There are a number of reasons for using R:
+There are a lot of other sites that provide information on using R for GIS:
 
-* It is an open-source, cross-platform and free program.
-* It provides a powerful set of GIS data tools and packages extend this GIS
-  functionality into a well estabished ecosystem of R packages for ecological and
-  evolutionary analysis, including species distribution modelling, population genetics
-  and many other areas.
-* Writing spatial analyses as R scripts provides a clear reproducible research record.
+* The core textbook for this practical is [Geocomputation with
+  R](https://r.geocompx.org/) - it forms part of a broader set of resources from the
+  [geocompx](https://geocompx.org/) group that provide resources for reproducible
+  geographic data analysis, modeling, and visualization in several open source
+  languages, also including Python and Julia.
 
-There are disadvantages to using R as a GIS platform:
+* Another great resource is the [`rspatial` website](https://rspatial.org/index.html),
+  which provides a lot of information on using `terra` and other spatial tools in R.
 
-* Principally, although it can create very high quality spatial graphics, it is not a
-  GIS data visualiser and explorer program. It is not as easy to zoom and pan around
-  spatial datasets in R or to alter the way in which a set of layers overlay each other.
-* It can also be difficult to find the exact set of commands you need to get the result
-  you are after (although this can also be true of other systems)!
+```{admonition} Aims of the practical
+:class: tip
 
-If you end up using GIS more widely in your research project, you may find it useful to
-look at other GIS programs for exploring and visualising data:
+This practical aims to:
 
-* The most well known is probably the ESRI ArcGIS package: Imperial College London does
-  have a [licensing agreement for
-  ArcGIS](https://www.imperial.ac.uk/admin-services/ict/self-service/computers-printing/devices-and-software/get-software/get-software-for-students/arcgis/)
-  but it is Windows only software and is expensive to use.
-* The [QGIS program](https://qgis.org/) is an open source and cross platform
-  alternative to ArcGIS and is very worth exploring.
+* Provide you with some high quality spatial datasets for the Silwood and NHM sites
+  that provide additional information that you can use to develop your hypotheses in
+  your coursework for the module.
 
-You might also want to look at geocomputation in other programming languages. The
-[geocompx](https://geocompx.org/) website provides an amazing resource for:
+* Run through most of the major GIS techniques that you will need to use to integrate
+  raster and vector datasets in order to get to a final dataset addressing your
+  hypotheses.
 
-> reproducible geographic data analysis, modeling, and visualization with open source
-> software
+* Provide _simple_ plotting options using the basic R graphics commands. For more 
+  advanced mapping, see the ["Making maps with R"](https://r.geocompx.org/adv-map) 
+  chapter in "Geocomputation with R".
+```
 
-The `geocompx` website provides guidance on using R, Python and Julia to do spatial
-analysis and is a fantastic resource for learning more about using spatial data and
-provides the [core R textbook](https://r.geocompx.org/) for this practical.
+## How to use the practical
 
-Another great resource is the [`rspatial` website](https://rspatial.org/index.html),
-which provides a lot of information on using `terra` and other spatial tools in R.
+This practical is self-paced: work through it at your own speed and ask questions as
+needed! It builds up and then saves a set of datasets that you can use in your
+assessment, so you will need to:
+
+1. Download the practical data bundle [ADD LINK] and save that in a directory.
+1. Create a new R script file to run the practical analyses.
+1. Copy example code from the practical into your script and run it from your script.
+1. Check you understand what the code is doing - add extra comments, ask questions.
+1. The practical contains exercises where you are asked to use the previous example to
+  write and run your own code. Write your solution into your script file and again add
+  comments for when you come back to it!
+1. The practical contains solutions for all the exercises, but do try and solve them
+  yourself.
+1. At the end of the practical, you should have:
+
+    * A set of GIS data files that allow you to add further environmental context to the
+      outputs of the sensor data exercises.
+    * A complete script that builds up those files from the original source data.
 
 ## Required packages
 
 We will need to load the following packages. Remember to read [this guide on setting up
-packages on your computer](../required_packages.md) before running these practicals
+packages on your computer](../practical_requirements.md) before running these practicals
 on your own machine.
 
 ```{code-cell} r
 :tags: [remove-stderr]
-
 library(terra)       # core raster GIS package
 library(sf)          # core vector GIS package
-library(units)       # used for precise unit conversion
 library(rcartocolor) # plotting
 library(rpart)
-
-# library(geodata)   # Download and load functions for core datasets
-# library(openxlsx)  # Reading data from Excel files
 ```
 
 You will see a whole load of package loading messages about GDAL, GEOS, PROJ which are
 not shown here. Don't worry about this - they are not errors, just R linking to some key
 open source GIS toolkits.
 
-## Loading spatial datasets
+## Spatial datasets
 
-### Field Data
+We will be using a number of different datasets in both vector and raster format, at a
+range of resolutions. They are not all in the same projection and so we will need to
+supply coordinate system details. These can be very complex, but fortunately the [EPSG
+database](https://epsg.io/) now provides a set of consistent codes that can be use to
+specify coordinate systems.
 
-We have location data for three field datasets and then a range of datasets providing
-additional spatial data for the field sites  that you can use to set up and test
-hypotheses in your coursework. This practical will use these datasets to demonstrate a
-range of different GIS methods in R: this section goes through loading the datasets into
-R.
+We will first load the location data for three field datasets, all of which GPS point
+location data using the WGS84 projection ([EPSG:4326](https://epsg.io/4326)) with units
+in degrees:
 
-#### Sensor locations
+* The sensor deployment locations (16 sites across both the NHM and Silwood).
+* The blue tit nest box sites at Silwood (222 sites)
+* The woodland survey data sites.
 
-The sensor stations at Silwood and the NHM: a CSV file providing station data
-including the latitude and longitude of each site. This file is directly downloaded from
-the Epicollect5 project.
+We will then load a set of additional data files in a wide range of formats. The
+following datasets are all downloaded from the [Edina
+Digimap](https://digimap.edina.ac.uk/) system. This is a UK national GIS resource for
+higher education, which you should be able to use for any UK based GIS whilst you are at
+the college using your college credentials. All of these datasets use the the OSGB36 /
+British National Grid projected coordinate system
+([`EPSG:27700`](https://epsg.io/27700)), with units in metres.
 
-* This is vector point data: precise locations from GPS associated with additional site
-  data.
+* Aerial photography: RGB raster data at 25cm resolution with a single 3 x 3 km pane each
+  of the two sites.
+* The Ordnance Survey (OS) Terrain 5 digital elevation dataset: raster data at 5m
+  resolution with 2 pairs of 5 x 5 km panes for each site.
+* The CEH LandCover Map 2024: a raster land cover classification map with a single 3 x 3
+  km pane for each site.
+* The OS VectorMap Local dataset: two 5 x 5 km panes of vector data for each site.
+
+There are then two final datasets:
+
+* Satellite data from the Sentinel 2 L2A product at a range of resolutions, using the
+  [Universal Transverse Mercator
+  system](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system).
+  This projection uses multiple zones for different parts of the planet and the UK data
+  is in UTM zone 30N ([EPSG code `EPSG:32630`](https://epsg.io/32630)), with units of
+  meters.
+  
+* The GPS route for Silwood Christmas (Silmas) fun run and walking route. This is again
+  in WGS84 projection.
+
+The sections below show how to load each dataset.
+
+### Sensor locations
+
+The sensor stations at Silwood and the NHM are recorded as  a CSV file, providing
+station data including the latitude and longitude of each site. This file is directly
+downloaded from the Epicollect5 project. This is vector point data: precise locations
+from GPS associated with additional site data.
 
 * The data is first loaded as a simple CSV file.
 
 * We then need to convert the data to an `sf` (simple features) object. This is very
   like a normal R data frame, but contains an additional `geometry` field that contains
-  the vector data geometries and the coordinate system.
-  
-  This is done using the `sf::st_sf` function to set the CSV fields that contain the
-  point coordinates.
-
-* We also need to set the projection of the data: this is GPS data, so consists of
-  geographic coordinates in degreees using the WGS84 geographic coordinate system.
-  Coordinate system details are complex, but fortunately the EPSG database provides
-  simple numeric codes that make it easier to specify coordinate systems: WGS84 uses the
-  code [`EPSG:4326`](https://epsg.io/4326).
+  the vector data geometries and the coordinate system. This is done using the
+  `sf::st_sf` function to set the CSV fields that contain the point coordinates.
 
 ```{code-cell} r
 # Load the data from the CSV file
@@ -129,18 +163,30 @@ sensor_locations <- st_as_sf(
 )
 ```
 
-#### Nest boxes
+### Nest boxes
 
 The locations of the Silwood blue tit nest boxes were also recorded using GPS. This is a
 long-term dataset and these data have already been processed into specific GIS format:
 the widely used [shapefile format](https://en.wikipedia.org/wiki/Shapefile). The
-`sf::st_read` function is used to read existing GIS format files directly into an
+`sf::st_read` function is used to read existing GIS format files directly into an `sf`
+object.
 
 ```{code-cell} r
 nest_boxes <- st_read("data/NestBoxes/NestBoxes.shp")
 ```
 
-```{warning}
+As you can see from the output above, loading a GIS file using `sf::stread` produces
+quite a lot of information. This practical handout will generally hide that to keep the
+page size down. We can also look at what an `sf` object looks like if you print it out:
+very like a dataframe with some extra header data.
+
+```{code-cell} R
+print(head(nest_boxes))
+```
+
+```{admonition} Shapefile - not one file!
+:class: danger
+
 Confusingly, a **shapefile dataset is not a single file** - a shapefile dataset consists
 of a set of related files with the same shared file name and a range of file type
 suffixes (`.shp`, `.dbf`, `.shx` and `.prj` are the core subfiles but other suffixes are
@@ -148,41 +194,20 @@ common). You **must keep all of these files together**, or the dataset will not 
 correctly.
 ```
 
-#### Woodland survey
+### Woodland survey
 
 The Silwood woodland survey transect points: another CSV file providing latitude and
 longitude of transect locations.
 
 TODO
 
-### Additional data
+### Aerial photography
 
-The practical then also uses a set of additional data files in a wide range of
-formats.
-
-* Most of these datasets are downloaded from the [Edina
-  Digimap](https://digimap.edina.ac.uk/) UK national GIS resource for higher education.
-  Imperial College London subscribes to this resource so you should be able to use this
-  for any UK based GIS whilst you are at the college. All of these datasets use the
-  the OSGB36 / British National Grid projected coordinate system, with units in metres
-  and the [EPSG code `EPSG:27700`](<https://epsg.io/27700>).
-
-  All of the Digimap data sources have national coverage and the additional data files
-  are subsets of the available data for Silwood and the NHM.
-
-* The last dataset is remotely-sensed data acquired by the Sentinel 2 satellite. This
-  uses a different projected coordinate system: the [Universal Transverse Mercator
-  system](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system).
-  This projection uses multiple zones for different parts of the planet and the UK data
-  is in UTM zone 30N, with units of meters and the [EPSG code `EPSG:32630`].
-
-#### Aerial photography
-
-These raster datasets provide 3km by 3km panes of 25cm resolution [aerial
-photography imagery](https://digimap.edina.ac.uk/aerial) for the two sites. These
-files are provided as GeoTIFF data files - these are essentially just standard TIFF
-image files but contain metadata that provides the spatial context of each pixel in
-the image and projection information.
+These raster datasets provide 3km by 3km panes of 25cm resolution [aerial photography
+imagery](https://digimap.edina.ac.uk/aerial) for the two sites. These files are provided
+as GeoTIFF data files - these are essentially just [standard TIFF
+image](https://en.wikipedia.org/wiki/TIFF) files but contain metadata that provides the
+spatial context of each pixel in the image and the projection information.
 
 Raster data can be loaded using the `terra::rast` function.
 
@@ -191,7 +216,15 @@ nhm_aerial <- rast('data/aerial/nhm_aerial.tiff')
 silwood_aerial <- rast('data/aerial/silwood_aerial.tiff')
 ```
 
-#### OS Terrain 5
+Printing out one of those fhiles shows the spatial information of the raster and then a
+table showing the names of the bands in the raster and their range. These files contain
+three band to provide RGB imagery.
+
+```{code-cell} r
+print(nhm_aerial)
+```
+
+### OS Terrain 5
 
 These raster datasets provide continuous elevation data at 5m
 resolution from the [Ordnance Survey Terrain 5 Digital Terrain Map (DTM)
@@ -212,7 +245,7 @@ See [here for more details](<https://digimap.edina.ac.uk/help/our-maps-and-data/
 ```
 
 These files are `ASC` format files - a very simple text based format that contains the
-cell coordinates but _not_ the projection metadata.
+cell coordinates but _not_ the projection metadata, so we need to add that information.
 
 ```{code-cell} r
 # Load the DTM data from ASC format files
@@ -235,16 +268,14 @@ that the attribute has been set.
 
 ```{code-cell} r
 # Set the projection information for the DTM datasets
-crs(silwood_dtm_SU96NE) <- "EPSG:27700"
-crs(silwood_dtm_SU96NW) <- "EPSG:27700"
-crs(nhm_dtm_TQ27NE) <- "EPSG:27700"
-crs(nhm_dtm_TQ28SE) <- "EPSG:27700"
+crs(silwood_dtm_SU96NE) <- crs(silwood_dtm_SU96NW) <- "EPSG:27700"
+crs(nhm_dtm_TQ27NE) <- crs(nhm_dtm_TQ28SE) <- "EPSG:27700"
 
 # Print the modified dataset
 silwood_dtm_SU96NE
 ```
 
-#### CEH Land Cover
+### CEH Land Cover
 
 The Centre for Ecology and Hydrology produces a UK wide land cover map at 10 metre
 resolution. The datasets here are taken from the most recent [Land Cover Map
@@ -266,15 +297,15 @@ print(silwood_LCM)
 
 The LCM2024 files contain **two raster bands**. The first band is a numeric code
 giving the land cover category. The second band give the probability of the cell having
-that land cover type, based on the underlying classification.
+that land cover type, based on the underlying classification. As loaded, these values
+are just numeric, so if we plot the data, we will get two continuous colour legends:
 
 ```{code-cell} r
 plot(silwood_LCM)
 ```
 
-The loaded data only uses numeric codes for the land cover categories: we can add
-category labels and better category colours to make the data easier to use. The labels
-and some colours are defined in a separate CSV file:
+We can add category labels and better category colours to make the data easier to use.
+The labels and some colours are defined in a separate CSV file:
 
 ```{code-cell} r
 lcm_info <- read.csv("data/lcm_2024/LCM2024_info.csv")
@@ -289,7 +320,7 @@ levels(silwood_LCM) <- lcm_info[c("value", "label")]
 names(silwood_LCM) <- c("LandCover", "Certainty")
 ```
 
-We can now plot maps that have actual category labels:
+Now we can now plot maps that have actual category labels:
 
 ```{code-cell} r
 par(mfrow=c(1,2))
@@ -297,11 +328,17 @@ plot(silwood_LCM["LandCover"])
 plot(nhm_LCM["LandCover"])
 ```
 
-And look at the frequencies of the different categories:
+And look at the frequencies of the different categories using the `terra::freq` function:
 
 ```{code-cell} r
-freq(silwood_LCM["LandCover"])
-freq(nhm_LCM["LandCover"])
+nhm_freq <- freq(nhm_LCM["LandCover"])
+silwood_freq <- freq(silwood_LCM["LandCover"])
+
+# Join the two datasets, including all categories
+merge(
+  nhm_freq, silwood_freq, 
+  by="value", all=TRUE, suffixes = c(".nhm", ".silwood")
+)
 ```
 
 We can also use the data within raster layers with other non-spatial data exploration
@@ -309,20 +346,20 @@ techniques. For example, we can look at the distribution of cell certainties ass
 with each category.
 
 ```{code-cell} r
-par(mar = c(12, 3, 1, 1))
+par(mar = c(4, 12, 1, 1))
 
 # Plot cell assignment certainties as a function of land cover category
 boxplot(
   silwood_LCM["Certainty"], silwood_LCM["LandCover"], 
-  las = 3, xlab = NA
+  las = 1, ylab = "", horizontal=TRUE, main="Silwood", xlab="Certainty"
 )
 boxplot(
   nhm_LCM["Certainty"], nhm_LCM["LandCover"], 
-  las = 3, xlab = NA
+  las = 1, ylab = "", horizontal=TRUE, main="NHM", xlab="Certainty"
 )
 ```
 
-#### OS VectorMap Local
+### OS VectorMap Local
 
 The [Ordnance Survey VectorMap
 Local](https://www.ordnancesurvey.co.uk/products/os-vectormap-local) dataset provides
@@ -344,6 +381,8 @@ We can then use the `sf::st_read` function to read specific different layers for
 site.
 
 ```{code-cell} r
+:tags: [remove-output]
+
 # Load the two panes of VML road centrelines for each site.
 vml_tq28se_roads <- st_read(
   dsn = "data/VML/vml-tq28se.gpkg", layer = "Road_Centreline"
@@ -357,6 +396,7 @@ vml_su96ne_roads <- st_read(
 vml_su96nw_roads <- st_read(
   dsn = "data/VML/vml-su96nw.gpkg", layer = "Road_Centreline"
 )
+
 # Do the same for water bodies
 vml_tq28se_water <- st_read(
   dsn = "data/VML/vml-tq28se.gpkg", layer = "Water_Area"
@@ -372,13 +412,13 @@ vml_su96nw_water <- st_read(
 )
 ```
 
-#### Sentinel 2 data
+### Sentinel 2 data
 
 The Sentinel 2 satellite mission collects spectral data from [13
-bands](https://en.wikipedia.org/wiki/Sentinel-2#Spectral_bands) across the visible, near
-infra-red and infra-red at resolutions from 10m to 60m. See the [Copernicus Sentinel 2
-data wiki](https://sentiwiki.copernicus.eu/web/sentinel-2) for more information about
-the mission and data processing.
+bands](https://custom-scripts.sentinel-hub.com/sentinel-2/bands/) across the visible,
+near infra-red and infra-red at resolutions from 10m to 60m. See the [Copernicus
+Sentinel 2 data wiki](https://sentiwiki.copernicus.eu/web/sentinel-2) for more
+information about the mission and data processing.
 
 The `sentinel_2` folder contains data from a single (relatively cloud free!) scene from
 the [Sentinel 2 Level 2A data
@@ -435,12 +475,13 @@ that can be useful. Use the code above as a template to load Bands 5, 6, 7, 8A, 
 contains downsampled data from the 10 metre bands.
 
 The resulting objects should be called `s2_silwood_20m` and `s2_nhm_20m` and the bands 
-should be named `RE5`, `RE6`, `RE7`, `NNIR`, `SWIR1` and `SWIR2`. The code cell below 
-can be unhidden to show the solution.
+should be named `RE5`, `RE6`, `RE7`, `NNIR`, `SWIR1` and `SWIR2`.
 ```
 
+:::{tip} Show solution
+:class: dropdown
+
 ```{code-cell} r
-:tags: [hide-cell]
 
 # Load the six 20m resolution Sentinel 2 bands for Silwood
 s2_silwood_20m <- rast(
@@ -473,7 +514,9 @@ s2_nhm_20m <- rast(
 names(s2_nhm_20m) <- c("RE5", "RE6", "RE7", "NNIR", "SWIR1", "SWIR2")
 ```
 
-#### Silmas route
+:::
+
+### Silmas walk/run route
 
 The last dataset is a [GPS Exchange Format (GPX)
 file](https://en.wikipedia.org/wiki/GPS_Exchange_Format) containing the course of the
@@ -484,9 +527,10 @@ routes and points from GPS devices. Again, the format holds multiple layers:
 print(st_layers("data/Silmas_Fun_Run.gpx"))
 ```
 
-With GPX files, there are a fixed number of layers, not all of which have any actual
-features, so here we can either load the recorded `tracks` or the individual points
-along the tracks (`track_points`).
+With GPX files, there are a fixed number of layers. They are not all used in this file:
+we have a single linear feature in `tracks` layer, which is the Silmas route, and then
+the 425 point features in the `track_points` layer, which are the points along
+along that route. We will load the  `tracks` layer:
 
 ```{code-cell} r
 silmas_route <- st_read(
@@ -494,13 +538,53 @@ silmas_route <- st_read(
 )
 ```
 
+## Plotting vector data
+
+```{hint}
+These are very basic plotting tips for vector data, but are all we need for this
+practical. 
+```
+
+If you plot a vector dataset, then it will generate a panel for each vector attribute in
+the dataset (up to a limit!).
+
+```{code-cell} R
+plot(nest_boxes)
+```
+
+If you want to plot just one of those attributes, then you can use `[]` subsets to do
+so, and R will generate a key for it.
+
+```{code-cell} R
+plot(nest_boxes['SPlocation'], key.pos=4)
+```
+
+If you just want to plot the features geometry, then you can use `sf::st_geometry`. You
+can use `add=TRUE` to overplot features and you can use extent to change the spatial
+area being plotted. It can be tricky to set the area of the plot so that it will include
+all features. One trick here is to get the extent (or bounding box) of the layers you
+want to plot and then convert them to polygons using `sf::st_as_sfc` and then take the
+spatial union(`sf::st_union`) of those boxes. Long-winded but reliable!
+
+```{code-cell} R
+# Get the plot extent as the union of the bounding boxes
+plot_extent <- st_union(
+  st_as_sfc(st_bbox(nest_boxes)),
+  st_as_sfc(st_bbox(silmas_route))
+)
+
+# Plot the nest box points and overplot the Silmas route
+plot(st_geometry(nest_boxes), col="forestgreen", extent=plot_extent)
+plot(st_geometry(silmas_route), col="red", add=TRUE)
+```
+
 ## Reprojecting spatial data
 
 We now have a large number of different datasets, but they are not all in the same GIS
 projection. We cannot use the datasets together until they use the same coordinate
-system. We will use the "OSGB 1936 / British National Grid" (or BNG) projection for all of the
-rest of the practical. It is a projected coordinate system, which means we can use
-metres to measure distances, and it is also the standard mapping system for the UK.
+system. We will use the "OSGB 1936 / British National Grid" (or BNG) projection for all
+of the rest of the practical. It is a projected coordinate system, which means we can
+use metres to measure distances, and it is also the standard mapping system for the UK.
 
 ### Reprojecting vector datasets
 
@@ -671,8 +755,8 @@ using  only the `terra::project` function. See if you can generate
 ```
 
 <!-- The cell below is code-block, not code-cell, to avoid running a slow step. -->
-```{code-block} r
-:tags: [hide-input]
+```{code-cell} r
+:tags: [hide-input, skip-execution]
 
 # It is actually very easy - we can just use one of the existing 10m 
 # resolution datasets as the resampling template. This is quite a lot
@@ -839,19 +923,58 @@ silwood_VML_roads <- rbind(vml_su96ne_roads, vml_su96nw_roads)
 nhm_VML_roads <- rbind(vml_tq28se_roads, vml_tq27ne_roads)
 
 # Combine the water area panes
-silwood_VML_water <- rbind(vml_su96ne_roads, vml_su96nw_roads)
+silwood_VML_water <- rbind(vml_su96ne_water, vml_su96nw_water)
 nhm_VML_water <- rbind(vml_tq28se_water, vml_tq27ne_water)
 ```
 
+If we plot the extents of the new combined data (grey) and the source panes (red and
+blue) for Silwood, you can see that the panes are not neatly aligned with actual BNG
+grid cell bounds used by the elevation data (dashed panes). Raster cells by definition
+fall onto a neat grid, but vector features cross boundaries and it is common for
+datasets to include features that fall outside the strict pane boundaries.
+
 ```{code-cell} r
-st_bbox(vml_su96ne_roads)
-st_bbox(vml_su96nw_roads)
-st_bbox(silwood_VML_roads)
+# Merged data
+plot(st_as_sfc(st_bbox(silwood_VML_roads)), border='grey', lwd=4)
+
+# SU96NW panes of vector (solid) and raster (dashed) data
+plot(st_as_sfc(st_bbox(vml_su96nw_roads)), border='blue', add=TRUE)
+plot(st_as_sfc(st_bbox(silwood_dtm_SU96NW)), border='blue', add=TRUE, lty=2)
+
+# SU96NE panes of vector (solid) and raster (dashed) data
+plot(st_as_sfc(st_bbox(vml_su96ne_roads)), border='red', add=TRUE)
+plot(st_as_sfc(st_bbox(silwood_dtm_SU96NE)), border='red', add=TRUE, lty=2)
 ```
 
 ### Cropping vector data
 
-The VectorMap Local data is also taken from
+We can crop the VML data down to the study site using the `sf::st_crop` function. It is
+usually faster and easier to reduce datasets to only the focal area you are working
+with.
+
+```{code-cell} R
+# Crop the two vector datasets
+silwood_VML_roads <- st_crop(silwood_VML_roads, silwood_aerial)
+nhm_VML_roads <- st_crop(nhm_VML_roads, nhm_aerial)
+silwood_VML_water <- st_crop(silwood_VML_water, silwood_aerial)
+nhm_VML_water <- st_crop(nhm_VML_water, nhm_aerial)
+```
+
+We can now create a simple plot overlaying the vector roads and water over the top of
+the digital elevations maps, again using `sf::st_geometry` to just show the geometries
+of the vector features.
+
+```{code-cell} R
+par(mfrow=c(1, 2))
+
+plot(silwood_dtm, col=grey.colors(20), main="Silwood")
+plot(st_geometry(silwood_VML_roads), col="firebrick", add = TRUE)
+plot(st_geometry(silwood_VML_water), col="cornflowerblue", border=NA, add = TRUE)
+
+plot(nhm_dtm, col=grey.colors(20), main="NHM")
+plot(st_geometry(nhm_VML_roads), col="firebrick", add = TRUE)
+plot(st_geometry(nhm_VML_water), col="cornflowerblue", border=NA, add = TRUE)
+```
 
 <!-- 
 
@@ -865,9 +988,7 @@ n_within_25 <- colSums(within_25)
 ```
  -->
 
-## Plotting spatial data in R
-
-### RGB and false colour plots
+## RGB and false colour plots
 
 If you plot a raster object, it will plot each band separately:
 
@@ -918,17 +1039,6 @@ urban areas and bare ground (tan or grey).
 # Plot the Sentinel data, setting the bands and scale
 plotRGB(s2_silwood_10m, r=4, g=3, b=2, scale=0.8)
 ```
-
-### Overlaying plots
-
-GIS plots are tricky to do well:
-
-* They often get incredibly crowded and it is best to keep them simple and not show too
-  many elements in a single figure.
-* They also have a fixed aspect ratio - the shape of the plot is dictated by the extent
-  of the data - and so they can be difficult to size properly for publication.
-
-There are a lot
 
 ## Raster calculations
 
@@ -1076,8 +1186,11 @@ silmas_heights <- extract(silwood_dtm, silmas_route, xy=TRUE)
 par(mfrow=c(1,2))
 # Convert the Silmas route into a raster to show the sampled cells
 silmas_route_raster <- rasterize(silmas_route, silwood_dtm)
-# Show the height distribution.
-hist(silmas_heights$Elevation)
+plot(silwood_dtm, col=grey.colors(20))
+plot(silmas_route_raster, col="red", add=TRUE, legend=FALSE)
+
+# Show the height distribution of all the cells that the route crosses
+hist(silmas_heights$Elevation, xlab = "Elevation of Silmas route cells (m)", main="")
 ```
 
 If you want to get a _sequence of values along a linear feature_ then you need to
@@ -1281,14 +1394,16 @@ classes that identify very similar regions.
 The alternative of supervised classification avoids that by starting with a training
 dataset of sites with known categories. The spectral signatures of those sites can then
 be used to assign other sites to classes based on their similarity to the training data.
-This does mean that you need to put together a training dataset: this can be done by
-physically exploring the location with a GPS and assigning classes ("ground truthing")
-or by selecting points from the imagery that belong to known classes.
+This does mean that you need to put together a training dataset in one of two ways:
+
+* physically exploring the location with a GPS and assigning classes based on field data
+  ("ground truthing"), or
+* selecting points from the imagery that visually belong to a particular class
+  ("digitization").
 
 Here we use a training set drawn from inspecting the imagery, saved as a set of X and Y
-point coordinates and the land cover category at that point. Note that there are
-multiple sites for each class, giving a distribution of signatures associated with each
-class.
+point coordinates and the land cover category at that point. There are multiple sites
+for each class, giving a distribution of signatures associated with each class.
 
 ```{code-cell} r
 # Load the classification data and convert it to an SF point dataset
@@ -1354,11 +1469,27 @@ s2_class_map <- which.max(s2_class_probability)
 
 # Assign level labels to the index codes.
 levels(s2_class_map) <- data.frame(id=1:7, class=names(s2_class_probability))
-plot(lulc, col=carto_pal(7, "Safe"))
+plot(s2_class_map, col=carto_pal(7, "Safe"))
 ```
 
-```{code-block} r
-:tags: [hide-cell]
+It is good practice to partition your training dataset to then test the accuracy of the
+classification - can your model successfully predict the classes of the data retained in
+the test partition. There are a lot of approaches to this (k-fold cross validation is a
+common one) but these are outside the scope of this practical.
+
+:::{tip} Generating training data
+:class: dropdown
+
+Digitizing training data is one of those tasks where it may be easier to use a dedicated
+GIS program like GIS. This is mostly because it is easier to zoom in on an image to
+precisely place the training locations.
+
+However, you can use R to create training datasets. The code below defines a function
+that can be used to generate a training data frame and then extend it with training data
+for different classes.
+
+```{code-cell} r
+:tags: [skip-execution]
 
 pick_training_sites <- function(category, df = NULL) {
     #' Function to add training data locations by clicking on a displayed map.
@@ -1380,10 +1511,10 @@ pick_training_sites <- function(category, df = NULL) {
 }
 
 # Plot the image
-plotRGB(silwood_serial)
+plotRGB(silwood_aerial)
 
 # Build up the training set by clicking on the image and then pressing
-# escape to move onto the next category
+# "escape" to finish defining one class and to move onto the next category
 df <- pick_training_sites("Urban")
 df <- pick_training_sites("Grassland", df=df)
 df <- pick_training_sites("Water", df=df)
@@ -1394,4 +1525,95 @@ df <- pick_training_sites("Road", df=df)
 
 # Export the data
 write.csv(df, "data/S2_classification_data.csv", row.names=FALSE)
+```
+
+:::
+
+## Saving GIS files
+
+```{code-cell} r
+:tags: [remove-cell]
+
+# Remove any existing data output folder rather than have to stick a load of 
+# overwrite=TRUE arguments in the student facing text.
+if (dir.exists("spatial_method_practical_outputs")) {
+  unlink("spatial_method_practical_outputs", recursive=TRUE)
+}
+```
+
+We have created a lot of new dataset during this practical, which we should save for
+future use. The first thing to do is create a new directory to save the data files in:
+
+```{code-cell} r
+# Create an output directory
+dir.create("spatial_method_practical_outputs")
+setwd("spatial_method_practical_outputs")
+```
+
+### Saving raster data
+
+ We can write raster data out using the `terra::writeRaster` function. This
+function writes all the bands in the dataset out to a single file. The function uses the
+file suffix of the file name you provide to set the output format: there are lots of
+formats, but GeoTIFF is widely used and a good general choice.
+
+```{code-cell} r
+# Create an output directory
+dir.create("spatial_method_practical_outputs")
+setwd("spatial_method_practical_outputs")
+
+# Save the NDVI and EVI data
+writeRaster(ndvi_silwood, "NDVI_Silwood.tiff")
+writeRaster(ndvi_nhm, "NDVI_NHM.tiff")
+
+writeRaster(evi_silwood, "EVI_Silwood.tiff")
+writeRaster(evi_nhm, "EVI_NHM.tiff")
+
+# Save the multiband Sentinel 2 data
+writeRaster(s2_silwood_10m, "Sentinel2_Silwood.tiff")
+writeRaster(s2_nhm_10m, "Sentinel2_NHM.tiff")
+```
+
+### Saving vector data
+
+The `sf_st::write` function is used to write vector data to file. Again, the file format
+is inferred from the output file name. This `sf_st::write` function is slightly more
+complex because file formats work in slightly different ways. The function has three
+main arguments:
+
+* `obj`: The `sf` object you want to write to a file.
+* `dsn`: The _data source name_ that usually gives a filename that the data will be
+  written to.
+* `layer`: A _layer name_ within the data source that the data will be saved under. Not
+  all formats support multiple layers (e.g. shapefiles), so you do not always need to
+  provide a layer name.
+
+There are many, _many_ vector file formats - see the help file on `sf::st_drivers()` and
+the output
+
+```{code-cell} R
+st_drivers()$name
+```
+
+The GeoPackage format is generally more convenient because it is a single file and can
+hold multiple layers.  The code below saves the four processed VML subsets to a single
+GeoPackage file.
+
+```{code-cell} R
+# Save the VML to GPKG
+st_write(silwood_VML_roads, dsn="OS_VML_Silwood_NHM.gpkg", layer="silwood_VML_roads")
+st_write(nhm_VML_roads, dsn="OS_VML_Silwood_NHM.gpkg", layer="nhm_VML_roads")
+st_write(silwood_VML_water, dsn="OS_VML_Silwood_NHM.gpkg", layer="silwood_VML_water")
+st_write(nhm_VML_water, dsn="OS_VML_Silwood_NHM.gpkg", layer="nhm_VML_water")
+
+```
+
+Although the Shapefile format is more widely known, the inconvience of having multiple
+files is high and often leads to problems with incomplete datasets. It also has some odd
+constraints - as you can see in the output below, there is a limit to the length of
+attribute table field names in shapefiles.
+
+```{code-cell} R
+# Save the sensors as shapefile
+st_write(sensor_locations, dsn="sensor_locations.shp")
 ```

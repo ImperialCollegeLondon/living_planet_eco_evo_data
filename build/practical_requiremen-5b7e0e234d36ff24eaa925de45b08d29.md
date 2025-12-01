@@ -10,6 +10,7 @@ kernelspec:
   display_name: R
   language: R
   name: ir
+short_title: Requirements
 ---
 
 # Required packages and data

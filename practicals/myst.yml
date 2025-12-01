@@ -4,13 +4,20 @@ project:
   toc:
     - file: intro.md
     - file: practical_requirements.md
-      title: Required packages and data
-    - file: gis_practical/gis_practical.md
-      title: Spatial methods for data science
-    - file: gis_practical/why_r_for_gis.md
-      title: Why use R for GIS?
+    - title: Spatial methods for data science 
+      children:
+      - file: gis_practical/intro.md
+      - file: gis_practical/loading_spatial_data.md
+      - file: gis_practical/simple_plotting.md
+      - file: gis_practical/reprojection.md
+      - file: gis_practical/manipulating_spatial_data.md
+      - file: gis_practical/raster_calculations.md
+      - file: gis_practical/sampling_rasters.md
+      - file: gis_practical/image_classification.md
+      - file: gis_practical/saving_gis_files.md
+      - file: gis_practical/why_r_for_gis.md
     # - file: microclimate/microclimate_sensor_analysis_EasyLog.md
-    #  title: Why use R for GIS?
+
 
 
 site:

@@ -45,7 +45,8 @@ jobs:
           cache-version: 2
           packages: |
             any::sf
-            any:terra
+            any::terra
+            any::IRkernel
       - name: Build HTML Assets
         run: jupyter-book build --html
       - name: Upload artifact

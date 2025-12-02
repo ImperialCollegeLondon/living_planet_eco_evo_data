@@ -1,15 +1,18 @@
-# This file was created automatically with `jupyter-book init --gh-pages` 🪄 💚
-# Ensure your GitHub Pages settings for this repository are set to deploy with **GitHub Actions**.
+# This file was created automatically with `jupyter-book init --gh-pages` and then
+# extended to include the   🪄 💚 Ensure
+# your GitHub Pages settings for this repository are set to deploy with **GitHub
+# Actions**.
 
-name: Jupyter Book (via myst) GitHub Pages Deploy
+name: Deploy main to gh-pages
 on:
   push:
     # Runs on pushes targeting the default branch
     branches: [main]
 env:
-  # `BASE_URL` determines, relative to the root of the domain, the URL that your site is served from.
-  # E.g., if your site lives at `https://mydomain.org/myproject`, set `BASE_URL=/myproject`.
-  # If, instead, your site lives at the root of the domain, at `https://mydomain.org`, set `BASE_URL=''`.
+  # `BASE_URL` determines, relative to the root of the domain, the URL that your site is
+  # served from. E.g., if your site lives at `https://mydomain.org/myproject`, set
+  # `BASE_URL=/myproject`. If, instead, your site lives at the root of the domain, at
+  # `https://mydomain.org`, set `BASE_URL=''`.
   BASE_URL: /${{ github.event.repository.name }}
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -17,13 +20,19 @@ permissions:
   contents: read
   pages: write
   id-token: write
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress
+# and latest queued. However, do NOT cancel in-progress runs as we want to allow these
+# production deployments to complete.
 concurrency:
   group: 'pages'
   cancel-in-progress: false
 jobs:
   deploy:
+    # This script is currently not usable as it would need access to the underlying
+    # practical data to execute and build the practicals. We would need the script to be
+    # able to pull in a data package from somewhere to do this - maybe Zenodo once we
+    # have a full year of data?
+    if: ${{ false }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -48,7 +57,7 @@ jobs:
             any::terra
             any::IRkernel
       - name: Build HTML Assets
-        run: jupyter-book build --html
+        run: jupyter-book build --html --execute
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

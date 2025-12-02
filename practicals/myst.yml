@@ -17,7 +17,7 @@ project:
     #   - file: gis_practical/image_classification.md
     #   - file: gis_practical/saving_gis_files.md
     #   - file: gis_practical/why_r_for_gis.md
-    # - file: microclimate/microclimate_sensor_analysis_EasyLog.md
+    - file: microclimate/microclimate_sensor_analysis_EasyLog.md
 
 
 

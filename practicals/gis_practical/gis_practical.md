@@ -149,7 +149,7 @@ from GPS associated with additional site data.
 
 ```{code-cell} r
 # Load the data from the CSV file
-sensor_locations <- read.csv("../data/SpatialMethods/SensorSites/form-1__setup.csv")
+sensor_locations <- read.csv("../data/SensorSites/2025/sensor_sites_2025.csv")
 
 # Convert to an sf object by setting the fields containing X and Y data and set 
 # the projection of the dataset

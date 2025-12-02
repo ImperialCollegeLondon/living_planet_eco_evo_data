@@ -49,6 +49,9 @@ You will also need to download the practical data bundle:
 * Download the SpatialMethods directory in the [Box site for the
   module](https://imperialcollegelondon.app.box.com/folder/353759097415) into the `data`
   directory.
+* Download the SensorSites directory in the [Box site for the
+  module](https://imperialcollegelondon.app.box.com/folder/353759097415) into the `data`
+  directory.
 
 ## Microclimate practical
 
@@ -64,5 +67,8 @@ install.packages(patchwork)
 You will also need to download the practical data bundle:
 
 * Download the Microclimate directory in the [Box site for the
+  module](https://imperialcollegelondon.app.box.com/folder/353759097415) into the `data`
+  directory.
+* Download the SensorSites directory in the [Box site for the
   module](https://imperialcollegelondon.app.box.com/folder/353759097415) into the `data`
   directory.

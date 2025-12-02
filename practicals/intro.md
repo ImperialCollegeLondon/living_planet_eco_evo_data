@@ -14,11 +14,15 @@ kernelspec:
 
 # Introduction to the practicals
 
-These pages provide the practical guides for the  Ecological and Evolutionary Data
-Science module for the following masters programmes at Imperial College London: the
-Living Planet program at the Silwood Park campus and Taxonomy, Biodiversity and
-Evolution MSc and Biosystematics MRes at the Natural History Museum. All of these
-practicals are **self-paced**: you can work through them at your own speed
+These pages provide the practical guides for the Ecological and Evolutionary Data
+Science module for the following masters programmes at Imperial College London and the
+Natural History Museum:
+
+* the Living Planet program at the Silwood Park campus,
+* the Taxonomy, Biodiversity and Evolution MSc at the NHM, and
+* the  Biosystematics MRes at the NHM.
+
+All of these practicals are **self-paced**: you can work through them at your own speed
 and call out when you need help.
 
 ```{admonition} Work in progress
@@ -29,46 +33,20 @@ added to this website
 ```
 
 * [Spatial methods in Ecological and Evolutionary Data Science](./gis_practical/gis_practical.md)
-
-## Three before 'me'
-
-There will be a team of demonstrators to help you when you get stuck but please do
-remember that helping yourself is actually a far better way to learn. We do *not* want
-you to struggle but before you reach out to a demonstrator:
-
-1. Ask *yourself* what you are trying to do: often stepping back and trying to write out
-   an explanation for your problem helps you solve it.
-
-1. Ask the *internet*: Sites like [stackoverflow.com](https://stackoverflow.com) are an
-   invaluable resource and you can use *tags* on `stackoverflow` (e.g. `[R]` or `[sf]`)
-   to narrow down your search.
-
-1. Ask *each other*: it can be really helpful to get together in a short Team meeting
-   and crowd source an answer.
-
-If none of those work then ask us!
+* [Analysing microclimate sensor data](./microclimate/microclimate_sensor_analysis_EasyLog.md)
 
 ## Getting started
 
-* You will need to install the required packages and the data required in the
-  practicals. There are quite a lot of required packages - they could take a little
-  while to set up. See [practical requirements page](required_packages.md) for
-  details of the R  packages and data you will need.
+* You will need to install the packages and the data required in the practicals. There
+  are quite a lot of required packages - they could take a little while to set up. See
+  [practical requirements page](./practical_requirements.md) for details of the R
+  packages and data you will need.
 
-* Once you have the packages installed, have created a local working directory for the
-  data and are running in R then **create a new script file to record and run your
-  code**.
+* Once you have the packages installed, have created the working directories for the
+  data and practicals and are running in R then **create a new script file to record and
+  run your code**.
 
 * Work through the handouts at your own pace.
-
-## GIS packages
-
-There are loads of R packages that can load, manipulate and plot GIS data and we will be
-using several in these practical. In the last few years, the R spatial data community
-has been working on updating most of the core GIS functionality into a few core
-packages, notably `sf` and `terra`. We will focus on using these up-to-date central
-packages, but there will be some occasions where we need to use older packages, such as
-`sp` and `raster`.
 
 ## Tasks
 
@@ -92,3 +70,22 @@ These dropdowns may contain notes on the solution
 ```
 
 :::
+
+## Getting help
+
+There will be a team of demonstrators to help you when you get stuck but please do
+remember that helping yourself is actually a far better way to learn. We do *not* want
+you to struggle but before you reach out to a demonstrator, please try and follow the
+**three before me** strategy
+
+1. Ask *yourself* what you are trying to do: often stepping back and trying to write out
+   an explanation for your problem helps you solve it.
+
+1. Ask the *internet*: Sites like [stackoverflow.com](https://stackoverflow.com) are an
+   invaluable resource and you can use *tags* on `stackoverflow` (e.g. `[R]` or `[sf]`)
+   to narrow down your search.
+
+1. Ask *each other*: it can be really helpful to get together in a small group, either
+   in person or online, and crowd source an answer.
+
+If none of those work then ask us!

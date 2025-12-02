@@ -43,10 +43,8 @@ and plotting:
 ```{code-cell} r
 :tags: [remove-stderr]
 
-library(openxlsx2)   # for opening excel files
 library(ggplot2)
 library(dplyr)
-# library(tidyverse)   # for data manipulation and plotting
 library(janitor)     # for cleaning column names and general tidying
 library(patchwork)   # for combining plots
 ```
@@ -94,8 +92,10 @@ for (each_file in microclimate_files) {
     # Load this file, handling Windows file encoding of characters
     data <- read.csv(each_file, encoding = "latin1")
     
-    # Extract the name of the first column, which is the sensor ID
-    sensor_id <- names(data)[1]
+    # Extract the name of the first column, which is the sensor ID, _except_ that R does
+    # not like hyphens in variable names, so has converted DL-xxx to DL.xxx. So we'll 
+    # convert it back.
+    sensor_id <- sub(".", "-", names(data)[1], fixed=TRUE)
 
     # Reduce to the first five columns and standardise the field names
     data <- subset(data, select=1:5)
@@ -319,20 +319,21 @@ You will have recorded metadata such as habitat type, location coordinates, or
 notes about the sensor placement during your field experiment in an Excel
 spreadsheet. The rest of the module will add extra data on the differences between the
 sensor location sites, but for now we can simply look to see if there are any
-differences between the NHM and Silwood by using the longitude of the locations.
+differences between habitats recorded using Epicollect for the NHM and Silwood sites.
 
 ```{code-cell} r
 # Read meta data
-metadata <- read.csv(sensor_metadata_file)
+metadata <- read.csv(sensor_metadata_file, as.is=TRUE)
 
 # Get the site location using longitude
 metadata$site <- ifelse(metadata$long_Sensor_location > -0.5, "NHM", "Silwood")
 
-# Drop down to two required fields and change Sensor ID from DL-xxx to DL.xxx to match 
-# EpiCollect 5 metadata file
-habitat_classification <- metadata[,c("Logger_SerialNumber", "site")]
-names(habitat_classification) <- c("sensor_id", "site")
-habitat_classification$sensor_id <- sub("-", ".", habitat_classification$sensor_id)
+# Save the required fields to a smaller data frame
+habitat_classification <- metadata[,c("Logger_SerialNumber", "Habitat", "site")]
+names(habitat_classification) <- c("sensor_id", "habitat", "site")
+
+habitat_classification$site <- factor(habitat_classification$site)
+habitat_classification$habitat <- factor(habitat_classification$habitat)
 ```
 
 ## Summarize maximum temperature per sensor
@@ -361,14 +362,14 @@ Test whether the max temperature is predicted by location. What do you expect?
 
 ```{code-cell} r
 # Fit ANOVA
-anova_model <- lm(max_temperature ~ site, data = summary_data)
+anova_model <- lm(max_temperature ~ habitat, data = summary_data)
 summary(anova_model) # View ANOVA table
 ```
 
 ## Boxplot maximum temperature - habitat type relationship
 
 ```{code-cell} R
-ggplot(summary_data, aes(x = site, y = max_temperature)) +
+ggplot(summary_data, aes(x = habitat, y = max_temperature)) +
   geom_boxplot(fill = "lightblue", alpha = 0.6) +
   geom_jitter(width = 0.1, size = 2, alpha = 0.7) +
   labs(

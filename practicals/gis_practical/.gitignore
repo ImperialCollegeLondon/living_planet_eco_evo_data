@@ -1,0 +1,2 @@
+# Explicitly ignore the intermediate data files written out during build
+build_data/*

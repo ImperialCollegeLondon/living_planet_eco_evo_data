@@ -33,10 +33,9 @@ There are a lot of other sites that provide information on using R for GIS:
 * Another great resource is the [`rspatial` website](https://rspatial.org/index.html),
   which provides a lot of information on using `terra` and other spatial tools in R.
 
-```{admonition} Aims of the practical
-:class: tip
+## Aims of the the practical
 
-This practical aims to:
+The practical aims to:
 
 * Provide you with some high quality spatial datasets for the Silwood and NHM sites
   that provide additional information that you can use to develop your hypotheses in
@@ -46,10 +45,9 @@ This practical aims to:
   raster and vector datasets in order to get to a final dataset addressing your
   hypotheses.
 
-* Provide _simple_ plotting options using the basic R graphics commands. For more 
-  advanced mapping, see the ["Making maps with R"](https://r.geocompx.org/adv-map) 
+* Provide _simple_ plotting options using the basic R graphics commands. For more
+  advanced mapping, see the ["Making maps with R"](https://r.geocompx.org/adv-map)
   chapter in "Geocomputation with R".
-```
 
 ## How to use the practical
 
@@ -57,7 +55,8 @@ This practical is self-paced: work through it at your own speed and ask question
 needed! It builds up and then saves a set of datasets that you can use in your
 assessment, so you will need to:
 
-1. Download the practical data bundle [ADD LINK] and save that in a directory.
+1. Follow [this guide](../practical_requirements.md) on setting up packages and data for
+   this practical.
 1. Create a new R script file to run the practical analyses.
 1. Copy example code from the practical into your script and run it from your script.
 1. Check you understand what the code is doing - add extra comments, ask questions.
@@ -72,11 +71,9 @@ assessment, so you will need to:
       outputs of the sensor data exercises.
     * A complete script that builds up those files from the original source data.
 
-## Required packages
+## Required packages and data
 
-We will need to load the following packages. Remember to read [this guide on setting up
-packages on your computer](../practical_requirements.md) before running these practicals
-on your own machine.
+We will need to load the following packages:
 
 ```{code-cell} r
 :tags: [remove-stderr]
@@ -98,13 +95,12 @@ supply coordinate system details. These can be very complex, but fortunately the
 database](https://epsg.io/) now provides a set of consistent codes that can be use to
 specify coordinate systems.
 
-We will first load the location data for three field datasets, all of which GPS point
-location data using the WGS84 projection ([EPSG:4326](https://epsg.io/4326)) with units
-in degrees:
+We will first load the location data from field datasets, which use GPS point location
+data in the WGS84 projection ([EPSG:4326](https://epsg.io/4326)) with units in degrees:
 
 * The sensor deployment locations (16 sites across both the NHM and Silwood).
 * The blue tit nest box sites at Silwood (222 sites)
-* The woodland survey data sites.
+<!-- * The woodland survey data sites.-->
 
 We will then load a set of additional data files in a wide range of formats. The
 following datasets are all downloaded from the [Edina
@@ -538,12 +534,14 @@ silmas_route <- st_read(
 )
 ```
 
-## Plotting vector data
+## Plotting GIS data
 
 ```{hint}
-These are very basic plotting tips for vector data, but are all we need for this
+These are very basic plotting tips for GIS data, but are all we need for this
 practical. 
 ```
+
+### Plotting vector data
 
 If you plot a vector dataset, then it will generate a panel for each vector attribute in
 the dataset (up to a limit!).
@@ -577,6 +575,64 @@ plot_extent <- st_union(
 plot(st_geometry(nest_boxes), col="forestgreen", extent=plot_extent)
 plot(st_geometry(silmas_route), col="red", add=TRUE)
 ```
+
+### Plotting raster data
+
+If you plot a raster object, it will plot each band separately:
+
+```{code-cell} r
+# Plot the 3 bands of the silwood aerial image
+names(silwood_aerial) <- c("Red", "Green", "Blue")
+plot(silwood_aerial, nc=3)
+```
+
+If you instead want to combine image bands to create a three colour image, then the
+`terra::plotRGB`  can be used to combine 3 bands to generate a colour composite image.
+The `silwood_aerial` image contains the three RGB bands in the correct order, so we can
+simply plot it:
+
+```{code-cell} r
+# Plot the silwood aerial data using the default settings
+plotRGB(silwood_aerial)
+```
+
+If we want to do the same thing with the RGB data from the Sentinel 2 data then we need
+to adjust the command to give the bands in the right order and also to set the maximum
+scale of the values across the bands.
+
+```{code-cell} r
+# Plot the Sentinel data, setting the bands and scale
+plotRGB(s2_silwood_10m, r=3, g=2, b=1, scale=0.80)
+```
+
+In fact, the L2A Sentinel 2 product provides a True Colour Image (TCI) that orders and
+scale the RGB bands to give something closer to expected colour. This can be used with
+the default settings.
+
+```{code-cell} r
+# Load the L2A TCI image for Silwood and plot using defaults.
+s2_silwood_tci <- rast(
+  "data/sentinel_2/R10m/silwood/T30UXC_20250711T110651_TCI_10m.tiff"
+)
+plotRGB(s2_silwood_tci)
+```
+
+Alternatively, you can set different bands as inputs to give a "false-colour image". One
+common usage is a [false colour
+infrared](https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/false_color_infrared/)
+image, which swaps from the `[R, G, B]` bands to `[NIR, R, G]`. This kind of imagery is
+very good at pulling out differences between vegetation (bright red), water (dark) and
+urban areas and bare ground (tan or grey).
+
+```{code-cell} r
+# Plot the Sentinel data, setting the bands and scale
+plotRGB(s2_silwood_10m, r=4, g=3, b=2, scale=0.8)
+```
+
+<!-- 
+NOTE - there are no changes to the data objects in this document so there is no 
+code cell required to save changes to the data state.
+-->
 
 ## Reprojecting spatial data
 
@@ -692,8 +748,10 @@ existing BNG raster dataset at this resolution, so you will need to make one.
 
 ```
 
+:::{tip} Show solution
+:class: dropdown
+
 ```{code-cell} r
-:tags: [hide-cell]
 
 # Make 20 metre resolution templates for the study sites
 silwood_template_20m <- rast(ext(silwood_aerial), res=20, crs="EPSG:27700")
@@ -703,6 +761,8 @@ nhm_template_20m <- rast(ext(nhm_aerial), res=20, crs="EPSG:27700")
 s2_silwood_20m <- project(s2_silwood_20m, silwood_template_20m, method="cubic")
 s2_nhm_20m <- project(s2_nhm_20m, nhm_template_20m, method="cubic")
 ```
+
+:::
 
 ## Manipulating raster data
 
@@ -987,58 +1047,6 @@ within_25 <- st_within(nest_boxes, nest_boxes_25, sparse=FALSE)
 n_within_25 <- colSums(within_25)
 ```
  -->
-
-## RGB and false colour plots
-
-If you plot a raster object, it will plot each band separately:
-
-```{code-cell} r
-# Plot the 3 bands of the silwood aerial image
-names(silwood_aerial) <- c("Red", "Green", "Blue")
-plot(silwood_aerial, nc=3)
-```
-
-The `terra::plotRGB` function can be used to combine 3 bands to generate a colour image.
-The `silwood_aerial` image contains the three RGB bands in the correct order, so we can
-simply plot it:
-
-```{code-cell} r
-# Plot the silwood aerial data using the default settings
-plotRGB(silwood_aerial)
-```
-
-If we want to do the same thing with the RGB data from the Sentinel 2 data then we need
-to adjust the command to give the bands in the right order and also to set the maximum
-scale of the values across the bands.
-
-```{code-cell} r
-# Plot the Sentinel data, setting the bands and scale
-plotRGB(s2_silwood_10m, r=3, g=2, b=1, scale=0.76)
-```
-
-In fact, the L2A Sentinel 2 product provides a True Colour Image (TCI) that orders and
-scale the RGB bands to give something closer to expected colour. This can be used with
-the default settings.
-
-```{code-cell} r
-# Load the L2A TCI image for Silwood and plot using defaults.
-s2_silwood_tci <- rast(
-  "data/sentinel_2/R10m/silwood/T30UXC_20250711T110651_TCI_10m.tiff"
-)
-plotRGB(s2_silwood_tci)
-```
-
-Alternatively, you can set different bands as inputs to give a "false-colour image". One
-common usage is a [false colour
-infrared](https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/false_color_infrared/)
-image, which swaps from the `[R, G, B]` bands to `[NIR, R, G]`. This kind of imagery is
-very good at pulling out differences between vegetation (bright red), water (dark) and
-urban areas and bare ground (tan or grey).
-
-```{code-cell} r
-# Plot the Sentinel data, setting the bands and scale
-plotRGB(s2_silwood_10m, r=4, g=3, b=2, scale=0.8)
-```
 
 ## Raster calculations
 

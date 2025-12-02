@@ -29,6 +29,12 @@ install.packages('terra')
 install.packages('sf')
 ```
 
-You will also need to download the practical data bundle from:
+You will also need to download the practical data bundle:
+
+* Create a `spatial_methods` directory for the practical.
+* Create a `data` directory within the `spatial_methods` directory.
+* Download the contents of the SpatialMethods directory in the [Box site for the
+  module](https://imperialcollegelondon.app.box.com/folder/353759097415) the data
+  directory.
 
 TODO

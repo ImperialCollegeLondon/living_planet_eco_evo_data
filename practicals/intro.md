@@ -72,19 +72,23 @@ packages, but there will be some occasions where we need to use older packages, 
 
 ## Tasks
 
-```{admonition} Introducing tasks
----
-class: tip
----
+```{tip} Introducing tasks
+
 A lot of these practicals will consist of following provided code to understand how it
 works but occasionally there will be **tasks** to test the skills you have been
 learning. These will start with a task bar like the one above and then have a
-description like this one. There will then always be a button to show answers: if
-you get really stuck, you can click on this to show a solution. Do try and figure it out
-for yourself and if you don't understand something, ask a demonstrator to help.
+description like this one. There will then be a dropdown section like the one below: 
+if you get really stuck, you can click on this to show a solution. Do try and figure it
+out for yourself and if you don't understand something, ask a demonstrator to help.
 ```
 
-```{code-cell} R
-:tags: [hide-cell]
-# Hey! No peeking
+:::{note} Show solution
+:class: dropdown
+
+These dropdowns may contain notes on the solution
+
+```{code-block} R
+# And any R code needed to complete the task
 ```
+
+:::

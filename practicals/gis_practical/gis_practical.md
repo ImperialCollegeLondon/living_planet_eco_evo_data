@@ -685,7 +685,7 @@ We can show the issue by superimposing two grids:
   projection for the same site and then reprojected into the BNG (grey cells)
 
 ```{code-cell} r
-:tags: [hide-input]
+:tags: [remove-input]
 
 # Create a BNG raster at 200m resolution for the study site
 grid_BNG <- rast(ext(silwood_aerial), res = 200, crs = "EPSG:27700")
@@ -706,6 +706,34 @@ plot(st_geometry(grid_BNG), border='red', add=TRUE)
 axis(1)
 axis(2)
 ```
+
+:::{note} Plot source
+:class: dropdown
+
+In case you are interested in how the plot was created.
+
+```{code-block} r
+# Create a BNG raster at 200m resolution for the study site
+grid_BNG <- rast(ext(silwood_aerial), res = 200, crs = "EPSG:27700")
+# Convert to an sf polygon dataset of grid cells
+grid_BNG <- st_as_sf(as.polygons(grid_BNG))
+
+# Create a UTM30N raster at 200 m resolution for the study site
+grid_UTM30N <- rast(ext(s2_silwood_10m), res = 200, crs = "EPSG:32630")
+# Convert to an sf polygon dataset _and_ then transform to BNG
+grid_UTM30N <- st_as_sf(as.polygons(grid_UTM30N))
+grid_UTM30N_in_BNG <- st_transform(grid_UTM30N, "EPSG:27700")
+
+# Plot the two sets of grid cells over each other
+plot(st_geometry(grid_UTM30N_in_BNG), reset=FALSE, border="grey")
+plot(st_geometry(grid_BNG), border='red', add=TRUE)
+
+# Add coordinates on the axes
+axis(1)
+axis(2)
+```
+
+:::
 
 As you can see, even when the resolutions are the same, there is no neat one-to-one
 relationship between the two sets of cells: the axes of the two grids are not exactly
@@ -814,20 +842,23 @@ using  only the `terra::project` function. See if you can generate
 `s2_silwood_20m_direct_to_10m` and `s2_nhm_20m_direct_to_10m` using only that function.
 ```
 
-<!-- The cell below is code-block, not code-cell, to avoid running a slow step. -->
-```{code-cell} r
-:tags: [hide-input, skip-execution]
+:::{tip} Show solution
+:class: dropdown
 
-# It is actually very easy - we can just use one of the existing 10m 
-# resolution datasets as the resampling template. This is quite a lot
-# slower than doing it in two stages.
+```{code-cell} r
+:tags: [skip-execution]
+
+# It is actually very easy - we can just use the existing 10m CEH Land Cover Map
+# datasets as the resampling template.
 s2_silwood_20m_direct_to_10m <- project(
-  s2_silwood_20m, silwood_aerial, method="cubic"
+  s2_silwood_20m, silwood_lcm, method="cubic"
 )
 s2_nhm_20m_direct_to_10m <- project(
-  s2_nhm_20m, nhm_aerial, method="cubic"
+  s2_nhm_20m, nhm_lcm, method="cubic"
 )
 ```
+
+:::
 
 ### Mosaicing rasters
 
@@ -837,18 +868,8 @@ other for the NHM. The plot below shows the 5 x 5 km extent of the two panes. Th
 also shows the 3 x 3 km extent of the other data sources - as you can see it overlaps
 the Terrain 5 panes for both sites, which is why we needed to load two panes.
 
-```{admonition} Stretch goal - plotting tricks
-:class: tip
-
-The concealed source code below contains the code to create the raster extents plot
-below. It includes a couple of useful tricks: changing the spatial extent of the plot to
-include more than one dataset, adding mutiple layers to a spatial plot, and using
-coordinates to add labels. You do not need to know these details for the practical, but
-this might be something to come back to and look at.
-```
-
 ```{code-cell} r
-:tags: [hide-input]
+:tags: [remove-input]
 
 options(repr.plot.height=4)
 
@@ -897,6 +918,70 @@ text(
 )
 plot(ext(nhm_aerial), border="black", add=TRUE)
 ```
+
+:::{note} Show source code for plot
+:class: dropdown
+
+The plot above uses a few useful plotting tricks for spatial data:
+
+* changing the spatial extent of the plot to include more than one dataset,
+* adding mutiple layers to a spatial plot, and
+* using coordinates to add text.
+
+You do not need to know these details for the practical, but this might be something to
+come back to and look at.
+
+```{code-block} r
+
+options(repr.plot.height=4)
+
+par(mfrow=c(1,2))
+
+# Calculate the union of the extents of the two rasters
+silwood_dtm_extent <- union(ext(silwood_dtm_SU96NE), ext(silwood_dtm_SU96NW ))
+
+# Plot the extent of the first raster, but using the extent of both datasets
+plot(ext(silwood_dtm_SU96NE), border="blue", ext=silwood_dtm_extent, main="Silwood")
+
+# Get the middle coordinates of the raster and add a label. The `xFromCol` and 
+# `yFromRow` functions extract the X and Y coordinates of cell centres from the 
+# raster and `mean` then gives the centre of the raster image.
+text(
+  x=mean(xFromCol(silwood_dtm_SU96NE)), 
+  y=mean(yFromRow(silwood_dtm_SU96NE)),
+  labels="SU96NE", col="blue"
+)
+
+# Use `add=TRUE` to add the extent of the second raster and add the label
+plot(ext(silwood_dtm_SU96NW), border="red", add=TRUE)
+text(
+  x=mean(xFromCol(silwood_dtm_SU96NW)), 
+  y=mean(yFromRow(silwood_dtm_SU96NW)),
+  labels="SU96NW", col="red"
+)
+
+# Finally add the extent of the other raster datasets 
+plot(ext(silwood_aerial), border="black", add=TRUE)
+
+# Repeat for the NHM datasets
+nhm_dtm_extent <- union(ext(nhm_dtm_TQ27NE), ext(nhm_dtm_TQ28SE))
+
+plot(ext(nhm_dtm_TQ27NE), border="blue", ext=nhm_dtm_extent, main="NHM")
+text(
+  x=mean(xFromCol(nhm_dtm_TQ27NE)), 
+  y=mean(yFromRow(nhm_dtm_TQ27NE)),
+  labels="TQ27NE", col="blue"
+)
+plot(ext(nhm_dtm_TQ28SE), border="red", add=TRUE)
+text(
+  x=mean(xFromCol(nhm_dtm_TQ28SE)), 
+  y=mean(yFromRow(nhm_dtm_TQ28SE)),
+  labels="TQ28SE", col="red"
+)
+plot(ext(nhm_aerial), border="black", add=TRUE)
+```
+
+:::
 
 We use the `terra::mosaic` function to combine these two panes into a single dataset for
 each site. There is also the `terra::merge` function: this is used to combine aligned
@@ -1274,13 +1359,14 @@ sensor_LCM <- na.omit(rbind(silwood_sensor_LCM, nhm_sensor_LCM))
 xtabs(~ LandCover + ID, data= sensor_LCM, drop.unused.levels=TRUE)
 ```
 
-````{admonition} Side note
+```{admonition} Side note
 
 As a sidenote, the standard way this works is to use the `terra::rasterize` function to
 find all of the raster cells where the cell centre falls within a polygon feature, but
 you can optionally choose to also include any cells that the cell boundary touches,
 using the `touches=TRUE` setting. The plot below shows the two alternatives for a single
-sensor polygon:
+sensor polygon.
+```
 
 ```{code-cell} r
 :tags: [hide-input]
@@ -1309,8 +1395,6 @@ plot(cell_touches_true, add=TRUE, legend=FALSE, col="firebrick")
 plot(st_geometry(sensor_locations_50[1,]), col=NA, add=TRUE)
 
 ```
-
-````
 
 ### Zonal statistics
 

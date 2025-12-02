@@ -240,11 +240,10 @@ print(head(all_data_Z))
 
 ### Interquartile Range (IQR) Method for Outlier Detection
 
-The IQR method focuses on the spread of the middle 50% of the data.
-It calculates the difference between the 75th percentile (Q3) and the
-5th percentile (Q1), called the interquartile range (IQR). Values falling below
-\( Q1 - 1.5 \times IQR \) or above \( Q3 + 1.5 \times IQR \) are considered
-potential outliers.
+The IQR method focuses on the spread of the middle 50% of the data. It calculates the
+difference between the 25th percentile ($Q_1$) and the 75th percentile ($Q_1$), called
+the interquartile range (IQR). Values falling below $Q_1 - 1.5 \times IQR $ or above
+ $Q_3 + 1.5 \times IQR$ are considered potential outliers.
 
 ```{code-cell} r
 # Use the IQR method to flag temperature outliers per sensor

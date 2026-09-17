@@ -21,14 +21,16 @@ In this practical, we will go from raw sequences to community-level analyses. Th
 samples used in this study were collected from the [Ecological Fractal
 Network](https://ecofracnetwork.github.io) points at Silwood Park. You can see the
 specific collection points
-[here](https://www.google.com/maps/d/viewer?mid=1gYaoOn5ypAK2B-bL8uXjdSTMu4CWCyI&ll=51.40958062885105%2C-0.6467416439178342&z=15).
+[in this
+map](https://www.google.com/maps/d/viewer?mid=1gYaoOn5ypAK2B-bL8uXjdSTMu4CWCyI&ll=51.40958062885105%2C-0.6467416439178342&z=15).
 
 The specific aims are to:
 
 1. Understand the output of a **short-read sequencing machine**
 2. Perform **quality control** on raw sequencing reads
 3. Perform **community-level analyses using amplicon sequence variants (ASVs)**
-4. **Assign taxonomy to ASVs**, creating virtual taxa (VTs), and perform basic phylogenetic analysis
+4. **Assign taxonomy to ASVs**, creating virtual taxa (VTs), and perform basic
+   phylogenetic analysis
 5. **Love bioinformatics!**
 
 This practical is an adaptation of the [DADA2 Pipeline Tutorial
@@ -94,9 +96,9 @@ Kit](https://www.qiagen.com/us/products/discovery-and-translational-research/dna
 and sequenced the 16S rRNA gene. **TBC!!!** There is a fair amount of data, so you might
 want to consider downloading it to your Imperial OneDrive account.
 
-The first step is to download the GitHub repository from
-[here](https://github.com/theobrook/Silwood_Park_Soil_Metabarcoding_Practical) and move
-the data directory (folder) to somewhere on your device.
+The first step is to [download the GitHub repository]
+(https://github.com/theobrook/Silwood_Park_Soil_Metabarcoding_Practical) and move the
+data directory (folder) to somewhere on your device.
 
 Next unzip the directory to extract its contents.
 
@@ -104,7 +106,10 @@ N.B. you might want to use OneDrive as your workspace as there is a large amount
 (**XGB - TBC!!!**).
 
 ```r
-# Once you have downloaded your data, set your path to where you moved the data directory to. You can find the full file path for a directory by right clicking on the folder and either (a) copying the "Where" field (Mac) or (b) selecting "Properties", and copying the "Location" field (Windows)
+# Once you have downloaded your data, set your path to where you moved the data 
+# directory to. You can find the full file path for a directory by right clicking on the
+# folder and either (a) copying the "Where" field (Mac) or (b) selecting "Properties", 
+# and copying the "Location" field (Windows)
 path <- "path/to/somewhere/on/your/computer/or/OneDrive"
 
 # (Optional) Tidy up the zip file now that we have extracted its contents
@@ -220,13 +225,13 @@ names(filtFs) <- sample.names
 names(filtRs) <- sample.names
 
 # Filter and trim
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, 
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs,
                      truncLen = c(X, Y),
-                     maxN = 0, 
-                     maxEE = c(2, 2), 
-                     truncQ = 2, 
+                     maxN = 0,
+                     maxEE = c(2, 2),
+                     truncQ = 2,
                      rm.phix = TRUE,
-                     compress = TRUE, 
+                     compress = TRUE,
                      multithread = FALSE)
 
 head(out)

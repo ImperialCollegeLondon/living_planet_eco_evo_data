@@ -5,7 +5,7 @@ project:
     - file: intro.md
     - file: practical_requirements.md
     - file: gis_practical/gis_practical.md
-    # - title: Spatial methods for data science 
+    # - title: Spatial methods for data science
     #   children:
     #   - file: gis_practical/intro.md
     #   - file: gis_practical/loading_spatial_data.md
@@ -27,4 +27,3 @@ site:
     folders: false
     base_url: https://imperialcollegelondon.github.io/living_planet_eco_evo_data
   template: book-theme
-  

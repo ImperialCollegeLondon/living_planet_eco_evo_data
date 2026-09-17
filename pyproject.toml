@@ -29,4 +29,8 @@ package = false
 
 [tool.rumdl]
 # Markdown formatting
-flavor = "mkdocs"
+flavor = "myst"
+line-length = 88
+
+[tool.rumdl.MD007]
+indent = 2

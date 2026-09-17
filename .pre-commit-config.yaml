@@ -46,4 +46,3 @@ repos:
     rev: 0.10.0
     hooks:
       - id: air-format
-

@@ -59,15 +59,15 @@ More generally, storing file paths in variables makes your code easier to update
 maintain. If you move your data later, you only need to change the code in one place.
 
 ```{code-cell} R
-# Define the full paths to the folder containing your sensor data and to the 
-# metadata file 
+# Define the full paths to the folder containing your sensor data and to the
+# metadata file
 sensor_data_folder <- "../data/Microclimate/2025"
 sensor_metadata_file <- "../data/SensorSites/2025/sensor_sites_2025.csv"
 
 # Get the paths to all of the CSV files containing climate data from this year. This
 # command searches all of the folders within the sensor data folder for *.txt files.
 microclimate_files <- dir(
-  path=sensor_data_folder, pattern="*.txt", 
+  path=sensor_data_folder, pattern="*.txt",
   recursive = TRUE, full.names = TRUE
 )
 
@@ -91,9 +91,9 @@ for (each_file in microclimate_files) {
 
     # Load this file, handling Windows file encoding of characters
     data <- read.csv(each_file, encoding = "latin1")
-    
+
     # Extract the name of the first column, which is the sensor ID, _except_ that R does
-    # not like hyphens in variable names, so has converted DL-xxx to DL.xxx. So we'll 
+    # not like hyphens in variable names, so has converted DL-xxx to DL.xxx. So we'll
     # convert it back.
     sensor_id <- sub(".", "-", names(data)[1], fixed=TRUE)
 
@@ -102,7 +102,7 @@ for (each_file in microclimate_files) {
     names(data) <- c(
       "observation_id", "datetime", "temperature", "humidity", "dewpoint"
     )
-    
+
     # Record the sensor_id
     data$sensor_id <- sensor_id
 
@@ -186,19 +186,19 @@ because each sensor can have its own baseline, bias, and range of variation.
 :::{list-table}
 :header-rows: 1
 
-* * Method
+* Method
   * How It Works
   * Pros
   * Cons
-* * Visual
+* Visual
   * Use boxplots or scatterplots to spot unusual points visually.
   * Quick, intuitive, and easy to spot obvious anomalies.
   * Not systematic; subjective; may miss subtle outliers.
-* * Z-score
+* Z-score
   * Calculate how many standard deviations a value is from the mean.
   * Fast to compute; effective for bell-shaped (normal) data.
   * Misleading for skewed data or when extreme values distort mean and SD.
-* * Inter-quartile range (IQR)
+* Inter-quartile range (IQR)
   * Flags points outside 1.5×IQR below Q1 or above Q3 percentiles.
   * Robust to skewed data; less influenced by extreme values.
   * May label valid extreme values as outliers, especially with small sample sizes.

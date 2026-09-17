@@ -128,7 +128,7 @@ There are then two final datasets:
   This projection uses multiple zones for different parts of the planet and the UK data
   is in UTM zone 30N ([EPSG code `EPSG:32630`](https://epsg.io/32630)), with units of
   meters.
-  
+
 * The GPS route for Silwood Christmas (Silmas) fun run and walking route. This is again
   in WGS84 projection.
 
@@ -136,7 +136,7 @@ The sections below show how to load each dataset.
 
 ### Sensor locations
 
-The sensor stations at Silwood and the NHM are recorded as  a CSV file, providing
+The sensor stations at Silwood and the NHM are recorded as a CSV file, providing
 station data including the latitude and longitude of each site. This file is directly
 downloaded from the Epicollect5 project. This is vector point data: precise locations
 from GPS associated with additional site data.
@@ -152,10 +152,10 @@ from GPS associated with additional site data.
 # Load the data from the CSV file
 sensor_locations <- read.csv("../data/SensorSites/2025/sensor_sites_2025.csv")
 
-# Convert to an sf object by setting the fields containing X and Y data and set 
+# Convert to an sf object by setting the fields containing X and Y data and set
 # the projection of the dataset
 sensor_locations <- st_as_sf(
-  sensor_locations, 
+  sensor_locations,
   coords=c("long_Sensor_location","lat_Sensor_location"),
   crs="EPSG:4326"
 )
@@ -188,7 +188,7 @@ print(head(nest_boxes))
 Confusingly, a **shapefile dataset is not a single file** - a shapefile dataset consists
 of a set of related files with the same shared file name and a range of file type
 suffixes (`.shp`, `.dbf`, `.shx` and `.prj` are the core subfiles but other suffixes are
-common). You **must keep all of these files together**, or the dataset will not load 
+common). You **must keep all of these files together**, or the dataset will not load
 correctly.
 ```
 
@@ -334,7 +334,7 @@ silwood_freq <- freq(silwood_LCM["LandCover"])
 
 # Join the two datasets, including all categories
 merge(
-  nhm_freq, silwood_freq, 
+  nhm_freq, silwood_freq,
   by="value", all=TRUE, suffixes = c(".nhm", ".silwood")
 )
 ```
@@ -348,11 +348,11 @@ par(mar = c(4, 12, 1, 1))
 
 # Plot cell assignment certainties as a function of land cover category
 boxplot(
-  silwood_LCM["Certainty"], silwood_LCM["LandCover"], 
+  silwood_LCM["Certainty"], silwood_LCM["LandCover"],
   las = 1, ylab = "", horizontal=TRUE, main="Silwood", xlab="Certainty"
 )
 boxplot(
-  nhm_LCM["Certainty"], nhm_LCM["LandCover"], 
+  nhm_LCM["Certainty"], nhm_LCM["LandCover"],
   las = 1, ylab = "", horizontal=TRUE, main="NHM", xlab="Certainty"
 )
 ```
@@ -445,7 +445,7 @@ s2_silwood_10m <- rast(
     ),
 )  / 10000
 
-# Name the bands 
+# Name the bands
 names(s2_silwood_10m) <- c("B", "G", "R", "NIR")
 
 # Do the same for the NHM
@@ -469,10 +469,10 @@ The Sentinel 2 dataset directory also includes the band data sampled at 20m and 
 resolution. The 60m bands are largely aimed at detecting water vapour and clouds, but
 the 20 metre bands include red edge, narrow near infrared and short wave infrared data
 that can be useful. Use the code above as a template to load Bands 5, 6, 7, 8A, 11 and
-12 from the 20 meter directories for each site. Note that the 20m directory also 
+12 from the 20 meter directories for each site. Note that the 20m directory also
 contains downsampled data from the 10 metre bands.
 
-The resulting objects should be called `s2_silwood_20m` and `s2_nhm_20m` and the bands 
+The resulting objects should be called `s2_silwood_20m` and `s2_nhm_20m` and the bands
 should be named `RE5`, `RE6`, `RE7`, `NNIR`, `SWIR1` and `SWIR2`.
 ```
 
@@ -492,7 +492,7 @@ s2_silwood_20m <- rast(
     ),
 ) / 10000
 
-# Name the bands 
+# Name the bands
 names(s2_silwood_20m) <- c("RE5", "RE6", "RE7", "NNIR", "SWIR1", "SWIR2")
 
 # Load the seven 20m resolution Sentinel 2 bands for the NHM
@@ -507,7 +507,7 @@ s2_nhm_20m <- rast(
     ),
 ) / 10000
 
-# Name the bands 
+# Name the bands
 names(s2_nhm_20m) <- c("RE5", "RE6", "RE7", "NNIR", "SWIR1", "SWIR2")
 ```
 
@@ -527,7 +527,7 @@ print(st_layers("../data/SpatialMethods/Silmas_Fun_Run.gpx"))
 With GPX files, there are a fixed number of layers. They are not all used in this file:
 we have a single linear feature in `tracks` layer, which is the Silmas route, and then
 the 425 point features in the `track_points` layer, which are the points along
-along that route. We will load the  `tracks` layer:
+along that route. We will load the `tracks` layer:
 
 ```{code-cell} r
 silmas_route <- st_read(
@@ -539,7 +539,7 @@ silmas_route <- st_read(
 
 ```{hint}
 These are very basic plotting tips for GIS data, but are all we need for this
-practical. 
+practical.
 ```
 
 ### Plotting vector data
@@ -588,7 +588,7 @@ plot(silwood_aerial, nc=3)
 ```
 
 If you instead want to combine image bands to create a three colour image, then the
-`terra::plotRGB`  can be used to combine 3 bands to generate a colour composite image.
+`terra::plotRGB` can be used to combine 3 bands to generate a colour composite image.
 The `silwood_aerial` image contains the three RGB bands in the correct order, so we can
 simply plot it:
 
@@ -630,8 +630,8 @@ urban areas and bare ground (tan or grey).
 plotRGB(s2_silwood_10m, r=4, g=3, b=2, scale=0.8)
 ```
 
-<!-- 
-NOTE - there are no changes to the data objects in this document so there is no 
+<!--
+NOTE - there are no changes to the data objects in this document so there is no
 code cell required to save changes to the data state.
 -->
 
@@ -769,8 +769,8 @@ s2_nhm_10m <- project(s2_nhm_10m, nhm_LCM, method="cubic")
 
 ```{admonition} Exercise
 
-Repeat this reprojection for the 20 metre resolution Sentinel 2 datasets that you 
-created earlier (`s2_silwood_20m` and `s2_nhm_20m`). 
+Repeat this reprojection for the 20 metre resolution Sentinel 2 datasets that you
+created earlier (`s2_silwood_20m` and `s2_nhm_20m`).
 
 You should reproject the data to the same 20 metre resolution. We do not have an
 existing BNG raster dataset at this resolution, so you will need to make one.
@@ -838,7 +838,7 @@ print(res(s2_silwood_20m_at_10m))
 :class: tip
 
 We could also have got the 20 metre resolution Sentinel 2 bands resampled to 10 metres
-using  only the `terra::project` function. See if you can generate
+using only the `terra::project` function. See if you can generate
 `s2_silwood_20m_direct_to_10m` and `s2_nhm_20m_direct_to_10m` using only that function.
 ```
 
@@ -881,11 +881,11 @@ silwood_dtm_extent <- union(ext(silwood_dtm_SU96NE), ext(silwood_dtm_SU96NW ))
 # Plot the extent of the first raster, but using the extent of both datasets
 plot(ext(silwood_dtm_SU96NE), border="blue", ext=silwood_dtm_extent, main="Silwood")
 
-# Get the middle coordinates of the raster and add a label. The `xFromCol` and 
-# `yFromRow` functions extract the X and Y coordinates of cell centres from the 
+# Get the middle coordinates of the raster and add a label. The `xFromCol` and
+# `yFromRow` functions extract the X and Y coordinates of cell centres from the
 # raster and `mean` then gives the centre of the raster image.
 text(
-  x=mean(xFromCol(silwood_dtm_SU96NE)), 
+  x=mean(xFromCol(silwood_dtm_SU96NE)),
   y=mean(yFromRow(silwood_dtm_SU96NE)),
   labels="SU96NE", col="blue"
 )
@@ -893,12 +893,12 @@ text(
 # Use `add=TRUE` to add the extent of the second raster and add the label
 plot(ext(silwood_dtm_SU96NW), border="red", add=TRUE)
 text(
-  x=mean(xFromCol(silwood_dtm_SU96NW)), 
+  x=mean(xFromCol(silwood_dtm_SU96NW)),
   y=mean(yFromRow(silwood_dtm_SU96NW)),
   labels="SU96NW", col="red"
 )
 
-# Finally add the extent of the other raster datasets 
+# Finally add the extent of the other raster datasets
 plot(ext(silwood_aerial), border="black", add=TRUE)
 
 # Repeat for the NHM datasets
@@ -906,13 +906,13 @@ nhm_dtm_extent <- union(ext(nhm_dtm_TQ27NE), ext(nhm_dtm_TQ28SE))
 
 plot(ext(nhm_dtm_TQ27NE), border="blue", ext=nhm_dtm_extent, main="NHM")
 text(
-  x=mean(xFromCol(nhm_dtm_TQ27NE)), 
+  x=mean(xFromCol(nhm_dtm_TQ27NE)),
   y=mean(yFromRow(nhm_dtm_TQ27NE)),
   labels="TQ27NE", col="blue"
 )
 plot(ext(nhm_dtm_TQ28SE), border="red", add=TRUE)
 text(
-  x=mean(xFromCol(nhm_dtm_TQ28SE)), 
+  x=mean(xFromCol(nhm_dtm_TQ28SE)),
   y=mean(yFromRow(nhm_dtm_TQ28SE)),
   labels="TQ28SE", col="red"
 )
@@ -943,11 +943,11 @@ silwood_dtm_extent <- union(ext(silwood_dtm_SU96NE), ext(silwood_dtm_SU96NW ))
 # Plot the extent of the first raster, but using the extent of both datasets
 plot(ext(silwood_dtm_SU96NE), border="blue", ext=silwood_dtm_extent, main="Silwood")
 
-# Get the middle coordinates of the raster and add a label. The `xFromCol` and 
-# `yFromRow` functions extract the X and Y coordinates of cell centres from the 
+# Get the middle coordinates of the raster and add a label. The `xFromCol` and
+# `yFromRow` functions extract the X and Y coordinates of cell centres from the
 # raster and `mean` then gives the centre of the raster image.
 text(
-  x=mean(xFromCol(silwood_dtm_SU96NE)), 
+  x=mean(xFromCol(silwood_dtm_SU96NE)),
   y=mean(yFromRow(silwood_dtm_SU96NE)),
   labels="SU96NE", col="blue"
 )
@@ -955,12 +955,12 @@ text(
 # Use `add=TRUE` to add the extent of the second raster and add the label
 plot(ext(silwood_dtm_SU96NW), border="red", add=TRUE)
 text(
-  x=mean(xFromCol(silwood_dtm_SU96NW)), 
+  x=mean(xFromCol(silwood_dtm_SU96NW)),
   y=mean(yFromRow(silwood_dtm_SU96NW)),
   labels="SU96NW", col="red"
 )
 
-# Finally add the extent of the other raster datasets 
+# Finally add the extent of the other raster datasets
 plot(ext(silwood_aerial), border="black", add=TRUE)
 
 # Repeat for the NHM datasets
@@ -968,13 +968,13 @@ nhm_dtm_extent <- union(ext(nhm_dtm_TQ27NE), ext(nhm_dtm_TQ28SE))
 
 plot(ext(nhm_dtm_TQ27NE), border="blue", ext=nhm_dtm_extent, main="NHM")
 text(
-  x=mean(xFromCol(nhm_dtm_TQ27NE)), 
+  x=mean(xFromCol(nhm_dtm_TQ27NE)),
   y=mean(yFromRow(nhm_dtm_TQ27NE)),
   labels="TQ27NE", col="blue"
 )
 plot(ext(nhm_dtm_TQ28SE), border="red", add=TRUE)
 text(
-  x=mean(xFromCol(nhm_dtm_TQ28SE)), 
+  x=mean(xFromCol(nhm_dtm_TQ28SE)),
   y=mean(yFromRow(nhm_dtm_TQ28SE)),
   labels="TQ28SE", col="red"
 )
@@ -1121,7 +1121,7 @@ plot(st_geometry(nhm_VML_roads), col="firebrick", add = TRUE)
 plot(st_geometry(nhm_VML_water), col="cornflowerblue", border=NA, add = TRUE)
 ```
 
-<!-- 
+<!--
 
 ### Vector operations
 
@@ -1159,14 +1159,14 @@ more details](https://custom-scripts.sentinel-hub.com/sentinel-2/ndvi/).
 ```{code-cell} r
 # Calculate the NDVI index for the two sites
 ndvi_nhm <- (
-  s2_nhm_10m[["NIR"]] - s2_nhm_10m[["R"]]) / 
+  s2_nhm_10m[["NIR"]] - s2_nhm_10m[["R"]]) /
   (s2_nhm_10m[["NIR"]] + s2_nhm_10m[["R"]]
 )
 ndvi_silwood <- (
-  s2_silwood_10m[["NIR"]] - s2_silwood_10m[["R"]]) / 
+  s2_silwood_10m[["NIR"]] - s2_silwood_10m[["R"]]) /
   (s2_silwood_10m[["NIR"]] + s2_silwood_10m[["R"]]
 )
-# Rename the single band 
+# Rename the single band
 names(ndvi_silwood) <- names(ndvi_nhm) <- "NDVI"
 
 # Plot the NDVI index data
@@ -1189,19 +1189,19 @@ $$
 
 ```{code-cell} r
 # Calculate the EVI index for the two sites
-evi_nhm <- 2.5 * 
-  (s2_nhm_10m[["NIR"]] - s2_nhm_10m[["R"]]) / 
-  (s2_nhm_10m[["NIR"]] + 
-    6 * s2_nhm_10m[["R"]] - 
+evi_nhm <- 2.5 *
+  (s2_nhm_10m[["NIR"]] - s2_nhm_10m[["R"]]) /
+  (s2_nhm_10m[["NIR"]] +
+    6 * s2_nhm_10m[["R"]] -
     7.5 * s2_nhm_10m[["B"]] + 1)
-  
-evi_silwood <- 2.5 * 
-  (s2_silwood_10m[["NIR"]] - s2_silwood_10m[["R"]]) / 
-  (s2_silwood_10m[["NIR"]] + 
-    6 * s2_silwood_10m[["R"]] - 
+
+evi_silwood <- 2.5 *
+  (s2_silwood_10m[["NIR"]] - s2_silwood_10m[["R"]]) /
+  (s2_silwood_10m[["NIR"]] +
+    6 * s2_silwood_10m[["R"]] -
     7.5 * s2_silwood_10m[["B"]] + 1)
 
-# Rename the single band 
+# Rename the single band
 names(evi_silwood) <- names(evi_nhm) <- "EVI"
 ```
 
@@ -1335,7 +1335,7 @@ of the values from the digital elevation map associated with each sensor locatio
 again need to join the results from the two sites together and drop any NA rows.
 
 ```{code-cell} r
-# Get the values within the 50m buffer for each sensor location, 
+# Get the values within the 50m buffer for each sensor location,
 silwood_sensor_heights <- extract(silwood_dtm, sensor_locations_50)
 nhm_sensor_heights <- extract(nhm_dtm, sensor_locations_50)
 sensor_heights <- na.omit(rbind(silwood_sensor_heights, nhm_sensor_heights))
@@ -1350,7 +1350,7 @@ boxplot(Elevation ~ ID, data= sensor_heights)
 We can also extract data from categorical rasters:
 
 ```{code-cell} r
-# Get the values within the 50m buffer for each sensor location, 
+# Get the values within the 50m buffer for each sensor location,
 silwood_sensor_LCM <- extract(silwood_LCM, sensor_locations_50)
 nhm_sensor_LCM <- extract(nhm_LCM, sensor_locations_50)
 sensor_LCM <- na.omit(rbind(silwood_sensor_LCM, nhm_sensor_LCM))
@@ -1382,14 +1382,14 @@ cell_touches_true <- rasterize(sensor_locations_50[1,], silwood_dtm, touches=TRU
 par(mfrow=c(1,2))
 
 plot(
-  silwood_dtm, ext=zoom_to_site_one, legend=FALSE, 
+  silwood_dtm, ext=zoom_to_site_one, legend=FALSE,
   col=gray.colors(20), main="touches=FALSE"
 )
 plot(cell_touches_false, add=TRUE, legend=FALSE, col="firebrick")
 plot(st_geometry(sensor_locations_50[1,]), col=NA, add=TRUE)
 
 plot(
-  silwood_dtm, ext=zoom_to_site_one, legend=FALSE, 
+  silwood_dtm, ext=zoom_to_site_one, legend=FALSE,
   col=gray.colors(20), main="touches=TRUE"
 )
 plot(cell_touches_true, add=TRUE, legend=FALSE, col="firebrick")
@@ -1440,7 +1440,7 @@ and then iterating to try and find stable sets of clusters. It then repeats that
 with different starting choices and returns a classification across all of the runs.
 
 ```{code-cell} r
-# We need to convert the raster data into a data frame giving the 
+# We need to convert the raster data into a data frame giving the
 # spectral signature of each cell
 values <- as.data.frame(s2_silwood_10m)
 head(values)
@@ -1554,7 +1554,7 @@ We can convert it into a land cover map by assigning each pixel to the class whe
 has the highest probability.
 
 ```{code-cell} r
-# Find the layer with the highest probability. The index of that code gives the 
+# Find the layer with the highest probability. The index of that code gives the
 # associated land  cover type
 s2_class_map <- which.max(s2_class_probability)
 
@@ -1584,12 +1584,12 @@ for different classes.
 
 pick_training_sites <- function(category, df = NULL) {
     #' Function to add training data locations by clicking on a displayed map.
-    #' 
+    #'
     #' The function returns a data frame with the X and Y coordinates of the clicked
     #' points and a category field giving the `category` label for with the points.
     #' Press 'Escape' to finish collecting points and return a dataframe of coordinates.
     #' The returned dataframe for one category can be passed back into the `df`
-    #' argument to append sites for a new category to the existing data. 
+    #' argument to append sites for a new category to the existing data.
 
     # Pick the points from a plotted GIS map
     xy <- draw("points", pch=4)
@@ -1625,7 +1625,7 @@ write.csv(df, "../data/SpatialMethods/S2_classification_data.csv", row.names=FAL
 ```{code-cell} r
 :tags: [remove-cell]
 
-# Remove any existing data output folder rather than have to stick a load of 
+# Remove any existing data output folder rather than have to stick a load of
 # overwrite=TRUE arguments in the student facing text.
 if (dir.exists("spatial_method_practical_outputs")) {
   unlink("spatial_method_practical_outputs", recursive=TRUE)
@@ -1687,7 +1687,7 @@ st_drivers()$name
 ```
 
 The GeoPackage format is generally more convenient because it is a single file and can
-hold multiple layers.  The code below saves the four processed VML subsets to a single
+hold multiple layers. The code below saves the four processed VML subsets to a single
 GeoPackage file.
 
 ```{code-cell} r

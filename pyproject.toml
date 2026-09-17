@@ -1,0 +1,28 @@
+[project]
+dependencies = [
+    "jupyter-book>=2.1.6",
+    "pre-commit>=4.6.2",
+]
+description = """\
+  This project is used to manage and build teaching materials for the Ecological and \
+  Evolutionary Data Science module of the Living Planet Masters at Imperial College \
+  London and the MRes Biosystematics and MSc Taxonomy, Biodiversity and Evolution \
+  at the Natural History Museum.\
+"""
+name = "living-planet-eco-evo-data"
+readme = "README.md"
+requires-python = ">=3.12.3"
+version = "2026.1"
+
+[project.urls]
+Repository = "https://github.com/ImperialCollegeLondon/living_planet_eco_evo_data"
+
+[tool.jupytext]
+# Stop jupytext from removing mystnb and other settings in MyST Notebook YAML headers
+notebook_metadata_filter = "kernelspec,jupytext,authors,short_title"
+# Also stop it from stripping cell metadata, except for specific ones to lose.
+cell_metadata_filter = "all,-trusted"
+
+[tool.uv]
+# Dependency management only; do not try to build/install this repo as a Python package.
+package = false

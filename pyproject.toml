@@ -1,7 +1,7 @@
 [project]
 dependencies = [
-    "jupyter-book>=2.1.6",
-    "pre-commit>=4.6.2",
+  "jupyter-book>=2.1.6",
+  "pre-commit>=4.6.2",
 ]
 description = """\
   This project is used to manage and build teaching materials for the Ecological and \
@@ -26,3 +26,7 @@ cell_metadata_filter = "all,-trusted"
 [tool.uv]
 # Dependency management only; do not try to build/install this repo as a Python package.
 package = false
+
+[tool.rumdl]
+# Markdown formatting
+flavor = "mkdocs"

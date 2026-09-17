@@ -25,3 +25,11 @@ jupyter book build --html --execute
 # Deploy it to GitHub pages
 ghp-import -n -p -f _build/html -m "Informative message on updated practicals."
 ```
+
+## Deploying using GitHub Actions
+
+Ideally we would deploy changes to the site automatically using one of the existing
+GitHub Actions workflows for `jupyter book`. The problem here is that the practicals
+execute code cells that require practical data in order to generate expected code
+outputs and images. At some point, we may be able to fix those inputs into an asset that
+GitHub Actions can use, but at the moment we need to build locally and then deploy.

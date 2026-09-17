@@ -5,12 +5,11 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.5
+    jupytext_version: 1.18.1
 kernelspec:
   display_name: R
   language: R
   name: ir
-short_title: Requirements
 ---
 
 # Required packages and data
@@ -33,6 +32,8 @@ folder and then create folders for each practical:
     Methods](./gis_practical/gis_practical.md) practical
   * `microclimate`: This directory will be used for the
     [Microclimate](./microclimate/microclimate_sensor_analysis_EasyLog.md) practical
+  * `bioinformatics`: This directory will be used for the
+    [Bioinformatics](./bioinformatics/bioinformatics.md) practical.
 
 ## Spatial methods practical
 

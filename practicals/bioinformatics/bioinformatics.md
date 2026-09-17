@@ -1,4 +1,6 @@
 ---
+authors:
+- name: Theo Brooks
 jupytext:
   formats: md:myst
   text_representation:
@@ -10,6 +12,7 @@ kernelspec:
   display_name: R
   language: R
   name: ir
+short_title: Bioinformatics
 ---
 
 # Bioinformatics using metabarcoding data practical

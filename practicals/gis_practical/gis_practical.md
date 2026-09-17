@@ -1,4 +1,6 @@
 ---
+authors:
+- name: David Orme
 jupytext:
   formats: md:myst
   text_representation:
@@ -10,8 +12,6 @@ kernelspec:
   display_name: R
   language: R
   name: ir
-authors:
-  - name: David Orme
 short_title: Spatial Methods
 ---
 
@@ -78,6 +78,7 @@ We will need to load the following packages:
 
 ```{code-cell} r
 :tags: [remove-stderr]
+
 library(terra)       # core raster GIS package
 library(sf)          # core vector GIS package
 library(rcartocolor) # plotting
@@ -177,7 +178,7 @@ quite a lot of information. This practical handout will generally hide that to k
 page size down. We can also look at what an `sf` object looks like if you print it out:
 very like a dataframe with some extra header data.
 
-```{code-cell} R
+```{code-cell} r
 print(head(nest_boxes))
 ```
 
@@ -479,7 +480,6 @@ should be named `RE5`, `RE6`, `RE7`, `NNIR`, `SWIR1` and `SWIR2`.
 :class: dropdown
 
 ```{code-cell} r
-
 # Load the six 20m resolution Sentinel 2 bands for Silwood
 s2_silwood_20m <- rast(
     c(
@@ -547,14 +547,14 @@ practical.
 If you plot a vector dataset, then it will generate a panel for each vector attribute in
 the dataset (up to a limit!).
 
-```{code-cell} R
+```{code-cell} r
 plot(nest_boxes)
 ```
 
 If you want to plot just one of those attributes, then you can use `[]` subsets to do
 so, and R will generate a key for it.
 
-```{code-cell} R
+```{code-cell} r
 plot(nest_boxes['SPlocation'], key.pos=4)
 ```
 
@@ -565,7 +565,7 @@ all features. One trick here is to get the extent (or bounding box) of the layer
 want to plot and then convert them to polygons using `sf::st_as_sfc` and then take the
 spatial union(`sf::st_union`) of those boxes. Long-winded but reliable!
 
-```{code-cell} R
+```{code-cell} r
 # Get the plot extent as the union of the bounding boxes
 plot_extent <- st_union(
   st_as_sfc(st_bbox(nest_boxes)),
@@ -781,7 +781,6 @@ existing BNG raster dataset at this resolution, so you will need to make one.
 :class: dropdown
 
 ```{code-cell} r
-
 # Make 20 metre resolution templates for the study sites
 silwood_template_20m <- rast(ext(silwood_aerial), res=20, crs="EPSG:27700")
 nhm_template_20m <- rast(ext(nhm_aerial), res=20, crs="EPSG:27700")
@@ -1098,7 +1097,7 @@ We can crop the VML data down to the study site using the `sf::st_crop` function
 usually faster and easier to reduce datasets to only the focal area you are working
 with.
 
-```{code-cell} R
+```{code-cell} r
 # Crop the two vector datasets
 silwood_VML_roads <- st_crop(silwood_VML_roads, silwood_aerial)
 nhm_VML_roads <- st_crop(nhm_VML_roads, nhm_aerial)
@@ -1110,7 +1109,7 @@ We can now create a simple plot overlaying the vector roads and water over the t
 the digital elevations maps, again using `sf::st_geometry` to just show the geometries
 of the vector features.
 
-```{code-cell} R
+```{code-cell} r
 par(mfrow=c(1, 2))
 
 plot(silwood_dtm, col=grey.colors(20), main="Silwood")
@@ -1371,6 +1370,7 @@ sensor polygon.
 
 ```{code-cell} r
 :tags: [hide-input]
+
 # Create an extent around a single sensor
 zoom_to_site_one <- ext(c(493835,  493955, 169200, 169330))
 
@@ -1394,7 +1394,6 @@ plot(
 )
 plot(cell_touches_true, add=TRUE, legend=FALSE, col="firebrick")
 plot(st_geometry(sensor_locations_50[1,]), col=NA, add=TRUE)
-
 ```
 
 ### Zonal statistics
@@ -1413,7 +1412,7 @@ head(evi_by_LCM)
 
 We can then visualise the range of EVI values by land cover class:
 
-```{code-cell} R
+```{code-cell} r
 par(mar = c(4,12,1,1))
 plot(EVI ~ as.factor(LandCover), data=evi_by_LCM, horizontal=TRUE, las=1, xlab="")
 ```
@@ -1464,7 +1463,6 @@ Now that we have the map, we can add labels and category names, as we did above 
 CEH dataset.
 
 ```{code-cell} r
-
 
 labels <- data.frame(ID=1:n_cats, category=paste0("Category_", 1:n_cats))
 #colours <- data.frame(ID=1:n_cats, colours=hcl.colors(n_cats, "Dark 2"))
@@ -1684,7 +1682,7 @@ main arguments:
 There are many, _many_ vector file formats - see the help file on `sf::st_drivers()` and
 the output
 
-```{code-cell} R
+```{code-cell} r
 st_drivers()$name
 ```
 
@@ -1692,13 +1690,12 @@ The GeoPackage format is generally more convenient because it is a single file a
 hold multiple layers.  The code below saves the four processed VML subsets to a single
 GeoPackage file.
 
-```{code-cell} R
+```{code-cell} r
 # Save the VML to GPKG
 st_write(silwood_VML_roads, dsn="OS_VML_Silwood_NHM.gpkg", layer="silwood_VML_roads")
 st_write(nhm_VML_roads, dsn="OS_VML_Silwood_NHM.gpkg", layer="nhm_VML_roads")
 st_write(silwood_VML_water, dsn="OS_VML_Silwood_NHM.gpkg", layer="silwood_VML_water")
 st_write(nhm_VML_water, dsn="OS_VML_Silwood_NHM.gpkg", layer="nhm_VML_water")
-
 ```
 
 Although the Shapefile format is more widely known, the inconvience of having multiple
@@ -1706,7 +1703,7 @@ files is high and often leads to problems with incomplete datasets. It also has 
 constraints - as you can see in the output below, there is a limit to the length of
 attribute table field names in shapefiles.
 
-```{code-cell} R
+```{code-cell} r
 # Save the sensors as shapefile
 st_write(sensor_locations, dsn="sensor_locations.shp")
 ```

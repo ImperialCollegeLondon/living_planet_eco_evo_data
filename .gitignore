@@ -1,0 +1,10 @@
+# uv
+.venv
+
+# uvr
+/.uvr/library/
+/.uvr/activate*
+
+# Mac
+.DSStore
+

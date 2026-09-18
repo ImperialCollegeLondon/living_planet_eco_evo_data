@@ -8,6 +8,7 @@ project:
     - file: gis_practical/gis_practical.md
       children:
       - file: gis_practical/why_r_for_gis.md
+        hidden: true
     # - title: Spatial methods for data science
     #   children:
     #   - file: gis_practical/intro.md

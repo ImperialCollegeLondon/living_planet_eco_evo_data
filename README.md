@@ -112,8 +112,8 @@ explained below:
 
    When Jupyter Lab starts, you can then open and run notebooks. This option can be
    particularly useful when developing the bulk of a notebook content because you can
-   edit and add content and outputs are shown immediately in the same window. There are
-   two main drawbacks:
+   edit and add content and check code execution and outputs immediately in the same
+   window. There are two main drawbacks:
 
     * Jupyter Lab is not integrated with the tools used by `pre-commit` and so is quite
       happy to save notebooks with minor formatting problems like over-long lines. This
@@ -183,7 +183,9 @@ Ths can take a while to run - all of the R code in the notebooks needs to execut
 ### Deploying the site
 
 We use the `ghp-import` tool to deploy the built HTML to the `gh-pages` branch of the
-repository, which is then automatically deployed to [https://imperialcollegelondon.github.io/living_planet_eco_evo_data/](https://imperialcollegelondon.github.io/living_planet_eco_evo_data/)
+repository, which is then automatically deployed to
+[https://imperialcollegelondon.github.io/living_planet_eco_evo_data/](https://imperialcollegelondon.github.io/living_planet_eco_evo_data/).
+The command to deploy the code is shown below:
 
 ```sh
 uv run ghp-import -n -p -f _build/html -m "Informative message on updated practicals."

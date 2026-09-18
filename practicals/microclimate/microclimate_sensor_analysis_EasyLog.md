@@ -184,27 +184,31 @@ because each sensor can have its own baseline, bias, and range of variation.
 
 :::
 
+<!-- rumdl-disable MD069 -->
+
 :::{list-table}
 :header-rows: 1
 
-* Method
+* * Method
   * How It Works
   * Pros
   * Cons
-* Visual
+* * Visual
   * Use boxplots or scatterplots to spot unusual points visually.
   * Quick, intuitive, and easy to spot obvious anomalies.
   * Not systematic; subjective; may miss subtle outliers.
-* Z-score
+* * Z-score
   * Calculate how many standard deviations a value is from the mean.
   * Fast to compute; effective for bell-shaped (normal) data.
   * Misleading for skewed data or when extreme values distort mean and SD.
-* Inter-quartile range (IQR)
+* * Inter-quartile range (IQR)
   * Flags points outside 1.5×IQR below Q1 or above Q3 percentiles.
   * Robust to skewed data; less influenced by extreme values.
   * May label valid extreme values as outliers, especially with small sample sizes.
 
 :::
+
+<!-- rumdl-enable MD069 -->
 
 ### Z-score method for outlier detection
 

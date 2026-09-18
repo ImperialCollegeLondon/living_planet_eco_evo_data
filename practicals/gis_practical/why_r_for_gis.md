@@ -1,4 +1,6 @@
 ---
+authors:
+- name: David Orme
 jupytext:
   formats: md:myst
   text_representation:
@@ -7,11 +9,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.18.1
 kernelspec:
-  display_name: R
+  name: uvr-ecoevodata
+  display_name: R (ecoevodata)
   language: R
-  name: ir
-authors:
-  - name: David Orme
 ---
 
 # Why use R for GIS

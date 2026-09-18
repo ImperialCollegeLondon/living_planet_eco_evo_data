@@ -20,7 +20,7 @@ short_title: Spatial Methods
 This webpage provides one long self-paced practical that provides an introduction to key
 spatial data handling and analysis techniques for use with the Ecological and
 Evolutionary Data Science. This practical uses [the R programming
-language](https://cran.r-project,org) to load, manipulate and analyse spatial data. See
+language](https://cran.r-project.org) to load, manipulate and analyse spatial data. See
 more here on [why we use R for GIS](./why_r_for_gis.md).
 
 There are a lot of other sites that provide information on using R for GIS:
@@ -678,15 +678,23 @@ values in one projection and then want to insert representative values into a se
 cells on a different projection. The borders of those new cells could have all sorts of
 odd relationships to the current ones.
 
-We can show the issue by superimposing two grids:
+We can show the issue by showing how two raster grids compare:
 
 * A 200 m resolution grid using the extent of the BNG projection datasets for Silwood
   (red cells).
 * A very similar 200m grid taken from the extent of the Sentinel 2 data in the UTM30N
   projection for the same site and then reprojected into the BNG (grey cells)
 
+Note that we _cannot_ show this using raster data - this is kind of the point, raster
+data is constrained to appearing as regular pixels on one coordinate system. What we can
+do is make _vector representations_ of two raster grids and then project one grid into
+the other coordinate system to show where the pixels would be.
+
+The code to do this is a bit tangential to the practical, but do have a look if you are
+interested!
+
 ```{code-cell} r
-:tags: [remove-input]
+:tags: [hide-input]
 
 # Create a BNG raster at 200m resolution for the study site
 grid_BNG <- rast(ext(silwood_aerial), res = 200, crs = "EPSG:27700")
@@ -707,34 +715,6 @@ plot(st_geometry(grid_BNG), border='red', add=TRUE)
 axis(1)
 axis(2)
 ```
-
-:::{note} Plot source
-:class: dropdown
-
-In case you are interested in how the plot was created.
-
-```{code-block} r
-# Create a BNG raster at 200m resolution for the study site
-grid_BNG <- rast(ext(silwood_aerial), res = 200, crs = "EPSG:27700")
-# Convert to an sf polygon dataset of grid cells
-grid_BNG <- st_as_sf(as.polygons(grid_BNG))
-
-# Create a UTM30N raster at 200 m resolution for the study site
-grid_UTM30N <- rast(ext(s2_silwood_10m), res = 200, crs = "EPSG:32630")
-# Convert to an sf polygon dataset _and_ then transform to BNG
-grid_UTM30N <- st_as_sf(as.polygons(grid_UTM30N))
-grid_UTM30N_in_BNG <- st_transform(grid_UTM30N, "EPSG:27700")
-
-# Plot the two sets of grid cells over each other
-plot(st_geometry(grid_UTM30N_in_BNG), reset=FALSE, border="grey")
-plot(st_geometry(grid_BNG), border='red', add=TRUE)
-
-# Add coordinates on the axes
-axis(1)
-axis(2)
-```
-
-:::
 
 As you can see, even when the resolutions are the same, there is no neat one-to-one
 relationship between the two sets of cells: the axes of the two grids are not exactly
@@ -851,10 +831,10 @@ using only the `terra::project` function. See if you can generate
 # It is actually very easy - we can just use the existing 10m CEH Land Cover Map
 # datasets as the resampling template.
 s2_silwood_20m_direct_to_10m <- project(
-  s2_silwood_20m, silwood_lcm, method="cubic"
+  s2_silwood_20m, silwood_LCM, method="cubic"
 )
 s2_nhm_20m_direct_to_10m <- project(
-  s2_nhm_20m, nhm_lcm, method="cubic"
+  s2_nhm_20m, nhm_LCM, method="cubic"
 )
 ```
 
@@ -1414,7 +1394,7 @@ We can then visualise the range of EVI values by land cover class:
 
 ```{code-cell} r
 par(mar = c(4,12,1,1))
-plot(EVI ~ as.factor(LandCover), data=evi_by_LCM, horizontal=TRUE, las=1, xlab="")
+plot(value ~ as.factor(LandCover), data=evi_by_LCM, horizontal=TRUE, las=1, xlab="", lab="EVI")
 ```
 
 ## Image classification
@@ -1578,8 +1558,7 @@ However, you can use R to create training datasets. The code below defines a fun
 that can be used to generate a training data frame and then extend it with training data
 for different classes.
 
-```{code-cell} r
-:tags: [skip-execution]
+```{code-block} r
 
 pick_training_sites <- function(category, df = NULL) {
     #' Function to add training data locations by clicking on a displayed map.

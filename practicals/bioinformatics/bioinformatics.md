@@ -9,9 +9,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.18.1
 kernelspec:
-  display_name: R
+  name: uvr-ecoevodata
+  display_name: R (ecoevodata)
   language: R
-  name: ir
 short_title: Bioinformatics
 ---
 
@@ -97,7 +97,7 @@ and sequenced the 16S rRNA gene. **TBC!!!** There is a fair amount of data, so y
 want to consider downloading it to your Imperial OneDrive account.
 
 The first step is to [download the GitHub repository]
-(https://github.com/theobrook/Silwood_Park_Soil_Metabarcoding_Practical) and move the
+(<https://github.com/theobrook/Silwood_Park_Soil_Metabarcoding_Practical>) and move the
 data directory (folder) to somewhere on your device.
 
 Next unzip the directory to extract its contents.
@@ -106,9 +106,9 @@ N.B. you might want to use OneDrive as your workspace as there is a large amount
 (**XGB - TBC!!!**).
 
 ```r
-# Once you have downloaded your data, set your path to where you moved the data 
+# Once you have downloaded your data, set your path to where you moved the data
 # directory to. You can find the full file path for a directory by right clicking on the
-# folder and either (a) copying the "Where" field (Mac) or (b) selecting "Properties", 
+# folder and either (a) copying the "Where" field (Mac) or (b) selecting "Properties",
 # and copying the "Location" field (Windows)
 path <- "path/to/somewhere/on/your/computer/or/OneDrive"
 

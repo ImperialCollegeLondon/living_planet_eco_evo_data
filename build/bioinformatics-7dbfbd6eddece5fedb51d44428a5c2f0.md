@@ -9,9 +9,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.18.1
 kernelspec:
-  display_name: R
+  name: uvr-ecoevodata
+  display_name: R (ecoevodata)
   language: R
-  name: ir
 short_title: Bioinformatics
 ---
 

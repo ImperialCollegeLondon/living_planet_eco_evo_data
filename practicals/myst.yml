@@ -25,5 +25,8 @@ project:
 site:
   options:
     folders: false
+    logo: images/IMPERIAL_logo_RGB_Blue_2024.png
     base_url: https://imperialcollegelondon.github.io/living_planet_eco_evo_data
   template: book-theme
+  parts:
+    primary_sidebar_footer: sidebar-footer.md

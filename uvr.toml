@@ -1,2 +1,17 @@
 [project]
-name = "living_planet_eco_evo_data"
+name = "living_planet_eco_evo_data_uvr"
+
+[dependencies]
+IRkernel = "*"
+dplyr = "*"
+ggplot2 = "*"
+janitor = "*"
+languageserver = "*"
+patchwork = "*"
+rcartocolor = "*"
+rpart = "*"
+sf = "*"
+terra = "*"
+
+[activate]
+prompt = true

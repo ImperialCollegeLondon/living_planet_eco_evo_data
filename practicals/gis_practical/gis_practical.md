@@ -9,9 +9,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.18.1
 kernelspec:
-  display_name: R
+  name: uvr-ecoevodata
+  display_name: R (ecoevodata)
   language: R
-  name: ir
 short_title: Spatial Methods
 ---
 
@@ -1463,7 +1463,6 @@ Now that we have the map, we can add labels and category names, as we did above 
 CEH dataset.
 
 ```{code-cell} r
-
 labels <- data.frame(ID=1:n_cats, category=paste0("Category_", 1:n_cats))
 #colours <- data.frame(ID=1:n_cats, colours=hcl.colors(n_cats, "Dark 2"))
 

@@ -1,4 +1,6 @@
 ---
+authors:
+- name: Theo Brooks
 jupytext:
   formats: md:myst
   text_representation:
@@ -10,6 +12,7 @@ kernelspec:
   display_name: R
   language: R
   name: ir
+short_title: Bioinformatics
 ---
 
 # Bioinformatics using metabarcoding data practical
@@ -18,14 +21,16 @@ In this practical, we will go from raw sequences to community-level analyses. Th
 samples used in this study were collected from the [Ecological Fractal
 Network](https://ecofracnetwork.github.io) points at Silwood Park. You can see the
 specific collection points
-[here](https://www.google.com/maps/d/viewer?mid=1gYaoOn5ypAK2B-bL8uXjdSTMu4CWCyI&ll=51.40958062885105%2C-0.6467416439178342&z=15).
+[in this
+map](https://www.google.com/maps/d/viewer?mid=1gYaoOn5ypAK2B-bL8uXjdSTMu4CWCyI&ll=51.40958062885105%2C-0.6467416439178342&z=15).
 
 The specific aims are to:
 
 1. Understand the output of a **short-read sequencing machine**
 2. Perform **quality control** on raw sequencing reads
 3. Perform **community-level analyses using amplicon sequence variants (ASVs)**
-4. **Assign taxonomy to ASVs**, creating virtual taxa (VTs), and perform basic phylogenetic analysis
+4. **Assign taxonomy to ASVs**, creating virtual taxa (VTs), and perform basic
+   phylogenetic analysis
 5. **Love bioinformatics!**
 
 This practical is an adaptation of the [DADA2 Pipeline Tutorial
@@ -79,7 +84,6 @@ recommend that you create a new `RStudio` environment in a
 - [phyloseq website](https://joey711.github.io/phyloseq/) - details of the `phyloseq` package
 - [ggplot2 website](https://ggplot2.tidyverse.org/) - details of the `ggplot2` package
 
-
 *LLMs such as Claude can be useful, but be careful to check that you understand what
 they are doing and, crucially, that they are actually doing what you want!*
 
@@ -92,9 +96,9 @@ Kit](https://www.qiagen.com/us/products/discovery-and-translational-research/dna
 and sequenced the 16S rRNA gene. **TBC!!!** There is a fair amount of data, so you might
 want to consider downloading it to your Imperial OneDrive account.
 
-The first step is to download the GitHub repository from
-[here](https://github.com/theobrook/Silwood_Park_Soil_Metabarcoding_Practical) and move
-the data directory (folder) to somewhere on your device.
+The first step is to [download the GitHub repository]
+(https://github.com/theobrook/Silwood_Park_Soil_Metabarcoding_Practical) and move the
+data directory (folder) to somewhere on your device.
 
 Next unzip the directory to extract its contents.
 
@@ -102,7 +106,10 @@ N.B. you might want to use OneDrive as your workspace as there is a large amount
 (**XGB - TBC!!!**).
 
 ```r
-# Once you have downloaded your data, set your path to where you moved the data directory to. You can find the full file path for a directory by right clicking on the folder and either (a) copying the "Where" field (Mac) or (b) selecting "Properties", and copying the "Location" field (Windows)
+# Once you have downloaded your data, set your path to where you moved the data 
+# directory to. You can find the full file path for a directory by right clicking on the
+# folder and either (a) copying the "Where" field (Mac) or (b) selecting "Properties", 
+# and copying the "Location" field (Windows)
 path <- "path/to/somewhere/on/your/computer/or/OneDrive"
 
 # (Optional) Tidy up the zip file now that we have extracted its contents
@@ -137,9 +144,14 @@ library(Biostrings)
 
 ### Task 3: Load data
 
-Amplicon sequencing such as this usually reads in both directions, creating forward and reverse reads for every DNA fragment. These are stored as two separate files per sample - usually distinguished by a suffix like `_1` (forward) and `_2` (reverse) - and need to be kept paired up, since each forward/reverse pair represents one sequenced fragment.
+Amplicon sequencing such as this usually reads in both directions, creating forward and
+reverse reads for every DNA fragment. These are stored as two separate files per
+sample - usually distinguished by a suffix like `_1` (forward) and `_2` (reverse) - and
+need to be kept paired up, since each forward/reverse pair represents one sequenced
+fragment.
 
-The data must be read into the R environment. First point R at the folder containing your downloaded FASTQ files, then list and pair up the forward and reverse reads:
+The data must be read into the R environment. First point R at the folder containing
+your downloaded FASTQ files, then list and pair up the forward and reverse reads:
 
 ```r
 # Forward and reverse fastq filenames have format: SAMPLENAME_1.fq and SAMPLENAME_2.fq
@@ -158,7 +170,12 @@ sample.names
 length(fnFs) == length(fnRs)
 ```
 
-**Checkpoint:** If `length(fnFs)` and `length(fnRs)` don't match, it usually means a forward or reverse file is missing for one sample. Double check your `data` folder before continuing.
+:::{admonition} Checkpoint
+:class: tip
+
+If `length(fnFs)` and `length(fnRs)` don't match, it usually means a forward or reverse
+file is missing for one sample. Double check your `data` folder before continuing.
+:::
 
 ### Task 4: Inspect read quality profiles
 
@@ -208,13 +225,13 @@ names(filtFs) <- sample.names
 names(filtRs) <- sample.names
 
 # Filter and trim
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, 
+out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs,
                      truncLen = c(X, Y),
-                     maxN = 0, 
-                     maxEE = c(2, 2), 
-                     truncQ = 2, 
+                     maxN = 0,
+                     maxEE = c(2, 2),
+                     truncQ = 2,
                      rm.phix = TRUE,
-                     compress = TRUE, 
+                     compress = TRUE,
                      multithread = FALSE)
 
 head(out)
@@ -266,9 +283,12 @@ This is the core denoising step of the DADA2 pipeline. Using the error model lea
 **Task 6**, the `dada()` function looks at every unique sequence in each sample and
 works out which ones represent real biological variants and which are more likely
 sequencing errors of a more abundant "true" sequence. We now have our **amplicon
-sequence variants (ASVs)**! 
+sequence variants (ASVs)**!
 
-Note that this is applied separately to the forward and reverse reads. This is usually the slowest step in the whole pipeline, so it will take a while (Windows users especially, since this step doesn't multithread the same way it does on Mac/Linux). **So take a break!**
+Note that this is applied separately to the forward and reverse reads. This is usually
+the slowest step in the whole pipeline, so it will take a while (Windows users
+especially, since this step doesn't multithread the same way it does on Mac/Linux). **So
+take a break!**
 
 ```r
 # Run the core DADA2 denoising algorithm on the forward and reverse reads

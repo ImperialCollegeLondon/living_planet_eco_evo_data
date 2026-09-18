@@ -1,17 +1,17 @@
 ---
+authors:
+- name: Vivienne Groner
 jupytext:
   formats: md:myst
   text_representation:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.5
+    jupytext_version: 1.18.1
 kernelspec:
-  display_name: R
+  name: uvr-ecoevodata
+  display_name: R (ecoevodata)
   language: R
-  name: ir
-author:
-  - name: Vivienne Groner
 short_title: Microclimate
 ---
 
@@ -24,7 +24,8 @@ data.
 
 By the end of this tutorial, you will be able to:
 
-* Load and combine multiple sensor CSV files and habitat classification data from Excel files
+* Load and combine multiple sensor CSV files and habitat classification data from Excel
+  files
 * Clean your dataset and check for data quality issues
 * Identify and flag potential outliers using different methods
 * Visualize microclimate trends over time and across sites
@@ -58,16 +59,16 @@ notes.
 More generally, storing file paths in variables makes your code easier to update and
 maintain. If you move your data later, you only need to change the code in one place.
 
-```{code-cell} R
-# Define the full paths to the folder containing your sensor data and to the 
-# metadata file 
+```{code-cell} r
+# Define the full paths to the folder containing your sensor data and to the
+# metadata file
 sensor_data_folder <- "../data/Microclimate/2025"
 sensor_metadata_file <- "../data/SensorSites/2025/sensor_sites_2025.csv"
 
 # Get the paths to all of the CSV files containing climate data from this year. This
 # command searches all of the folders within the sensor data folder for *.txt files.
 microclimate_files <- dir(
-  path=sensor_data_folder, pattern="*.txt", 
+  path=sensor_data_folder, pattern="*.txt",
   recursive = TRUE, full.names = TRUE
 )
 
@@ -83,7 +84,7 @@ sensors is also odd - there is the serial number field that only uses the first 
 However, the main data is always in the first five columns. We can use the code below to
 compile the data across files into a single data frame.
 
-```{code-cell} R
+```{code-cell} r
 # Create an object name to collect combined data
 all_data <- NULL
 
@@ -91,9 +92,9 @@ for (each_file in microclimate_files) {
 
     # Load this file, handling Windows file encoding of characters
     data <- read.csv(each_file, encoding = "latin1")
-    
+
     # Extract the name of the first column, which is the sensor ID, _except_ that R does
-    # not like hyphens in variable names, so has converted DL-xxx to DL.xxx. So we'll 
+    # not like hyphens in variable names, so has converted DL-xxx to DL.xxx. So we'll
     # convert it back.
     sensor_id <- sub(".", "-", names(data)[1], fixed=TRUE)
 
@@ -102,7 +103,7 @@ for (each_file in microclimate_files) {
     names(data) <- c(
       "observation_id", "datetime", "temperature", "humidity", "dewpoint"
     )
-    
+
     # Record the sensor_id
     data$sensor_id <- sensor_id
 
@@ -127,7 +128,7 @@ start the loop over all the files.
 
 We should now be able to preview the data
 
-```{code-cell} R
+```{code-cell} r
 print(head(all_data))
 ```
 
@@ -186,19 +187,19 @@ because each sensor can have its own baseline, bias, and range of variation.
 :::{list-table}
 :header-rows: 1
 
-* * Method
+* Method
   * How It Works
   * Pros
   * Cons
-* * Visual
+* Visual
   * Use boxplots or scatterplots to spot unusual points visually.
   * Quick, intuitive, and easy to spot obvious anomalies.
   * Not systematic; subjective; may miss subtle outliers.
-* * Z-score
+* Z-score
   * Calculate how many standard deviations a value is from the mean.
   * Fast to compute; effective for bell-shaped (normal) data.
   * Misleading for skewed data or when extreme values distort mean and SD.
-* * Inter-quartile range (IQR)
+* Inter-quartile range (IQR)
   * Flags points outside 1.5×IQR below Q1 or above Q3 percentiles.
   * Robust to skewed data; less influenced by extreme values.
   * May label valid extreme values as outliers, especially with small sample sizes.
@@ -267,13 +268,13 @@ print(head(all_data_IQR))
 
 ## Visualize temperature over time with outliers highlighted
 
-```{code-cell} R
+```{code-cell} r
 :tags: [remove-cell]
 
 options(repr.plot.width=12, repr.plot.height=10)
 ```
 
-```{code-cell} R
+```{code-cell} r
 # Plot using IQR outlier flags
 p1 <- ggplot(
   all_data_IQR,
@@ -367,7 +368,7 @@ summary(anova_model) # View ANOVA table
 
 ## Boxplot maximum temperature - habitat type relationship
 
-```{code-cell} R
+```{code-cell} r
 ggplot(summary_data, aes(x = habitat, y = max_temperature)) +
   geom_boxplot(fill = "lightblue", alpha = 0.6) +
   geom_jitter(width = 0.1, size = 2, alpha = 0.7) +
@@ -384,8 +385,7 @@ ggplot(summary_data, aes(x = habitat, y = max_temperature)) +
 This is a good moment to export the combined data set from all sensors, including
 information on IQR and outliers.
 
-```{code-cell} R
-
+```{code-cell} r
 write.csv(all_data_IQR, file.path(sensor_data_folder, "all_sensor_data_2025.csv"))
 ```
 
@@ -422,3 +422,7 @@ essential steps in understanding your data set, spotting problems, and making
 sure your conclusions are valid.
 
 :::
+
+```{code-cell} r
+
+```

@@ -20,7 +20,7 @@ Natural History Museum:
 
 * the Living Planet program at the Silwood Park campus,
 * the Taxonomy, Biodiversity and Evolution MSc at the NHM, and
-* the  Biosystematics MRes at the NHM.
+* the Biosystematics MRes at the NHM.
 
 All of these practicals are **self-paced**: you can work through them at your own speed
 and call out when you need help.
@@ -28,7 +28,7 @@ and call out when you need help.
 ```{admonition} Work in progress
 :class: attention
 
-This site is a work in progress - not all of the practicals in the module have been 
+This site is a work in progress - not all of the practicals in the module have been
 added to this website
 ```
 
@@ -55,7 +55,7 @@ added to this website
 A lot of these practicals will consist of following provided code to understand how it
 works but occasionally there will be **tasks** to test the skills you have been
 learning. These will start with a task bar like the one above and then have a
-description like this one. There will then be a dropdown section like the one below: 
+description like this one. There will then be a dropdown section like the one below:
 if you get really stuck, you can click on this to show a solution. Do try and figure it
 out for yourself and if you don't understand something, ask a demonstrator to help.
 ```

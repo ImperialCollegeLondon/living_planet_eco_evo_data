@@ -1,1 +1,1 @@
-import{a}from"/build/_shared/chunk-D2MV22QF.js";import"/build/_shared/chunk-FPFMZRV6.js";import"/build/_shared/chunk-OZE3FFNP.js";export default a();
+import{a}from"https://imperialcollegelondon.github.io/living_planet_eco_evo_data/build/_shared/chunk-D2MV22QF.js";import"https://imperialcollegelondon.github.io/living_planet_eco_evo_data/build/_shared/chunk-FPFMZRV6.js";import"https://imperialcollegelondon.github.io/living_planet_eco_evo_data/build/_shared/chunk-OZE3FFNP.js";export default a();

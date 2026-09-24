@@ -10,8 +10,11 @@ languageserver = "*"
 patchwork = "*"
 rcartocolor = "*"
 rpart = "*"
+seewave = "*"
 sf = "*"
+soundecology = "*"
 terra = "*"
+tuneR = "*"
 
 [activate]
 prompt = true

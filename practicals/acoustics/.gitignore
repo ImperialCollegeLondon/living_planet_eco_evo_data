@@ -1,0 +1,3 @@
+
+# Ignore files in the outputs directory
+outputs/*

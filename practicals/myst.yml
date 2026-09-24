@@ -5,6 +5,10 @@ project:
   toc:
     - file: intro.md
     - file: practical_requirements.md
+    - file: acoustics/introduction.md
+      children:
+      - file: acoustics/visualisation.md
+      - file: acoustics/acoustic_indices.md
     - file: gis_practical/gis_practical.md
       children:
       - file: gis_practical/why_r_for_gis.md

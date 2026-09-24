@@ -35,6 +35,17 @@ folder and then create folders for each practical:
   * `bioinformatics`: This directory will be used for the
     [Bioinformatics](./bioinformatics/bioinformatics.md) practical.
 
+## Acoustics methods practicals
+
+You will need to install the following packages:
+
+```r
+# Core acoustics packages
+install.packages('tuneR')
+install.packages('seewave')
+install.packages('soundecology')
+```
+
 ## Spatial methods practical
 
 You will need to install the following packages:

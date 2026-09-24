@@ -26,6 +26,8 @@ The practicals include:
   spectrograms.
 * Calculating [ecological acoustic indices](./acoustic_indices.md) from acoustic data
   and comparing values through time and between sites.
+* Using [acoustic classifiers](./birdnet.md) such as BirdNET to identify species from
+  acoustic data for use in looking at species diversity and activity patterns.
 
 ## Practical data
 

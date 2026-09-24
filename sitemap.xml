@@ -17,6 +17,9 @@
     <loc>http://localhost:3000/acoustic-indices</loc>
   </url>
   <url>
+    <loc>http://localhost:3000/birdnet</loc>
+  </url>
+  <url>
     <loc>http://localhost:3000/gis-practical</loc>
   </url>
   <url>

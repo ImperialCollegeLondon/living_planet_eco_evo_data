@@ -28,4 +28,10 @@
   <url>
     <loc>http://localhost:3000/bioinformatics</loc>
   </url>
+  <url>
+    <loc>http://localhost:3000/bioinformatics-1</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/bioinformatics-2</loc>
+  </url>
 </urlset>

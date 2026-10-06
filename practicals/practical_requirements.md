@@ -35,7 +35,13 @@ folder and then create folders for each practical:
   * `bioinformatics`: This directory will be used for the
     [Bioinformatics](./bioinformatics/bioinformatics.md) practical.
 
-## Acoustics methods practicals
+## Practical requirements
+
+The sections below give the R packages and datasets required for each practical. If you
+are familiar with using virtual environments, you may want to look at the final section
+on managing the packages for the module using `uvr`.
+
+### Acoustics methods practicals
 
 You will need to install the following packages:
 
@@ -46,7 +52,7 @@ install.packages('seewave')
 install.packages('soundecology')
 ```
 
-## Spatial methods practical
+### Spatial methods practical
 
 You will need to install the following packages:
 
@@ -65,7 +71,7 @@ You will also need to download the practical data bundle:
   module](https://imperialcollegelondon.app.box.com/folder/353759097415) into the `data`
   directory.
 
-## Microclimate practical
+### Microclimate practical
 
 You will need to install the following packages:
 
@@ -84,3 +90,29 @@ You will also need to download the practical data bundle:
 * Download the SensorSites directory in the [Box site for the
   module](https://imperialcollegelondon.app.box.com/folder/353759097415) into the `data`
   directory.
+
+## Managing R project libraries
+
+One of the biggest problems with managing a large R project is keeping track of the
+versions of R and packages used for the analysis. This is particularly true if you are
+working in a big collaborative project - your code can fall apart _very_ fast if people
+are using different versions - but it is also vital for scientific reproduceability.
+There are a number of tools for different aspects of managing R versions and packages,
+but a recent one that covers basically all the ground with one tool is
+[`uvr`](https://nbafrank.github.io/uvr/).
+
+Before going any further:
+
+* This is a more advanced code management topic. You do not need to do this and can run
+  these practicals using your existing installation of R (either through R Studio or
+  not) and your existing R library.
+* The `uvr` package is new (first commit in March 2026) and is still in development
+  (version 0.4.6) but it is used to develop and build these practicals.
+
+If you want to try it out:
+
+1. Install `uvr`
+
+2. Download `uvr.toml`
+
+3. Run `uvr sync`

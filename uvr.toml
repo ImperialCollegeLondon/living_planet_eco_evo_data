@@ -1,13 +1,12 @@
 [project]
 name = "living_planet_eco_evo_data_uvr"
+r_version = "4.6.1"
 
 [dependencies]
-IRkernel = "*"
 birdnetR = "*"
 dplyr = "*"
 ggplot2 = "*"
 janitor = "*"
-languageserver = "*"
 patchwork = "*"
 rcartocolor = "*"
 rpart = "*"
@@ -16,6 +15,10 @@ sf = "*"
 soundecology = "*"
 terra = "*"
 tuneR = "*"
+
+[dev-dependencies]
+IRkernel = "*"
+languageserver = "*"
 
 [activate]
 prompt = true

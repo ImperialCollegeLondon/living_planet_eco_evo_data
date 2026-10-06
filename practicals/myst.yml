@@ -27,6 +27,9 @@ project:
     #   - file: gis_practical/saving_gis_files.md
     - file: microclimate/microclimate_sensor_analysis_EasyLog.md
     - file: bioinformatics/bioinformatics.md
+      children:
+      - file: bioinformatics/bioinformatics_1.md
+      - file: bioinformatics/bioinformatics_2.md
 
 site:
   options:

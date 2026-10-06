@@ -36,7 +36,7 @@ The specific aims are to:
 This practical is an adaptation of the [DADA2 Pipeline Tutorial
 (1.16)](https://benjjneb.github.io/dada2/tutorial.html), a useful resource for beginners
 in microbial bioinformatics. If you have any questions, please reach out to Theodore
-Brook (`T.Brook@kew.org`).
+Brook ([t.brook@kew.org](mailto:t.brook@kew.org)).
 
 ## Key terms
 
@@ -119,18 +119,25 @@ file.remove(zip_dest)
 list.files(path)
 
 # Set your save_path, this is where all your outputs will be saved
-save_path <- file.path(pat, "outputs")
+save_path <- file.path(path, "outputs")
 ```
 
 ### Task 2: Install and load packages (libraries)
 
 ```r
 # Install libraries
-install.packages("dada2") # a bioinformatic package to denoise amplicon sequencing data and infer ASVs
-install.packages("phyloseq") # a bioinformatic package to import, store, analyse, and plot microbiome (and phylogenetic) sequencing data
-install.packages("ggplot2") # a package for plotting
-install.packages("vegan") # a useful package for community ecology
-install.packages("Biostrings") # a memory-efficient package for the handling of large biological sequences (e.g., DNA, RNA, and proteins)
+# a bioinformatic package to denoise amplicon sequencing data and infer ASVs
+install.packages("dada2")
+# a bioinformatic package to import, store, analyse, and plot microbiome
+# (and phylogenetic) sequencing data
+install.packages("phyloseq")
+# a package for plotting
+install.packages("ggplot2")
+# a useful package for community ecology
+install.packages("vegan")
+# a memory-efficient package for the handling of large biological sequences
+# (e.g., DNA, RNA, and proteins)
+install.packages("Biostrings")
 
 # Load libraries
 library(dada2)
@@ -159,7 +166,9 @@ fnFs <- sort(list.files(path, pattern="_1.fq", full.names = TRUE))
 fnRs <- sort(list.files(path, pattern="_2.fq", full.names = TRUE))
 
 # Extract sample names
-sample.names <- sapply(strsplit(basename(fnFs), "_"), function(x) paste(x[-length(x)], collapse = "_"))
+sample.names <- sapply(
+  strsplit(basename(fnFs), "_"), function(x) paste(x[-length(x)], collapse = "_")
+)
 ```
 
 Before moving on, check that everything has loaded and paired up correctly:
@@ -179,13 +188,21 @@ file is missing for one sample. Double check your `data` folder before continuin
 
 ### Task 4: Inspect read quality profiles
 
-Before we can filter and trim the reads, we need to know where sequencing quality starts to drop off along each read. DADA2's `plotQualityProfile()` plots this for you.
+Before we can filter and trim the reads, we need to know where sequencing quality starts
+to drop off along each read. DADA2's `plotQualityProfile()` plots this for you.
 
-The grey heatmap shows the frequency of each quality score at each position along the read, the green line is the mean quality score at that position, the orange line is the median, and the orange dashed lines show the 25th and 75th quantiles. As a rule of thumb, quality tends to decline towards the end of the read and you are looking for the position where the mean quality (green line) drops below ~Q30, since that's where you'll want to truncate reads in the next task.
+The grey heatmap shows the frequency of each quality score at each position along the
+read, the green line is the mean quality score at that position, the orange line is the
+median, and the orange dashed lines show the 25th and 75th quantiles. As a rule of
+thumb, quality tends to decline towards the end of the read and you are looking for the
+position where the mean quality (green line) drops below ~Q30, since that's where you'll
+want to truncate reads in the next task.
 
 ```r
 # Set where quality profile plots will be saved
-dir.create(file.path(save_path, "quality_profiles"), recursive = TRUE, showWarnings = FALSE)
+dir.create(
+  file.path(save_path, "quality_profiles"), recursive = TRUE, showWarnings = FALSE
+)
 
 # Forward reads: quick overview across all samples at once
 quality_profiles_fnFs <- plotQualityProfile(fnFs)
@@ -194,8 +211,13 @@ quality_profiles_fnFs
 # Save each sample's forward-read profile as its own PNG
 for (i in seq_along(fnFs)) {
   p <- plotQualityProfile(fnFs[i])
-  ggsave(filename = file.path(save_path, "quality_profiles", paste0("quality_profile_forward_", sample.names[i], ".png")),
-         plot = p, width = 10, height = 7)
+  ggsave(
+    filename = file.path(
+        save_path, "quality_profiles",
+        paste0("quality_profile_forward_", sample.names[i], ".png")
+      ),
+    plot = p, width = 10, height = 7
+  )
 }
 
 # Reverse reads: quick overview across all samples at once
@@ -205,16 +227,25 @@ quality_profiles_fnRs
 # Save each sample's reverse-read profile as its own PNG
 for (i in seq_along(fnRs)) {
   p <- plotQualityProfile(fnRs[i])
-  ggsave(filename = file.path(save_path, "quality_profiles", paste0("quality_profile_reverse_", sample.names[i], ".png")),
-         plot = p, width = 10, height = 7)
+  ggsave(
+    filename = file.path(
+      save_path, "quality_profiles",
+      paste0("quality_profile_reverse_", sample.names[i], ".png")
+    ),
+    plot = p, width = 10, height = 7
+  )
 }
 ```
 
-**Checkpoint:** Look at your saved quality profiles. At roughly what position do the forward reads start to drop in quality? What about the reverse reads (these are usually a bit worse, can you think of why that might be)? Make a note of these positions, as you'll need them in the next task to set trimming lengths.
+**Checkpoint:** Look at your saved quality profiles. At roughly what position do the
+forward reads start to drop in quality? What about the reverse reads (these are usually
+a bit worse, can you think of why that might be)? Make a note of these positions, as
+you'll need them in the next task to set trimming lengths.
 
 ### Task 5: Filter and trim reads
 
-Now we have an idea of the quality of our sequences, we need to filter and trim sequences to remove low quality regions.
+Now we have an idea of the quality of our sequences, we need to filter and trim
+sequences to remove low quality regions.
 
 ```r
 # Place filtered files in filtered/ subdirectory
@@ -245,7 +276,9 @@ filtFs <- sort(list.files(filt_path, pattern="_F_filt.fastq.gz", full.names = TR
 filtRs <- sort(list.files(filt_path, pattern="_R_filt.fastq.gz", full.names = TRUE))
 
 # Extract sample names from filtered files
-sample.names <- sapply(strsplit(basename(filtFs), "_"), function(x) paste(x[1:(length(x)-2)], collapse="_"))
+sample.names <- sapply(
+  strsplit(basename(filtFs), "_"), function(x) paste(x[1:(length(x)-2)], collapse="_")
+)
 ```
 
 **Checkpoint:** You must set `X` and `Y` to the end position you want to truncate the
@@ -299,7 +332,8 @@ dadaRs <- dada(filtRs, err = errR, multithread = TRUE)
 dadaFs[[1]]
 dadaRs[[1]]
 
-# Save RDS - this allows you to reload the R data, rather than running the whole script above (e.g. if your R session crashes for whatever reason)
+# Save RDS - this allows you to reload the R data, rather than running the whole script
+# above (e.g. if your R session crashes for whatever reason)
 saveRDS(dadaFs, file = file.path(save_path, "dadaFs.rds"))
 saveRDS(dadaRs, file = file.path(save_path, "dadaRs.rds"))
 
@@ -427,7 +461,9 @@ species-level calls where the match is confident enough.
 ```r
 # For reference, this is what generated the results you're loading below
 # (you do not need to run this - it can take hours):
-# taxa <- assignTaxonomy(seqtab.nochim, "**TBC!!! path to reference database**", multithread = TRUE)
+# taxa <- assignTaxonomy(
+#   seqtab.nochim, "**TBC!!! path to reference database**", multithread = TRUE
+# )
 # species <- addSpecies(taxa, "**TBC!!! path to species reference**")
 
 taxa <- readRDS("**TBC!!! path/URL for students to fetch taxa.rds**")
@@ -493,7 +529,9 @@ seqtab.nochim.rarefied <- seqtab.nochim.rarefied[, colSums(seqtab.nochim.rarefie
 cat("ASVs retained after rarefaction:", ncol(seqtab.nochim.rarefied),
     "out of", ncol(seqtab.nochim), "\n")
 
-saveRDS(seqtab.nochim.rarefied, file = file.path(save_path, "seqtab.nochim.rarefied.rds"))
+saveRDS(
+  seqtab.nochim.rarefied, file = file.path(save_path, "seqtab.nochim.rarefied.rds")
+)
 write.csv(as.data.frame(t(seqtab.nochim.rarefied)),
           file = file.path(save_path, "sequence_table_no_chimeras_rarefied.csv"))
 
@@ -501,9 +539,15 @@ rarefaction_summary <- data.frame(
   sample = rownames(seqtab_keep),
   original_depth = rowSums(seqtab_keep),
   rarefied_depth = rowSums(seqtab.nochim.rarefied),
-  percent_retained = round((rowSums(seqtab.nochim.rarefied) / rowSums(seqtab_keep)) * 100, 2)
+  percent_retained = round(
+    (rowSums(seqtab.nochim.rarefied) / rowSums(seqtab_keep)) * 100, 2
+  )
 )
-write.csv(rarefaction_summary, file = file.path(save_path, "rarefaction_summary.csv"), row.names = FALSE)
+write.csv(
+  rarefaction_summary,
+  file = file.path(save_path, "rarefaction_summary.csv"),
+  row.names = FALSE
+)
 ```
 
 ### Task 16: Match taxonomy to the rarefied ASVs
@@ -519,8 +563,14 @@ species_rarefied <- species[rownames(species) %in% rarefied_asvs, , drop = FALSE
 
 saveRDS(taxa_rarefied, file = file.path(save_path, "taxa_rarefied.rds"))
 saveRDS(species_rarefied, file = file.path(save_path, "species_rarefied.rds"))
-write.csv(as.data.frame(taxa_rarefied), file = file.path(save_path, "taxonomy_assignment_rarefied.csv"))
-write.csv(as.data.frame(species_rarefied), file = file.path(save_path, "species_assignment_rarefied.csv"))
+write.csv(
+  as.data.frame(taxa_rarefied),
+  file = file.path(save_path, "taxonomy_assignment_rarefied.csv")
+)
+write.csv(
+  as.data.frame(species_rarefied),
+  file = file.path(save_path, "species_assignment_rarefied.csv")
+)
 ```
 
 ## Section 3: Community-level analysis

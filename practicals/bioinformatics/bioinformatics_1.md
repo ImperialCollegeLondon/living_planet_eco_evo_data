@@ -207,7 +207,7 @@ one or more of the sequences in the alignment. The sequences we are aligning her
 relatively straightforward as they are well conserved. We will align less well conserved
 sequences in practical 2 - that can be more difficult.
 
-[](https://www.ebi.ac.uk/jdispatcher/msa/clustalo?stype=dna)
+[https://www.ebi.ac.uk/jdispatcher/msa/clustalo?stype=dna](https://www.ebi.ac.uk/jdispatcher/msa/clustalo?stype=dna)
 
 We will use `clustal omega`. Copy and paste the sequences from the ‘sequences file’ into
 the box provided.
@@ -222,7 +222,7 @@ file starts with a >
 In order to generate and view the phylogenetic tree in a clear conceptual format first
 copy the image in the ‘phylogenetic tree’ output and then paste it into the site below
 
-[](http://iubioarchive.bio.net/treeapp/treeprint-form.html)
+[http://iubioarchive.bio.net/treeapp/treeprint-form.html](http://iubioarchive.bio.net/treeapp/treeprint-form.html)
 
 Upload the tree file, click on ‘phylogenetic tree’ and copy and paste the treefile (it
 contains lots of brackets and numbers/taxa) from the clustal alignment. Click on ‘tree

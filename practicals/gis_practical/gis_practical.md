@@ -58,14 +58,20 @@ assessment, so you will need to:
 
 1. Follow [this guide](../practical_requirements.md) on setting up packages and data for
    this practical.
+
 1. Create a new R script file to run the practical analyses.
+
 1. Copy example code from the practical into your script and run it from your script.
+
 1. Check you understand what the code is doing - add extra comments, ask questions.
+
 1. The practical contains exercises where you are asked to use the previous example to
   write and run your own code. Write your solution into your script file and again add
   comments for when you come back to it!
+
 1. The practical contains solutions for all the exercises, but do try and solve them
   yourself.
+
 1. At the end of the practical, you should have:
 
     * A set of GIS data files that allow you to add further environmental context to the

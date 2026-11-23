@@ -24,6 +24,7 @@ Because these practicals link up and share data, it is best to set up a shared `
 folder and then create folders for each practical:
 
 * Create a directory for the practicals (e.g. `eco_evo_data_science`).
+
 * Within that directory, create the following directories:
 
   * `data`: this will contains subfolders containing the different types of sensor

@@ -107,6 +107,7 @@ time. The time data here is tricky:
 * We are not interested in the date and time, but just the time itself, to look at when
   birds are singing during the diel cycle. So we use the `hms()` function to get a pure
   time value rather than a date time.
+
 * We need to extract the time components from the file name. The code here uses regular
   expressions to extract the data. You can look at a [detailed
   breakdown](https://regex101.com/r/gYuXBU/2) of the regular expression, but the basic

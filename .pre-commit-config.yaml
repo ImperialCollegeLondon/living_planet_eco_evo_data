@@ -27,7 +27,7 @@ repos:
   #     - id: markdownlint
   #       exclude: '(^|/)rendered/|\.ipynb_checkpoints'
   - repo: https://github.com/rvben/rumdl-pre-commit
-    rev: v0.2.73
+    rev: v0.3.5
     hooks:
       - id: rumdl      # Lint only; add args [--fix] to auto-fix
       - id: rumdl-fmt  # Pure format, exits 0 on violations
@@ -36,13 +36,13 @@ repos:
     # Note that this currently points to a specific GitHub commit to avoid an issue with
     # Rcpp: https://github.com/lorenzwalthert/precommit/issues/612 but should be updated
     # when that issue gets resolved in a published version.
-    rev: v0.4.3.9029
+    rev: v0.4.3.9034
     hooks:
       - id: parsable-R
       - id: no-browser-statement
       - id: no-debug-statement
   - repo: https://github.com/posit-dev/air-pre-commit
     # Air formatter for R codes
-    rev: 0.10.0
+    rev: 0.13.0
     hooks:
       - id: air-format

@@ -166,7 +166,7 @@ real. Always think carefully before you remove any points from your data set.
 
 The peaks at the start and end of your recording period are likely the room temperature
 of the lab and can be dropped. You can either use information on when the sensor was
-placed/retreived or the methods below to decide which data to remove from further analysis.
+placed/retrieved or the methods below to decide which data to remove from further analysis.
 
 ### Quick detour: Comparison to station data
 

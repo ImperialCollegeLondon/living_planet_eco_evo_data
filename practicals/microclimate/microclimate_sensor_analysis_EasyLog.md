@@ -289,7 +289,6 @@ p1 <- ggplot(
   aes(x = datetime, y = temperature, color = temp_outlier_IQR)
 ) +
   geom_point() +
-  #geom_line() +
   scale_color_manual(values = c("black", "red")) +
   labs(
     title = "Temperature over Time (IQR Outliers)",

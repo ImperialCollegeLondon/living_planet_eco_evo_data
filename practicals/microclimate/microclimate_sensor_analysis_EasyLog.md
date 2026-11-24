@@ -164,6 +164,10 @@ If you see values far outside the main cluster, they might be outliers or errors
 However, remember: **not all extreme values are mistakes**, a sudden heat spike could be
 real. Always think carefully before you remove any points from your data set.
 
+The peaks at the start and end of your recording period are likely the room temperature
+of the lab and can be dropped. You can either use information on when the sensor was
+placed/retreived or the methods below to decide which data to remove from further analysis.
+
 ### Quick detour: Comparison to station data
 
 Go online to explore historic weather data:
@@ -285,7 +289,7 @@ p1 <- ggplot(
   aes(x = datetime, y = temperature, color = temp_outlier_IQR)
 ) +
   geom_point() +
-  geom_line() +
+  #geom_line() +
   scale_color_manual(values = c("black", "red")) +
   labs(
     title = "Temperature over Time (IQR Outliers)",

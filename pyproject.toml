@@ -38,3 +38,10 @@ line-length = 88
 
 [tool.rumdl.MD007]
 indent = 2
+
+[tool.codespell]
+exclude-file = ".codespell_exclude_lines"
+# Ignore words
+# - acoustic indices has lots of ACI,aci
+ignore-words-list = "ACI,aci"
+skip = "*.lock"

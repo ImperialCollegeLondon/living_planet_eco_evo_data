@@ -530,7 +530,7 @@ write.csv(
 ## Optional extension 2: Explore other variables and relationships
 
 Now that you are familiar with the dataset, go explore other variables,
-statistics, or relatioships, for example:
+statistics, or relationships, for example:
 
 * Plotting humidity vs. habitat type
 * Looking at the diurnal cycle (average daily patterns)

@@ -39,7 +39,15 @@ repos:
   #     - id: no-browser-statement
   #     - id: no-debug-statement
   - repo: https://github.com/posit-dev/air-pre-commit
-    # Air formatter for R codes
+    # Air formatter for R codes - unfortunately this doesn't currently handle MyST
+    # notebooks
     rev: 0.10.0
     hooks:
       - id: air-format
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.3
+    hooks:
+    - id: codespell
+      args: ["--toml", "pyproject.toml"]
+      additional_dependencies:
+        - tomli

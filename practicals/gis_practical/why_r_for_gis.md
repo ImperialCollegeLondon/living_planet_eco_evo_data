@@ -20,7 +20,7 @@ There are a number of really good reasons for using R for the GIS in this module
 
 * It is an open-source, cross-platform and free program.
 * It provides a powerful set of GIS data tools and packages extend this GIS
-  functionality into a well estabished ecosystem of R packages for ecological and
+  functionality into a well established ecosystem of R packages for ecological and
   evolutionary analysis, including species distribution modelling, population genetics
   and many other areas.
 * Writing spatial analyses as R scripts provides a clear reproducible research record.

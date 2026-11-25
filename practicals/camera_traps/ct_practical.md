@@ -60,16 +60,21 @@ install the software.
 ``` {code-cell} r
  :tags: [remove-stderr]
 
- install.packages("readxl")
 # used to read the Excel datasheet
-install.packages("dplyr") \# used to wrangle data
-install.packages("devtools") \# used to install the ctrest packages
-install.packages("ggplot2") \# used for plotting
+install.packages("readxl")
+# used to wrangle data
+install.packages("dplyr")
+# used to install the ctrest packages
+install.packages("devtools")
+# used for plotting
+install.packages("ggplot2")
+# Install package directly from github
 devtools::install_github("YoshihiroNakashima/ctrest", build_vignettes = TRUE)
 
 library(ctrest)
 library(dplyr)
-library(ggplot2)library(readxl)
+library(ggplot2)
+library(readxl)
 ```
 
 ## Datasets
@@ -100,12 +105,13 @@ camera trap folder (`REST_data_WINTER_2026.csv`).
 
 ## The REST model
 
-We use the REST model to estimate the density of different animal species, in terms of
-individuals per km². The REST model assumes that animals move randomly with respect to
-the camera, so that the total time animals spend in front of the camera depends on how
-many animals there are. REST measures that time, and uses it to work out how many
-animals must be around to produce it. For each species, the model needs four pieces of
-information:
+We use the [REST
+model](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210x.70248) to
+estimate the density of different animal species, in terms of individuals per km². The
+REST model assumes that animals move randomly with respect to the camera, so that the
+total time animals spend in front of the camera depends on how many animals there are.
+REST measures that time, and uses it to work out how many animals must be around to
+produce it. For each species, the model needs four pieces of information:
 
 1. **Passes.** The number of times animals entered the *focal area* (the triangles we
    set up in front of each video) in each video.

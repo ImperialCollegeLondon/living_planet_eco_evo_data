@@ -64,53 +64,6 @@ checksum = "md5:92502b5e17bc36390d9e52c0f2c2e0f0"
 requires = ["lattice"]
 
 [[package]]
-name = "R.cache"
-version = "0.17.0"
-source = "cran"
-raw_version = "0.17.0"
-url = "https://cran.r-project.org/src/contrib/R.cache_0.17.0.tar.gz"
-checksum = "md5:022ee6cbe4b53c34c0bbf1b2ebe628a2"
-requires = [
-    "R.methodsS3",
-    "R.oo",
-    "R.utils",
-    "digest",
-]
-dev = true
-
-[[package]]
-name = "R.methodsS3"
-version = "1.8.2"
-source = "cran"
-raw_version = "1.8.2"
-url = "https://cran.r-project.org/src/contrib/R.methodsS3_1.8.2.tar.gz"
-checksum = "md5:8af7a9c90f4f1daebfa0e6c7722e05b8"
-dev = true
-
-[[package]]
-name = "R.oo"
-version = "1.27.1"
-source = "cran"
-raw_version = "1.27.1"
-url = "https://cran.r-project.org/src/contrib/R.oo_1.27.1.tar.gz"
-checksum = "md5:506bc62c712cba39afd29aeb305b7312"
-requires = ["R.methodsS3"]
-dev = true
-
-[[package]]
-name = "R.utils"
-version = "2.13.0"
-source = "cran"
-raw_version = "2.13.0"
-url = "https://cran.r-project.org/src/contrib/R.utils_2.13.0.tar.gz"
-checksum = "md5:1b65c3a80a4d1d4abae9e742fe5e5985"
-requires = [
-    "R.oo",
-    "R.methodsS3",
-]
-dev = true
-
-[[package]]
 name = "R6"
 version = "2.6.1"
 source = "cran"
@@ -148,11 +101,11 @@ requires = [
 
 [[package]]
 name = "S7"
-version = "0.2.2"
+version = "1.0.0"
 source = "cran"
-raw_version = "0.2.2"
-url = "https://cran.r-project.org/src/contrib/S7_0.2.2.tar.gz"
-checksum = "md5:6a40d3eae470be0f06a03737b9391269"
+raw_version = "1.0.0"
+url = "https://cran.r-project.org/src/contrib/S7_1.0.0.tar.gz"
+checksum = "md5:efb87f59334cee4c9ea0a8af20bf80e6"
 
 [[package]]
 name = "base64enc"
@@ -231,15 +184,6 @@ source = "cran"
 raw_version = "2.1.8.3"
 url = "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz"
 checksum = "md5:b6c742457ff06f5f3a20d883afdd19a7"
-
-[[package]]
-name = "codetools"
-version = "0.2.20"
-source = "cran"
-raw_version = "0.2-20"
-url = "https://cran.r-project.org/src/contrib/codetools_0.2-20.tar.gz"
-checksum = "md5:b6d2fb49c00a528b04f574892359aa55"
-dev = true
 
 [[package]]
 name = "collections"
@@ -376,11 +320,11 @@ checksum = "md5:dda54b65216fe3c53571d2adaddc7461"
 
 [[package]]
 name = "ggplot2"
-version = "4.0.3"
+version = "4.0.4"
 source = "cran"
-raw_version = "4.0.3"
-url = "https://cran.r-project.org/src/contrib/ggplot2_4.0.3.tar.gz"
-checksum = "md5:c50d6864f6226ed9759e5deaa0a25e7f"
+raw_version = "4.0.4"
+url = "https://cran.r-project.org/src/contrib/ggplot2_4.0.4.tar.gz"
+checksum = "md5:311e2e3e31a41b99269a46575056c10f"
 requires = [
     "cli",
     "gtable",
@@ -548,22 +492,22 @@ checksum = "md5:915e6c823c1d8243641ce97253389f14"
 
 [[package]]
 name = "languageserver"
-version = "0.3.20"
+version = "0.3.22"
 source = "cran"
-raw_version = "0.3.20"
-url = "https://cran.r-project.org/src/contrib/languageserver_0.3.20.tar.gz"
-checksum = "md5:059cd3f1b895c40d32e61a0a7fcb36c0"
+raw_version = "0.3.22"
+url = "https://cran.r-project.org/src/contrib/languageserver_0.3.22.tar.gz"
+checksum = "md5:42ad225cbc62d430504e549b94a708a3"
 requires = [
     "callr",
     "collections",
     "digest",
     "fs",
     "jsonlite",
-    "lintr",
+    "processx",
+    "ps",
     "R6",
     "roxygen2",
     "stringi",
-    "styler",
     "xml2",
     "xmlparsedata",
 ]
@@ -590,26 +534,6 @@ requires = [
 ]
 
 [[package]]
-name = "lintr"
-version = "3.4.0"
-source = "cran"
-raw_version = "3.4.0"
-url = "https://cran.r-project.org/src/contrib/lintr_3.4.0.tar.gz"
-checksum = "md5:3fdc242e5d410fdc82f9fb893b0bbdf1"
-requires = [
-    "cli",
-    "codetools",
-    "digest",
-    "glue",
-    "knitr",
-    "rex",
-    "xfun",
-    "xml2",
-    "xmlparsedata",
-]
-dev = true
-
-[[package]]
 name = "lubridate"
 version = "1.9.5"
 source = "cran"
@@ -631,11 +555,11 @@ checksum = "md5:4ee23a88bc1589527696d777d7e68dfc"
 
 [[package]]
 name = "mgcv"
-version = "1.9.4"
+version = "1.9.5"
 source = "cran"
-raw_version = "1.9-4"
-url = "https://cran.r-project.org/src/contrib/mgcv_1.9-4.tar.gz"
-checksum = "md5:bcf455bf12d6ed0216e767f4911a9af9"
+raw_version = "1.9-5"
+url = "https://cran.r-project.org/src/contrib/mgcv_1.9-5.tar.gz"
+checksum = "md5:5a88e8ede6eab594a0399a8329f580e9"
 requires = [
     "nlme",
     "Matrix",
@@ -643,11 +567,11 @@ requires = [
 
 [[package]]
 name = "nlme"
-version = "3.1.171"
+version = "3.1.172"
 source = "cran"
-raw_version = "3.1-171"
-url = "https://cran.r-project.org/src/contrib/nlme_3.1-171.tar.gz"
-checksum = "md5:f68635ab19fe0acbd0035c5b12e3a6d4"
+raw_version = "3.1-172"
+url = "https://cran.r-project.org/src/contrib/nlme_3.1-172.tar.gz"
+checksum = "md5:f1d1b094f771664e3b34cbae4a1ded4d"
 requires = ["lattice"]
 
 [[package]]
@@ -665,11 +589,11 @@ requires = [
 
 [[package]]
 name = "otel"
-version = "0.2.0"
+version = "0.3.0"
 source = "cran"
-raw_version = "0.2.0"
-url = "https://cran.r-project.org/src/contrib/otel_0.2.0.tar.gz"
-checksum = "md5:cecd0f434a6327dcf5ca0bc2da494d06"
+raw_version = "0.3.0"
+url = "https://cran.r-project.org/src/contrib/otel_0.3.0.tar.gz"
+checksum = "md5:b9c41923305ec69ba71e80b63e86ec02"
 dev = true
 
 [[package]]
@@ -698,11 +622,11 @@ dev = true
 
 [[package]]
 name = "permute"
-version = "0.9.10"
+version = "0.10.1"
 source = "cran"
-raw_version = "0.9-10"
-url = "https://cran.r-project.org/src/contrib/permute_0.9-10.tar.gz"
-checksum = "md5:a6bd560a04d3df99268d5f3255477837"
+raw_version = "0.10-1"
+url = "https://cran.r-project.org/src/contrib/permute_0.10-1.tar.gz"
+checksum = "md5:77db61dea2fca235e65f05cf8cf041a0"
 
 [[package]]
 name = "pillar"
@@ -782,11 +706,11 @@ checksum = "md5:cd38dfab15df0e2fe0d56ac40644ef29"
 
 [[package]]
 name = "processx"
-version = "3.9.0"
+version = "3.10.0"
 source = "cran"
-raw_version = "3.9.0"
-url = "https://cran.r-project.org/src/contrib/processx_3.9.0.tar.gz"
-checksum = "md5:c4e0ed59285d195cdb03c66e3a9cb76d"
+raw_version = "3.10.0"
+url = "https://cran.r-project.org/src/contrib/processx_3.10.0.tar.gz"
+checksum = "md5:787f91ac0ed47ea60bba66d8b548b2d4"
 requires = [
     "ps",
     "R6",
@@ -891,16 +815,6 @@ requires = [
 ]
 
 [[package]]
-name = "rex"
-version = "1.2.2"
-source = "cran"
-raw_version = "1.2.2"
-url = "https://cran.r-project.org/src/contrib/rex_1.2.2.tar.gz"
-checksum = "md5:badb771be4124e348912f34b50b98296"
-requires = ["withr"]
-dev = true
-
-[[package]]
 name = "rlang"
 version = "1.3.0"
 source = "cran"
@@ -910,11 +824,11 @@ checksum = "md5:b52c165e43f4d7fe5cfa15c5c9467ff4"
 
 [[package]]
 name = "roxygen2"
-version = "8.1.0"
+version = "8.1.1"
 source = "cran"
-raw_version = "8.1.0"
-url = "https://cran.r-project.org/src/contrib/roxygen2_8.1.0.tar.gz"
-checksum = "md5:db68d5c2c7cff5bf6c7db0069507a465"
+raw_version = "8.1.1"
+url = "https://cran.r-project.org/src/contrib/roxygen2_8.1.1.tar.gz"
+checksum = "md5:9c8666c36cdff91561fa7176dae67c98"
 requires = [
     "brew",
     "cli",
@@ -1068,25 +982,6 @@ requires = [
 ]
 
 [[package]]
-name = "styler"
-version = "1.11.0"
-source = "cran"
-raw_version = "1.11.0"
-url = "https://cran.r-project.org/src/contrib/styler_1.11.0.tar.gz"
-checksum = "md5:ba7f38084bd75766e1e25af9be99276f"
-requires = [
-    "cli",
-    "magrittr",
-    "purrr",
-    "R.cache",
-    "rlang",
-    "rprojroot",
-    "vctrs",
-    "withr",
-]
-dev = true
-
-[[package]]
 name = "terra"
 version = "1.9.50"
 source = "cran"
@@ -1216,11 +1111,11 @@ requires = [
 
 [[package]]
 name = "vegan"
-version = "2.7.6"
+version = "2.7.8"
 source = "cran"
-raw_version = "2.7-6"
-url = "https://cran.r-project.org/src/contrib/vegan_2.7-6.tar.gz"
-checksum = "md5:630a6dd9cef2e337035107cc6dbb6223"
+raw_version = "2.7-8"
+url = "https://cran.r-project.org/src/contrib/vegan_2.7-8.tar.gz"
+checksum = "md5:25b040b7c4d852d39cc65e78b584fe34"
 requires = [
     "permute",
     "MASS",
@@ -1255,11 +1150,11 @@ checksum = "md5:2f70ad0274a5d83a8a9de1dfe85da0ea"
 
 [[package]]
 name = "xfun"
-version = "0.61.0"
+version = "0.62.0"
 source = "cran"
-raw_version = "0.61"
-url = "https://cran.r-project.org/src/contrib/xfun_0.61.tar.gz"
-checksum = "md5:70130070c686204fb71dbf20c6c871ac"
+raw_version = "0.62"
+url = "https://cran.r-project.org/src/contrib/xfun_0.62.tar.gz"
+checksum = "md5:93bc01d797fcdf1e4014998e4c248bd7"
 dev = true
 
 [[package]]

@@ -24,7 +24,7 @@ data.
 
 By the end of this tutorial, you will be able to:
 
-* Load a single EasyLog sensor CSV file
+* Load EasyLog sensor CSV files
 * Clean your dataset and check for data quality issues
 * Identify and flag potential outliers using different methods
 * Visualize microclimate trends over time
@@ -91,7 +91,7 @@ print(logger_file)
 
 Sensor data often contain inconsistencies such as mixed date formats or data types,
 which can cause issues during analysis. The format of the output files from the EasyLog
-sensors is also odd - there is the serial number field that only uses the first row.
+sensors is also odd, there is the serial number field that only uses the first row.
 However, the main data is always in the first five columns. We can use the code below to
 compile the data into a data frame.
 
@@ -304,7 +304,6 @@ p2 <- ggplot(
   aes(x = datetime, y = temperature, color = temp_outlier_Z)
 ) +
   geom_point() +
-  geom_line() +
   scale_color_manual(values = c("black", "blue")) +
   labs(
     title = "Temperature over Time (Z-score Outliers)",

@@ -91,6 +91,11 @@ You will also need to download the practical data bundle:
   module](https://imperialcollegelondon.app.box.com/folder/353759097415) into the `data`
   directory.
 
+To retrieve the microclimate data from the EasyLog USB datalogger, you will need to download
+the
+[EasyLog USB Software](https://lascarelectronics.com/intl/software/easylog-software/easylog-usb/).
+Note that the software is compatible with **Windows 10 and 11 only**.
+
 ## Managing R project libraries
 
 One of the biggest problems with managing a large R project is keeping track of the

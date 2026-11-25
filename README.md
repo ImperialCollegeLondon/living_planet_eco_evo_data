@@ -66,6 +66,8 @@ git clone https://github.com/ImperialCollegeLondon/living_planet_eco_evo_data.gi
    make sure that we are running the right environments for both Python and R!
 
 ```sh
+# Create the R environment activation script (run once after `uvr sync`).
+uvr activate --write-shim
 # Activate the Python environment - this will change your command prompt to add
 # the text `(living-planet-eco-evo-data)`.
 source .venv/bin/activate

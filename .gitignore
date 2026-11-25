@@ -2,8 +2,15 @@
 .venv
 
 # uvr
-/.uvr/library/
-/.uvr/activate*
+.uvr/*
+.uvr/library/
+.uvr/activate*
 
 # Mac
 .DS_Store
+
+# IDE
+.vscode
+
+# Jupyter checkpoints in any location
+.ipynb_checkpoints

@@ -1,2 +1,6 @@
 # Ignore the Jupyter Book _build directory
 _build
+
+# Ignore data directories
+data/*
+original_data_sources/*

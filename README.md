@@ -84,7 +84,7 @@ R -e "IRkernel::installspec(name = 'uvr-ecoevodata', displayname = 'R (ecoevodat
 
 ## Adding content and deployment
 
-**IMPORTANT**: The build process requires the underlying datasets used to demonstrate
+**IMPORTANT**: The build process requires the underlying datasets used to demonstrateS
 the code and generate figures and graphics. These are large datafiles and are not
 included in the repository. At the moment, we do not have a shared location containing
 the build data but the plan is to provide a downloadable `data` directory that can be

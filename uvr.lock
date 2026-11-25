@@ -1,5 +1,66 @@
 [r]
 version = "4.6.1"
+bioc_version = "3.23"
+
+[[package]]
+name = "BH"
+version = "1.90.0-4.1"
+source = "cran"
+raw_version = "1.90.0-1"
+url = "https://cran.r-project.org/src/contrib/BH_1.90.0-1.tar.gz"
+checksum = "md5:4b82aea7c6223ea0048c3edbe1a2caa0"
+
+[[package]]
+name = "Biobase"
+version = "2.72.0"
+source = "bioconductor"
+raw_version = "2.72.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/Biobase_2.72.0.tar.gz"
+checksum = "md5:b3b23749597ddfccf0daeee65d1ec8f8"
+requires = ["BiocGenerics"]
+
+[[package]]
+name = "BiocGenerics"
+version = "0.58.1"
+source = "bioconductor"
+raw_version = "0.58.1"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/BiocGenerics_0.58.1.tar.gz"
+checksum = "md5:6aa4beaff2e84c0ff9d155a346a66eaa"
+requires = ["generics"]
+
+[[package]]
+name = "BiocParallel"
+version = "1.46.0"
+source = "bioconductor"
+raw_version = "1.46.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/BiocParallel_1.46.0.tar.gz"
+checksum = "md5:6b273932d1944fa81ae0e2cf8a2cc471"
+requires = [
+    "futile.logger",
+    "snow",
+    "codetools",
+    "BH",
+    "cpp11",
+]
+
+[[package]]
+name = "Biostrings"
+version = "2.80.2"
+source = "bioconductor"
+raw_version = "2.80.2"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/Biostrings_2.80.2.tar.gz"
+checksum = "md5:1ca4c420eb164cef95edad78b9a8baea"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "XVector",
+    "Seqinfo",
+    "crayon",
+    "S4Vectors",
+    "IRanges",
+    "XVector",
+]
 
 [[package]]
 name = "DBI"
@@ -8,6 +69,78 @@ source = "cran"
 raw_version = "1.3.0"
 url = "https://cran.r-project.org/src/contrib/DBI_1.3.0.tar.gz"
 checksum = "md5:ce5e3153cc7395a2aac452db1099d003"
+
+[[package]]
+name = "DelayedArray"
+version = "0.38.2"
+source = "bioconductor"
+raw_version = "0.38.2"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/DelayedArray_0.38.2.tar.gz"
+checksum = "md5:01223fbdc2a77a81a05b2683f1bd317f"
+requires = [
+    "Matrix",
+    "BiocGenerics",
+    "MatrixGenerics",
+    "S4Vectors",
+    "IRanges",
+    "S4Arrays",
+    "SparseArray",
+]
+
+[[package]]
+name = "GenomicAlignments"
+version = "1.48.0"
+source = "bioconductor"
+raw_version = "1.48.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/GenomicAlignments_1.48.0.tar.gz"
+checksum = "md5:37dc95156b10e04873ca4d08f13802ce"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "Seqinfo",
+    "GenomicRanges",
+    "SummarizedExperiment",
+    "Biostrings",
+    "Rsamtools",
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "GenomicRanges",
+    "Biostrings",
+    "Rsamtools",
+    "BiocParallel",
+    "cigarillo",
+    "S4Vectors",
+    "IRanges",
+]
+
+[[package]]
+name = "GenomicRanges"
+version = "1.64.0"
+source = "bioconductor"
+raw_version = "1.64.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/GenomicRanges_1.64.0.tar.gz"
+checksum = "md5:16b687fa031d965176f4e50532fef0a1"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "Seqinfo",
+]
+
+[[package]]
+name = "IRanges"
+version = "2.46.0"
+source = "bioconductor"
+raw_version = "2.46.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/IRanges_2.46.0.tar.gz"
+checksum = "md5:19207bce0e7449363d4bd4e1f4c84dd0"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "S4Vectors",
+]
 
 [[package]]
 name = "IRdisplay"
@@ -64,6 +197,15 @@ checksum = "md5:92502b5e17bc36390d9e52c0f2c2e0f0"
 requires = ["lattice"]
 
 [[package]]
+name = "MatrixGenerics"
+version = "1.24.0"
+source = "bioconductor"
+raw_version = "1.24.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/MatrixGenerics_1.24.0.tar.gz"
+checksum = "md5:4695a279932ea75cf770fc4e3327e854"
+requires = ["matrixStats"]
+
+[[package]]
 name = "R6"
 version = "2.6.1"
 source = "cran"
@@ -88,6 +230,38 @@ url = "https://cran.r-project.org/src/contrib/Rcpp_1.1.2.tar.gz"
 checksum = "md5:353d35176db9c570705a0a324c06fdca"
 
 [[package]]
+name = "RcppArmadillo"
+version = "15.8.0-4.1"
+source = "cran"
+raw_version = "15.8.0-1"
+url = "https://cran.r-project.org/src/contrib/RcppArmadillo_15.8.0-1.tar.gz"
+checksum = "md5:adbd9d64fc6f9b5a423fa82738d2d442"
+requires = [
+    "Rcpp",
+    "Rcpp",
+]
+
+[[package]]
+name = "RcppEigen"
+version = "0.3.4-4.0.2"
+source = "cran"
+raw_version = "0.3.4.0.2"
+url = "https://cran.r-project.org/src/contrib/RcppEigen_0.3.4.0.2.tar.gz"
+checksum = "md5:d636083ce19deae8f32883170314f2ea"
+requires = [
+    "Rcpp",
+    "Rcpp",
+]
+
+[[package]]
+name = "RcppParallel"
+version = "6.2.1"
+source = "cran"
+raw_version = "6.2.1"
+url = "https://cran.r-project.org/src/contrib/RcppParallel_6.2.1.tar.gz"
+checksum = "md5:8092b9b6d49db80db5b441bac00d835e"
+
+[[package]]
 name = "RcppTOML"
 version = "0.2.3"
 source = "cran"
@@ -100,12 +274,209 @@ requires = [
 ]
 
 [[package]]
+name = "Rhtslib"
+version = "3.8.0"
+source = "bioconductor"
+raw_version = "3.8.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/Rhtslib_3.8.0.tar.gz"
+checksum = "md5:eb9cfc0b4db5c7cd7f6aa4c76d23b74e"
+
+[[package]]
+name = "Rsamtools"
+version = "2.28.0"
+source = "bioconductor"
+raw_version = "2.28.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/Rsamtools_2.28.0.tar.gz"
+checksum = "md5:25f396ca7d0e44d30f6e46d70c7c1fc6"
+requires = [
+    "Seqinfo",
+    "GenomicRanges",
+    "Biostrings",
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "XVector",
+    "bitops",
+    "BiocParallel",
+    "Rhtslib",
+    "S4Vectors",
+    "IRanges",
+    "XVector",
+    "Biostrings",
+]
+
+[[package]]
+name = "S4Arrays"
+version = "1.12.1"
+source = "bioconductor"
+raw_version = "1.12.1"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/S4Arrays_1.12.1.tar.gz"
+checksum = "md5:de6c0e780bffc8fdd8d016f368769246"
+requires = [
+    "Matrix",
+    "abind",
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "S4Vectors",
+]
+
+[[package]]
+name = "S4Vectors"
+version = "0.50.3"
+source = "bioconductor"
+raw_version = "0.50.3"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/S4Vectors_0.50.3.tar.gz"
+checksum = "md5:78e199c653ffa787875688cd5f1cef3f"
+requires = ["BiocGenerics"]
+
+[[package]]
 name = "S7"
 version = "1.0.0"
 source = "cran"
 raw_version = "1.0.0"
 url = "https://cran.r-project.org/src/contrib/S7_1.0.0.tar.gz"
 checksum = "md5:efb87f59334cee4c9ea0a8af20bf80e6"
+
+[[package]]
+name = "Seqinfo"
+version = "1.2.0"
+source = "bioconductor"
+raw_version = "1.2.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/Seqinfo_1.2.0.tar.gz"
+checksum = "md5:b6bda99a95704fab8638e7caaf4646e4"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+]
+
+[[package]]
+name = "ShortRead"
+version = "1.70.0"
+source = "bioconductor"
+raw_version = "1.70.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/ShortRead_1.70.0.tar.gz"
+checksum = "md5:856d3095a8ffbcfcbd0ac30436d46b90"
+requires = [
+    "BiocGenerics",
+    "BiocParallel",
+    "Biostrings",
+    "Rsamtools",
+    "GenomicAlignments",
+    "Biobase",
+    "S4Vectors",
+    "IRanges",
+    "Seqinfo",
+    "GenomicRanges",
+    "pwalign",
+    "hwriter",
+    "lattice",
+    "latticeExtra",
+    "S4Vectors",
+    "IRanges",
+    "XVector",
+    "Biostrings",
+    "Rhtslib",
+]
+
+[[package]]
+name = "SparseArray"
+version = "1.12.3"
+source = "bioconductor"
+raw_version = "1.12.3"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/SparseArray_1.12.3.tar.gz"
+checksum = "md5:5fa998d87e368b0afd8b589cd9a421f9"
+requires = [
+    "Matrix",
+    "BiocGenerics",
+    "MatrixGenerics",
+    "S4Vectors",
+    "S4Arrays",
+    "matrixStats",
+    "IRanges",
+    "XVector",
+    "S4Vectors",
+    "IRanges",
+    "XVector",
+]
+
+[[package]]
+name = "SummarizedExperiment"
+version = "1.42.0"
+source = "bioconductor"
+raw_version = "1.42.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/SummarizedExperiment_1.42.0.tar.gz"
+checksum = "md5:03714c185f20dd1c45bb8772d544d750"
+requires = [
+    "MatrixGenerics",
+    "GenomicRanges",
+    "Biobase",
+    "Matrix",
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "Seqinfo",
+    "S4Arrays",
+    "DelayedArray",
+]
+
+[[package]]
+name = "XVector"
+version = "0.52.0"
+source = "bioconductor"
+raw_version = "0.52.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/XVector_0.52.0.tar.gz"
+checksum = "md5:d3f45d565b9d6804c95d4ca1a4ec81d2"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "S4Vectors",
+    "IRanges",
+]
+
+[[package]]
+name = "abind"
+version = "1.4.8"
+source = "cran"
+raw_version = "1.4-8"
+url = "https://cran.r-project.org/src/contrib/abind_1.4-8.tar.gz"
+checksum = "md5:7a440111cd1e24356d558ac55a65dc98"
+
+[[package]]
+name = "ade4"
+version = "1.7.24"
+source = "cran"
+raw_version = "1.7-24"
+url = "https://cran.r-project.org/src/contrib/ade4_1.7-24.tar.gz"
+checksum = "md5:f624168b36f3ca96532744a64f311b53"
+requires = [
+    "MASS",
+    "pixmap",
+    "sp",
+    "Rcpp",
+    "Rcpp",
+    "RcppArmadillo",
+]
+
+[[package]]
+name = "ape"
+version = "5.8.1"
+source = "cran"
+raw_version = "5.8-1"
+url = "https://cran.r-project.org/src/contrib/ape_5.8-1.tar.gz"
+checksum = "md5:e3946ed9c8cf0abd3b86810fe7267bb9"
+requires = [
+    "nlme",
+    "lattice",
+    "Rcpp",
+    "digest",
+    "Rcpp",
+]
 
 [[package]]
 name = "base64enc"
@@ -117,6 +488,18 @@ checksum = "md5:2c4ecc969451a673ee05eb2e725fcbaf"
 dev = true
 
 [[package]]
+name = "biomformat"
+version = "1.40.0"
+source = "bioconductor"
+raw_version = "1.40.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/biomformat_1.40.0.tar.gz"
+checksum = "md5:a3efbb0be515b21f050dd1f41e86c680"
+requires = [
+    "jsonlite",
+    "Matrix",
+]
+
+[[package]]
 name = "birdnetR"
 version = "0.3.2"
 source = "cran"
@@ -124,6 +507,14 @@ raw_version = "0.3.2"
 url = "https://cran.r-project.org/src/contrib/birdnetR_0.3.2.tar.gz"
 checksum = "md5:bb3470ab441aeb7768614400da355fde"
 requires = ["reticulate"]
+
+[[package]]
+name = "bitops"
+version = "1.1.0"
+source = "cran"
+raw_version = "1.1-0"
+url = "https://cran.r-project.org/src/contrib/bitops_1.1-0.tar.gz"
+checksum = "md5:6e2f8d461c60c5187313a4bce28dbf39"
 
 [[package]]
 name = "brew"
@@ -147,6 +538,22 @@ requires = [
     "R6",
 ]
 dev = true
+
+[[package]]
+name = "cigarillo"
+version = "1.2.1"
+source = "bioconductor"
+raw_version = "1.2.1"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/cigarillo_1.2.1.tar.gz"
+checksum = "md5:68182faeb5bef61b9543067b36fc8347"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "Biostrings",
+    "S4Vectors",
+    "IRanges",
+]
 
 [[package]]
 name = "class"
@@ -186,6 +593,14 @@ url = "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz"
 checksum = "md5:b6c742457ff06f5f3a20d883afdd19a7"
 
 [[package]]
+name = "codetools"
+version = "0.2.20"
+source = "cran"
+raw_version = "0.2-20"
+url = "https://cran.r-project.org/src/contrib/codetools_0.2-20.tar.gz"
+checksum = "md5:b6d2fb49c00a528b04f574892359aa55"
+
+[[package]]
 name = "collections"
 version = "0.3.12"
 source = "cran"
@@ -218,7 +633,43 @@ source = "cran"
 raw_version = "1.5.3"
 url = "https://cran.r-project.org/src/contrib/crayon_1.5.3.tar.gz"
 checksum = "md5:bb290c70d23b2200006187ac7839116f"
-dev = true
+
+[[package]]
+name = "dada2"
+version = "1.40.0"
+source = "bioconductor"
+raw_version = "1.40.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/dada2_1.40.0.tar.gz"
+checksum = "md5:7b804276d0f5e33f11d07da065b5a716"
+requires = [
+    "Rcpp",
+    "Biostrings",
+    "ggplot2",
+    "reshape2",
+    "ShortRead",
+    "RcppParallel",
+    "IRanges",
+    "XVector",
+    "BiocGenerics",
+    "Rcpp",
+    "RcppParallel",
+]
+
+[[package]]
+name = "data.table"
+version = "1.18.6-4.1"
+source = "cran"
+raw_version = "1.18.6.1"
+url = "https://cran.r-project.org/src/contrib/data.table_1.18.6.1.tar.gz"
+checksum = "md5:0c0ad7916017c1657610ab16c36fecdd"
+
+[[package]]
+name = "deldir"
+version = "2.0.4"
+source = "cran"
+raw_version = "2.0-4"
+url = "https://cran.r-project.org/src/contrib/deldir_2.0-4.tar.gz"
+checksum = "md5:dba584ac3a3f26871618d7b2c0d2338a"
 
 [[package]]
 name = "desc"
@@ -240,7 +691,6 @@ source = "cran"
 raw_version = "0.6.39"
 url = "https://cran.r-project.org/src/contrib/digest_0.6.39.tar.gz"
 checksum = "md5:2b7268922b0f86dbc8064ff8e3a1ca1b"
-dev = true
 
 [[package]]
 name = "dplyr"
@@ -302,6 +752,26 @@ checksum = "md5:f53773acd6ba9a86413e8c2dc6441544"
 dev = true
 
 [[package]]
+name = "foreach"
+version = "1.5.2"
+source = "cran"
+raw_version = "1.5.2"
+url = "https://cran.r-project.org/src/contrib/foreach_1.5.2.tar.gz"
+checksum = "md5:726beb5a50a3cec75261b4405158386c"
+requires = [
+    "codetools",
+    "iterators",
+]
+
+[[package]]
+name = "formatR"
+version = "1.14.0"
+source = "cran"
+raw_version = "1.14"
+url = "https://cran.r-project.org/src/contrib/formatR_1.14.tar.gz"
+checksum = "md5:8af25a6fd3fcd575a70800921362e63b"
+
+[[package]]
 name = "fs"
 version = "2.1.0"
 source = "cran"
@@ -309,6 +779,26 @@ raw_version = "2.1.0"
 url = "https://cran.r-project.org/src/contrib/fs_2.1.0.tar.gz"
 checksum = "md5:6011a5e758c21acc297ed8bbcf97e7d9"
 dev = true
+
+[[package]]
+name = "futile.logger"
+version = "1.4.9"
+source = "cran"
+raw_version = "1.4.9"
+url = "https://cran.r-project.org/src/contrib/futile.logger_1.4.9.tar.gz"
+checksum = "md5:547e54942e85aaa758590784504b3847"
+requires = [
+    "lambda.r",
+    "futile.options",
+]
+
+[[package]]
+name = "futile.options"
+version = "1.0.1"
+source = "cran"
+raw_version = "1.0.1"
+url = "https://cran.r-project.org/src/contrib/futile.options_1.0.1.tar.gz"
+checksum = "md5:040daac5089839c104ffd0e0fbedb98d"
 
 [[package]]
 name = "generics"
@@ -417,12 +907,52 @@ requires = [
 dev = true
 
 [[package]]
+name = "hwriter"
+version = "1.3.2-4.1"
+source = "cran"
+raw_version = "1.3.2.1"
+url = "https://cran.r-project.org/src/contrib/hwriter_1.3.2.1.tar.gz"
+checksum = "md5:2d97b0dcf19b3c9d6d60840b4703453f"
+
+[[package]]
+name = "igraph"
+version = "2.3.4"
+source = "cran"
+raw_version = "2.3.4"
+url = "https://cran.r-project.org/src/contrib/igraph_2.3.4.tar.gz"
+checksum = "md5:32025403dd0a955373615930cf0aa578"
+requires = [
+    "cli",
+    "lifecycle",
+    "magrittr",
+    "Matrix",
+    "pkgconfig",
+    "rlang",
+    "vctrs",
+    "cpp11",
+]
+
+[[package]]
 name = "ineq"
 version = "0.2.13"
 source = "cran"
 raw_version = "0.2-13"
 url = "https://cran.r-project.org/src/contrib/ineq_0.2-13.tar.gz"
 checksum = "md5:e2561a25905ac60168c18bb4f6c1b253"
+
+[[package]]
+name = "interp"
+version = "1.1.6"
+source = "cran"
+raw_version = "1.1-6"
+url = "https://cran.r-project.org/src/contrib/interp_1.1-6.tar.gz"
+checksum = "md5:0a20ffc3aa94cc878b13df35ba09d432"
+requires = [
+    "Rcpp",
+    "deldir",
+    "Rcpp",
+    "RcppEigen",
+]
 
 [[package]]
 name = "isoband"
@@ -436,6 +966,14 @@ requires = [
     "rlang",
     "cpp11",
 ]
+
+[[package]]
+name = "iterators"
+version = "1.0.14"
+source = "cran"
+raw_version = "1.0.14"
+url = "https://cran.r-project.org/src/contrib/iterators_1.0.14.tar.gz"
+checksum = "md5:e1d875f0ddec6834dd33e56c4f04a706"
 
 [[package]]
 name = "janitor"
@@ -458,6 +996,14 @@ requires = [
     "tidyselect",
     "tidyr",
 ]
+
+[[package]]
+name = "jpeg"
+version = "0.1.11"
+source = "cran"
+raw_version = "0.1-11"
+url = "https://cran.r-project.org/src/contrib/jpeg_0.1-11.tar.gz"
+checksum = "md5:415c72850990d7889408dcfd29805613"
 
 [[package]]
 name = "jsonlite"
@@ -491,6 +1037,15 @@ url = "https://cran.r-project.org/src/contrib/labeling_0.4.3.tar.gz"
 checksum = "md5:915e6c823c1d8243641ce97253389f14"
 
 [[package]]
+name = "lambda.r"
+version = "1.2.6"
+source = "cran"
+raw_version = "1.2.6"
+url = "https://cran.r-project.org/src/contrib/lambda.r_1.2.6.tar.gz"
+checksum = "md5:cfd18ed648c858a7873506af81469de2"
+requires = ["formatR"]
+
+[[package]]
 name = "languageserver"
 version = "0.3.22"
 source = "cran"
@@ -520,6 +1075,22 @@ source = "cran"
 raw_version = "0.23-1"
 url = "https://cran.r-project.org/src/contrib/lattice_0.23-1.tar.gz"
 checksum = "md5:e449ab6441f74836e93869dd34cdf3ba"
+
+[[package]]
+name = "latticeExtra"
+version = "0.6.31"
+source = "cran"
+raw_version = "0.6-31"
+url = "https://cran.r-project.org/src/contrib/latticeExtra_0.6-31.tar.gz"
+checksum = "md5:355ce56f2895fd791612a698f0404000"
+requires = [
+    "lattice",
+    "png",
+    "jpeg",
+    "RColorBrewer",
+    "interp",
+    "MASS",
+]
 
 [[package]]
 name = "lifecycle"
@@ -554,6 +1125,14 @@ url = "https://cran.r-project.org/src/contrib/magrittr_2.0.5.tar.gz"
 checksum = "md5:4ee23a88bc1589527696d777d7e68dfc"
 
 [[package]]
+name = "matrixStats"
+version = "1.5.0"
+source = "cran"
+raw_version = "1.5.0"
+url = "https://cran.r-project.org/src/contrib/matrixStats_1.5.0.tar.gz"
+checksum = "md5:8bece992ad950d8528407acee0bc2d1e"
+
+[[package]]
 name = "mgcv"
 version = "1.9.5"
 source = "cran"
@@ -563,6 +1142,20 @@ checksum = "md5:5a88e8ede6eab594a0399a8329f580e9"
 requires = [
     "nlme",
     "Matrix",
+]
+
+[[package]]
+name = "multtest"
+version = "2.68.0"
+source = "bioconductor"
+raw_version = "2.68.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/multtest_2.68.0.tar.gz"
+checksum = "md5:c81ab89af8bded821d492ba42393c5d3"
+requires = [
+    "BiocGenerics",
+    "Biobase",
+    "survival",
+    "MASS",
 ]
 
 [[package]]
@@ -629,6 +1222,32 @@ url = "https://cran.r-project.org/src/contrib/permute_0.10-1.tar.gz"
 checksum = "md5:77db61dea2fca235e65f05cf8cf041a0"
 
 [[package]]
+name = "phyloseq"
+version = "1.56.0"
+source = "bioconductor"
+raw_version = "1.56.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/phyloseq_1.56.0.tar.gz"
+checksum = "md5:f4df760d610386a41c3eec7418603251"
+requires = [
+    "ade4",
+    "ape",
+    "Biobase",
+    "BiocGenerics",
+    "biomformat",
+    "Biostrings",
+    "cluster",
+    "data.table",
+    "foreach",
+    "ggplot2",
+    "igraph",
+    "multtest",
+    "plyr",
+    "reshape2",
+    "scales",
+    "vegan",
+]
+
+[[package]]
 name = "pillar"
 version = "1.11.1"
 source = "cran"
@@ -643,6 +1262,14 @@ requires = [
     "utf8",
     "vctrs",
 ]
+
+[[package]]
+name = "pixmap"
+version = "0.4.14"
+source = "cran"
+raw_version = "0.4-14"
+url = "https://cran.r-project.org/src/contrib/pixmap_0.4-14.tar.gz"
+checksum = "md5:257d33ea7e5740e24f466ccee7860c3e"
 
 [[package]]
 name = "pkgbuild"
@@ -687,6 +1314,18 @@ requires = [
     "rprojroot",
 ]
 dev = true
+
+[[package]]
+name = "plyr"
+version = "1.8.9"
+source = "cran"
+raw_version = "1.8.9"
+url = "https://cran.r-project.org/src/contrib/plyr_1.8.9.tar.gz"
+checksum = "md5:5a8b129534abace172059ecc5c0b5072"
+requires = [
+    "Rcpp",
+    "Rcpp",
+]
 
 [[package]]
 name = "png"
@@ -751,6 +1390,24 @@ requires = [
 ]
 
 [[package]]
+name = "pwalign"
+version = "1.8.0"
+source = "bioconductor"
+raw_version = "1.8.0"
+url = "https://bioconductor.org/packages/3.23/bioc/src/contrib/pwalign_1.8.0.tar.gz"
+checksum = "md5:284cea12f42e5fdb06af15c4e80a1fcc"
+requires = [
+    "BiocGenerics",
+    "S4Vectors",
+    "IRanges",
+    "Biostrings",
+    "S4Vectors",
+    "IRanges",
+    "XVector",
+    "Biostrings",
+]
+
+[[package]]
 name = "rappdirs"
 version = "0.3.4"
 source = "cran"
@@ -793,6 +1450,20 @@ requires = [
     "base64enc",
 ]
 dev = true
+
+[[package]]
+name = "reshape2"
+version = "1.4.5"
+source = "cran"
+raw_version = "1.4.5"
+url = "https://cran.r-project.org/src/contrib/reshape2_1.4.5.tar.gz"
+checksum = "md5:2b99f857c715d1ebca9416e8b4dd51c2"
+requires = [
+    "plyr",
+    "Rcpp",
+    "stringr",
+    "Rcpp",
+]
 
 [[package]]
 name = "reticulate"
@@ -941,6 +1612,14 @@ requires = [
 ]
 
 [[package]]
+name = "snow"
+version = "0.4.4"
+source = "cran"
+raw_version = "0.4-4"
+url = "https://cran.r-project.org/src/contrib/snow_0.4-4.tar.gz"
+checksum = "md5:8a6ded9cae4a175619ad1e33cc31d4b9"
+
+[[package]]
 name = "soundecology"
 version = "1.3.3"
 source = "cran"
@@ -955,6 +1634,15 @@ requires = [
     "tuneR",
     "seewave",
 ]
+
+[[package]]
+name = "sp"
+version = "2.2.4"
+source = "cran"
+raw_version = "2.2-4"
+url = "https://cran.r-project.org/src/contrib/sp_2.2-4.tar.gz"
+checksum = "md5:5485b51e22935da8e8f43c3cb35afe0d"
+requires = ["lattice"]
 
 [[package]]
 name = "stringi"
@@ -982,12 +1670,21 @@ requires = [
 ]
 
 [[package]]
-name = "terra"
-version = "1.9.50"
+name = "survival"
+version = "3.8.13"
 source = "cran"
-raw_version = "1.9-50"
-url = "https://cran.r-project.org/src/contrib/terra_1.9-50.tar.gz"
-checksum = "md5:e9eb3ad3d15afc7e1f872fb7f50ced94"
+raw_version = "3.8-13"
+url = "https://cran.r-project.org/src/contrib/survival_3.8-13.tar.gz"
+checksum = "md5:f6593695c00b6ee6f23190fff95691f2"
+requires = ["Matrix"]
+
+[[package]]
+name = "terra"
+version = "1.9.60"
+source = "cran"
+raw_version = "1.9-60"
+url = "https://cran.r-project.org/src/contrib/terra_1.9-60.tar.gz"
+checksum = "md5:7201ba70b47c49a1ddb189c57aad8339"
 requires = [
     "Rcpp",
     "Rcpp",

@@ -804,7 +804,6 @@ text(
 
 # Finally add the extent of the other raster datasets
 plot(ext(silwood_aerial), border="black", add=TRUE)
-
 ```
 
 :::{note} Show source code for plot
@@ -813,7 +812,7 @@ plot(ext(silwood_aerial), border="black", add=TRUE)
 The plot above uses a few useful plotting tricks for spatial data:
 
 * changing the spatial extent of the plot to include more than one dataset,
-* adding mutiple layers to a spatial plot, and
+* adding multiple layers to a spatial plot, and
 * using coordinates to add text.
 
 You do not need to know these details for the practical, but this might be something to
@@ -994,7 +993,7 @@ n_within_25 <- colSums(within_25)
 ## Raster calculations
 
 A layer in a continuous raster dataset is basically just a large numeric matrix. This
-means you can use raster layers in equations to calulate new composite indices that
+means you can use raster layers in equations to calculate new composite indices that
 emphasize different parts of the spectral signal. There are a very large number of
 remote sensing indices and the [Sentinel-Hub scripts
 site](https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel/sentinel-2/) is a

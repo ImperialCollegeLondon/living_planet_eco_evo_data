@@ -180,7 +180,7 @@ export BASE_URL=https://imperialcollegelondon.github.io/living_planet_eco_evo_da
 uv run jupyter book build --html --execute
 ```
 
-Ths can take a while to run - all of the R code in the notebooks needs to execute.
+This can take a while to run - all of the R code in the notebooks needs to execute.
 
 ### Deploying the site
 

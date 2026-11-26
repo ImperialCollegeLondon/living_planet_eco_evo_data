@@ -1,12 +1,11 @@
-# =================================================================================================
+# ======================================================================================
 # CAMERA TRAP FILES TO SHEET
 #
-# Fill in the two lines below, then run the whole script
-# This Script renames and copies camera trap video files from a raw input folder,
-# and fills in the Random Encounter and Staying Time (REST)
-# model data template with the resulting file list.
+# Fill in the two lines below, then run the whole script This Script renames and copies
+# camera trap video files from a raw input folder, and fills in the Random Encounter and
+# Staying Time (REST) model data template with the resulting file list.
 
-# =================================================================================================
+# ======================================================================================
 # Expected input folder structure:
 #
 # INPUT_FOLDER/
@@ -21,8 +20,12 @@
 # - Videos sit directly inside each plot folder (no deeper nesting)
 # - File names can repeat across plots
 
-inDir <- "/Volumes/Silwood_Bat_data/Silwood_camera_trap/Fractal_Plots_REST" # <<< FILL IN: path to the folder of raw camera trap files for this survey round >>>
-survey_round <- "SUMMER_2026" # <<< FILL IN: e.g. "SUMMER_2026" >>>
+library(openxlsx)
+
+# <<< FILL IN: path to the folder of raw camera trap files for this survey round >>>
+inDir <- "/Volumes/Silwood_Bat_data/Silwood_camera_trap/Fractal_Plots_REST"
+# <<< FILL IN: e.g. "SUMMER_2026" >>>
+survey_round <- "SUMMER_2026"
 
 if (!nzchar(inDir)) {
   stop("Set inDir at the top of the script before running.")
@@ -34,10 +37,11 @@ if (!nzchar(survey_round)) {
   stop("Set survey_round at the top of the script before running.")
 }
 
-# ---- everything below is automatic ------------------------------------------------------------
+# ---- everything below is automatic ---------------------------------------------------
 
 outDir <- paste0(inDir, "_renamed")
-file_formats <- c("avi", "mp4") # jpg picks up the _QV.JPG thumbnails alongside their videos
+# Only target video outputs - jpg picks up the _QV.JPG thumbnails alongside their videos
+file_formats <- c("avi", "mp4")
 template_output_path <- file.path(
   outDir,
   paste0("RAD_data_", survey_round, ".xlsx")
@@ -45,14 +49,14 @@ template_output_path <- file.path(
 
 # ---- Renaming and copying video's  ------------------------------------------------------------
 
-stations <- list.dirs(inDir, full.names = TRUE, recursive = FALSE)
+stations <- list.dirs(path = inDir, full.names = TRUE, recursive = FALSE)
 stations <- stations[!basename(stations) %in% c(".dtrash", ".mysql.digikam")]
 
 file_table <- do.call(
-  rbind,
-  lapply(stations, function(stn_dir) {
+  what = rbind,
+  args = lapply(stations, FUN = function(stn_dir) {
     files <- list.files(
-      stn_dir,
+      path = stn_dir,
       full.names = TRUE,
       recursive = FALSE,
       pattern = paste0("\\.(", paste(file_formats, collapse = "|"), ")$"),
@@ -110,13 +114,13 @@ range(file_table$DateTimeOriginal) # sanity-check for clock errors like the 2022
 # --- copy ---
 invisible(lapply(
   unique(file_table$outDirStation),
-  dir.create,
+  FUN = dir.create,
   recursive = TRUE,
   showWarnings = FALSE
 ))
 file_table$copy_success <- file.copy(
-  file_table$FilePath,
-  file_table$outPath,
+  from = file_table$FilePath,
+  to = file_table$outPath,
   overwrite = FALSE,
   copy.date = TRUE
 )
@@ -129,8 +133,6 @@ write.csv(
 all(file_table$copy_success)
 
 # ---- Fill the camera trap data template   ------------------------------------------------------------
-
-library(openxlsx)
 
 # only video clips get a detection_data row (the _QV.JPG thumbnails are companions, not separate detections)
 video_rows <- file_table[

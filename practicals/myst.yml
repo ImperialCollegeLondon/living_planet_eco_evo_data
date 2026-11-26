@@ -30,6 +30,11 @@ project:
       children:
       - file: bioinformatics/bioinformatics_1.md
       - file: bioinformatics/bioinformatics_2.md
+    - file: camera_traps/ct_practical.md
+      children:
+      - file: camera_traps/preprocessing.md
+        hidden: true
+
 
 site:
   options:

@@ -57,19 +57,18 @@ install the software.
 
 **We will need to download and load following packages :**
 
-``` {code-cell} r
- :tags: [remove-stderr]
+```{code-cell} r
+:tags: [remove-stderr]
 
-# used to read the Excel datasheet
-install.packages("readxl")
-# used to wrangle data
-install.packages("dplyr")
-# used to install the ctrest packages
-install.packages("devtools")
-# used for plotting
-install.packages("ggplot2")
-# Install package directly from github
-devtools::install_github("YoshihiroNakashima/ctrest", build_vignettes = TRUE)
+# # used to read the Excel datasheet
+# install.packages("readxl")
+# # used to wrangle data
+# install.packages("dplyr")
+# # used for plotting
+# install.packages("ggplot2")
+# # Used to install the ctrest package from github
+# install.packages("pak")
+# pak::pak("YoshihiroNakashima/ctrest@v1.0")
 
 library(ctrest)
 library(dplyr)
@@ -82,7 +81,7 @@ library(readxl)
 We will use the camera trap data from the camera traps you set up in Silwood. We need to
 identify the species for each detection.
 
-We have already collected the camera traps and structured the data properly. You can
+We have already collected the camera traps and structured the data properly[^1]. You can
 find it in
 [Box](https://imperialcollegelondon.box.com/s/wbhvsjolrfrtdm2v8xwq75ljy3u85ttv), in the
 folder:
@@ -161,17 +160,22 @@ Download and save the workbook on your computer. Then load the datasheet into R.
 following code block, change the path to wherever you have saved the datasheet:
 
 ```{code-cell} r
+rest_data <- "../data/CameraTraps/REST_data_SUMMER_2026.xlsx"
+
 detection_data <- readxl::read_xlsx(
-    'PATH_TO_REST_DATA_WINTER_2026.xlsx',
+    rest_data,
     sheet = "detection_data",
     skip = 5
 )
 station_data <- readxl::read_xlsx(
-    'PATH_TO_REST_DATA_WINTER_2026.xlsx',
+    rest_data,
     sheet = "Locations"
 )
 
 head(detection_data)
+```
+
+```{code-cell} r
 head(station_data)
 ```
 
@@ -288,9 +292,22 @@ activity_data <- format_activity(
 head(activity_data)
 ```
 
-The function above has also converted detection times to radians instead of time of day.
-Radians express detection datetimes on a [0, 2π] scale, so that 00:00 = 0 and 23:59 ≈
-2π.
+We can compare the number of rows before and after `format_activity()` to see how many
+observations have been removed:
+
+```{code-cell} r
+nrow(detection_data)
+```
+
+```{code-cell} r
+nrow(activity_data)
+```
+
+The function above has also converted detection timestamps from datetimes to the angular
+unit of radians. This might seem a bit odd, but datetimes express a point in linear time
+and the REST model looks at species activity through the daily cycle. Radians are here
+used to express time of day: midnight = $0$ = $2\pi$, 06:00 = $\pi/2$, 12:00 = $\pi$ and
+18:00 = $3\pi/2$.
 
 ## Running the REST model
 
@@ -315,11 +332,11 @@ A few variables of interest:
 result_rest <- bayes_rest(
     formula_stay = Stay ~ 1,
     formula_density = ~1, # density model (no LHS)
-    formula_enter = ~1, # required argument; ignored for REST
+    # formula_enter = ~1, # required argument; ignored for REST
     station_effort_data = station_effort_rest,
     stay_data = stay_data,
     activity_data = activity_data,
-    random_effect_stay = NULL,
+    # random_effect_stay = NULL,
     activity_estimation = "mixture", # "kernel" or "mixture"
     bw_adj = 1.0, # bandwidth adjustment for kernel estimation
     stay_family = "lognormal", # from bayes_stay_selection output
@@ -457,3 +474,7 @@ Think about what type of questions you can answer with these data. What kind of
 covariables can you include in models for density and staying time? What could impact
 species' activity patterns?
 ```
+
+[^1]: You can see the [pre-processing details](./preprocessing.md): we basically just
+    give the image files unique names and generate the template for collecting detection
+    data.

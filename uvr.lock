@@ -983,11 +983,11 @@ requires = [
 
 [[package]]
 name = "terra"
-version = "1.9.50"
+version = "1.9.60"
 source = "cran"
-raw_version = "1.9-50"
-url = "https://cran.r-project.org/src/contrib/terra_1.9-50.tar.gz"
-checksum = "md5:e9eb3ad3d15afc7e1f872fb7f50ced94"
+raw_version = "1.9-60"
+url = "https://cran.r-project.org/src/contrib/terra_1.9-60.tar.gz"
+checksum = "md5:7201ba70b47c49a1ddb189c57aad8339"
 requires = [
     "Rcpp",
     "Rcpp",

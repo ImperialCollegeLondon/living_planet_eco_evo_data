@@ -31,9 +31,21 @@ The practicals include:
 
 ## Practical data
 
-The practicals use two sets of acoustic data recorded as a series of WAV format files.
-Both sets of recordings were made at dawn in two locations:
+The data processing parts of the practicals use two smaller datasets of example data.
+These are sets of acoustic data recorded as a series of WAV format files made at dawn in
+two locations:
 
 * [Monks Wood](https://www.google.com/maps/@52.4009072,-0.2470383,3701m/data=!3m1!1e3) -
   a woodland National Nature Reserve in Cambridgeshire.
-* Parsonage Down - is this correct?
+* [Parsonage Down](https://www.google.com/maps/@51.1701538,-1.9267329,1388m) - a chalk
+  downland National Nature Reserve in Wiltshire.
+
+We use these because the acoustic data collected for this practical is huge and it is
+impractical to try and process it all during the module. We have preprocessed the field
+data - using the same techniques as we use on the two smaller datasets - so that the
+complete set of field data outputs are available for the practical and coursework.
+
+The [pre-processing details](preprocessing/preprocessing.md) are available if you want
+to look at them. It is more complex - although mostly because we run the processing on
+our HPC system - but it might be of use if you end up using acoustic data in your
+project!

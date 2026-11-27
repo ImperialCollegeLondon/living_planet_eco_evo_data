@@ -50,6 +50,12 @@ You will need to install the following packages:
 install.packages('tuneR')
 install.packages('seewave')
 install.packages('soundecology')
+install.packages('dplyr')
+install.packages('tidyr')
+install.packages('ggplot2')
+install.packages('lubridate')
+install.packages('hms')
+install.packages('vegan')
 ```
 
 ### Spatial methods practical
@@ -76,8 +82,6 @@ You will also need to download the practical data bundle:
 You will need to install the following packages:
 
 ```r
-install.packages(openxlsx2)   # for opening excel files
-install.packages(tidyverse)   # for data manipulation and plotting
 install.packages(janitor)     # for cleaning column names and general tidying
 install.packages(patchwork)
 ```

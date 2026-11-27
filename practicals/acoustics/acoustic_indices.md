@@ -23,8 +23,7 @@ interesting axes. Again can start by cleaning up your R environment and loading 
 [required packages](../practical_requirements.md).
 
 ```{code-cell} r
-# Clear your global environment
-rm(list = ls())
+:tags: ['remove-output']
 
 #load packages
 library(tuneR)
@@ -34,6 +33,15 @@ library(ggplot2)
 library(patchwork)
 library(soundecology)
 ```
+
+:::{admonition} Field datasets
+:class: important
+
+The two small Monkswood and Parsonage Down datasets are used here to provide a quicker
+demonstration of how to use these techniques. We have
+[pre-processed](preprocessing/preprocessing.md) the much bulkier course data so that it
+can be explored and used in coursework.
+:::
 
 ## Acoustic indices
 
@@ -165,9 +173,9 @@ multiple_sounds(
   directory = "../data/Acoustics/Monkswood_dawn",
   resultfile = "outputs/monkswood_bi.csv",
   soundindex = "bioacoustic_index",
+  no_cores = -1,
   min_freq = 1000,
-  max_freq = 11000,
-  no_cores = -1
+  max_freq = 11000
 )
 ```
 

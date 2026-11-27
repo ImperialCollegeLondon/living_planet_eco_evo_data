@@ -22,6 +22,8 @@ model](https://birdnet-web.tucmi.de/) to identify bird species present in the da
 from their calls.
 
 ```{code-cell} R
+:tags: ['remove-output']
+
 # Load packages
 library(birdnetR)
 library(stringr)
@@ -32,6 +34,15 @@ library(dplyr)
 library(ggplot2)
 library(vegan)
 ```
+
+:::{admonition} Field datasets
+:class: important
+
+The two small Monkswood and Parsonage Down datasets are used here to provide a quicker
+demonstration of how to use these techniques. We have
+[pre-processed](preprocessing/preprocessing.md) the much bulkier course data so that it
+can be explored and used in coursework.
+:::
 
 ## Setting up the model
 

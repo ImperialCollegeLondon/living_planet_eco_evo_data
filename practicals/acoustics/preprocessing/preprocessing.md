@@ -16,9 +16,9 @@ Acoustic recorders generate a _huge_ amount of data and processing it all can be
 significant computing task. As an example, the recorders deployed in the field for this
 module in 2026 generated:
 
-* XXXX `.WAV` files across 13 sampled sites
-* XXXX GB of data
-* XXXX hours of recordings
+* ~60,000 `.WAV` files across 13 sampled sites
+* ~320 GB of data
+* ~10,000 hours of recordings
 
 Processing all of that data takes a lot of time. We could divide and conquer by giving
 you all a subset of files to process, but it's really too big a task to coordinate. We

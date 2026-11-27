@@ -19,4 +19,5 @@ conda activate acoustics
 Rscript -e "install.packages('soundecology', repo='https://packagemanager.posit.co/cran/latest/bin/linux/centos8-x86_64/4.6')"
 
 # Install python tools:
+conda config --append channels conda-pypi
 conda install -n acoustics birdnet-analyzer birdnet

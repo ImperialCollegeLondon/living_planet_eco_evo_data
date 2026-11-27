@@ -175,7 +175,7 @@ multiple_sounds(
   soundindex = "bioacoustic_index",
   no_cores = -1,
   min_freq = 1000,
-  max_freq = 11000,
+  max_freq = 11000
 )
 ```
 

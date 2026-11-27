@@ -21,7 +21,7 @@ module in 2026 generated:
 * XXXX hours of recordings
 
 Processing all of that data takes a lot of time. We could divide and conquer by giving
-you all a subset of files to process, but its really too big a task to coordinate. We
+you all a subset of files to process, but it's really too big a task to coordinate. We
 could also just leave it running on a single computer for ages, but the best answer here
 is to use Imperial's [High Performance Computing (HPC)
 services](https://www.imperial.ac.uk/computational-methods/hpc/).

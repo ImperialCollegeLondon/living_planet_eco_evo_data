@@ -1,4 +1,4 @@
-"""This script use the Python birdnet_analyzer function to quickly process a site folder
+"""This script uses the Python birdnet_analyzer function to quickly process a site folder
 of WAV files. This is more efficient than the single file processing in the birdnetR
 package in R. The directory structure needs to be structured as:
 

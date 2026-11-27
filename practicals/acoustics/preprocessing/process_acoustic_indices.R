@@ -26,7 +26,7 @@ if (!dir.exists(output_directory)) {
 }
 
 # Get the target site for this subjob
-array_job <- Sys.getenv("PBS_ARRAY_INDEX")
+array_job <- as.integer(Sys.getenv("PBS_ARRAY_INDEX"))
 sites <- sort(dir(file.path(root_directory, "sites")))
 subjob_site <- sites[array_job]
 
@@ -68,5 +68,5 @@ multiple_sounds(
   soundindex = "bioacoustic_index",
   no_cores = "max",
   min_freq = 1000,
-  max_freq = 11000,
+  max_freq = 11000
 )

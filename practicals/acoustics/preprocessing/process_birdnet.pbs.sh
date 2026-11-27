@@ -24,7 +24,7 @@ echo -e "In PBS.SH and running"
 date
 
 # Run the birdnet R script
-Rscript --vanilla /rds/general/users/dorme/acoustics_2026/process_birdnet.R
+python /rds/general/users/dorme/acoustics_2026/process_birdnet.py
 
 # Echo the end time and deactivate the conda environment
 date

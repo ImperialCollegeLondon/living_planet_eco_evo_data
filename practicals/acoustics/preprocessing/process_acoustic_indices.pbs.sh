@@ -4,7 +4,8 @@
 # number of subjobs set in the -J directive needs to match the number of site
 # directories in the root data directory used in the called R script. Because
 # `soundecology::multiple_sounds` supports parallelisation, this requests the maximum 16
-# CPUs for the small24 queue.
+# CPUs for the small24 queue.  Note that this uses R 1-based indexing to iterate over
+# sites.
 
 #PBS -lselect=1:ncpus=16:mem=128gb
 #PBS -lwalltime=24:00:00
@@ -14,7 +15,7 @@
 
 # Activate the conda environment containing the configured R environment
 eval "$(~/miniforge3/bin/conda shell.bash hook)"
-conda activate r_acoustics
+conda activate acoustics
 
 # Echo the R version and start time
 R --version
@@ -24,6 +25,6 @@ date
 # Run the acoustic indices R script
 Rscript --vanilla /rds/general/users/dorme/acoustics_2026/process_acoustic_indices.R
 
-# Echo the end time and deactivate the conda environment
+# Echo the end time and deactivate the conda acoustics environment
 date
 conda deactivate

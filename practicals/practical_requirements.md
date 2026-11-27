@@ -50,6 +50,12 @@ You will need to install the following packages:
 install.packages('tuneR')
 install.packages('seewave')
 install.packages('soundecology')
+install.packages('dplyr')
+install.packages('tidyr')
+install.packages('ggplot2')
+install.packages('lubridate')
+install.packages('hms')
+install.packages('vegan')
 ```
 
 ### Spatial methods practical
